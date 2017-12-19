@@ -10,4 +10,4 @@ class Registrado(models.Model):
 	def __str__(self):
 		return self.email
 
-print("adwadsefseg")
+print("Cambio BG")
