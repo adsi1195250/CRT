@@ -5,16 +5,16 @@ from django.db import models
 # Create your models here.
 class Trabajadores(models.Model):
 	id = models.AutoField(primary_key=True)
-	nombres = models.CharField(max_length=100,blank=True,null=True)
-	cedula = models.IntegerField(unique=True)
+	nombres = models.CharField(max_length=255,blank=True,null=True)
+	cedula = models.CharField(max_length=11)
 	fechaIngreso = models.DateField()
 	fechaNacimiento = models.DateField()
 	edad = models.SmallIntegerField()
 	cargo = models.BooleanField()
-	telefono = models.IntegerField()
+	telefono = models.CharField(max_length=11)
 	foto = models.ImageField(height_field=None, width_field=None, max_length=100)
 	def __str__(self):
-		return self.cedula
+		return '%s'%self.cedula
 
 class CodigoBarras(models.Model):
 	idCodigoBarras = models.AutoField(primary_key=True)
