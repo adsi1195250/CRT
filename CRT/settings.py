@@ -77,10 +77,13 @@ WSGI_APPLICATION = 'CRT.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" , #Opcion requerida para evitar la perdida de datos.
+        },
         'NAME': 'crt_db',
         'USER': 'root',
         'PASSWORD': 'BTabares99',
-        'HOST': '192.168.1.27',
+        'HOST': '192.168.1.32',
         'PORT': '3306',
     }
 }
