@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list id="bee90460-56de-40a2-8052-6c6c161d957a" name="Revert &quot;Cambie esto&quot; This reverts commit 45baec4" comment="Revert &quot;Cambie esto&quot;&#10;&#10;This reverts commit 45baec4" />
     <list id="01e85f4b-934a-4cf8-889d-673a95733f32" name="&quot;modificando el mismo archivo&quot; (cherry picked from commit 01a613f)" comment="&quot;modificando el mismo archivo&quot;&#10;&#10;(cherry picked from commit 01a613f)" />
-    <list default="true" id="a90197c7-7fd5-4dec-80c8-0040b10a8df3" name="Default" comment="Creacion del template de inicio">
+    <list default="true" id="a90197c7-7fd5-4dec-80c8-0040b10a8df3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -430,7 +430,14 @@
       <option name="project" value="LOCAL" />
       <updated>1513785541382</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Creacion del template de inicio">
+      <created>1513785700440</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1513785700440</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
