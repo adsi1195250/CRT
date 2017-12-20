@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'crt_db',
         'USER': 'root',
         'PASSWORD': 'BTabares99',
-        'HOST': '192.168.1.27',
+        'HOST': '192.168.1.32',
         'PORT': '3306',
     }
 }

@@ -12,7 +12,7 @@ class Trabajadores(models.Model):
 	edad = models.SmallIntegerField()
 	cargo = models.BooleanField()
 	telefono = models.IntegerField()
-	foto = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
+	foto = models.ImageField(height_field=None, width_field=None, max_length=100)
 	def __str__(self):
 		return self.cedula
 
