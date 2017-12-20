@@ -8,10 +8,7 @@
 
 <body class="fixed-nav sticky-footer bg-body-registration" id="page-top">
   <!-- Navigation-->
-{%if request.user.is_authenticated %}
-    {%include 'base/navbar.html'%}
-{%endif%}
-
+  {%include 'base/navbar.html'%}
 
 {%block content%}
     {% include 'base/container.html' %}
@@ -19,9 +16,8 @@
 
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
-{%if request.user.is_authenticated %}
-    {%include 'base/footer.html'%}
-{%endif%}
+  {%include 'base/footer.html'%}
+
     <!-- Scroll to Top Button-->
 
 </body>
