@@ -47,17 +47,4 @@ class PermisoAusentismo(models.Model):
 	def __str__(self):
 		return self.idPermisoAusentismo
 
-class PermisoDeAusentismo(models.Model):
-	idPermisoAusentismo = models.AutoField(primary_key=True)
-	fechaSalida = models.DateTimeField()
-	#totalHoras = models.SmallIntegerField()
-	motivo = models.SmallIntegerField()
-	periodoIncapacidadInicial = models.DateField()
-	periodoIncapacidadFinal = models.DateField()
-	diasIncapacidad= models.SmallIntegerField()
-	codigoDiagnostico = models.CharField(max_length=10)
-	descripcion= models.CharField(max_length=500)
-	idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
-	def __str__(self):
-		return self.idPermisoAusentismo
 
