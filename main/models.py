@@ -21,7 +21,7 @@ class CodigoBarras(models.Model):
 	CodigoBarras = models.CharField(max_length=200)
 	idTrabajadores = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
 	def __str__(self):
-		return self.idCodigoBarras
+		return self.CodigoBarras
 
 class Historial_IO(models.Model):
 	idHistorial = models.AutoField(primary_key=True)
@@ -31,16 +31,18 @@ class Historial_IO(models.Model):
 	horaDescanso = models.DateTimeField()
 	horaPausasActivas = models.DateTimeField()
 	horaAlmuerzo = models.DateTimeField()
-	def __str__(self):
-		return self.idHistorial
 
 
 class PermisoAusentismo(models.Model):
 	idPermisoAusentismo = models.AutoField(primary_key=True)
 	fechaSalida = models.DateTimeField()
-	totalHoras = models.SmallIntegerField()
+	#totalHoras = models.SmallIntegerField()
 	motivo = models.SmallIntegerField()
-	observacion= models.CharField(max_length=500)
+	periodoIncapacidadInicial = models.DateField()
+	periodoIncapacidadFinal = models.DateField()
+	diasIncapacidad= models.SmallIntegerField()
+	codigoDiagnostico = models.CharField(max_length=10)
+	descripcion= models.CharField(max_length=500)
 	idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
 	def __str__(self):
 		return self.idPermisoAusentismo
