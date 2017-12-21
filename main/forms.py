@@ -24,6 +24,13 @@ class trabajadoresForms(forms.ModelForm):
             'telefono': 'TELEFONO',
             'foto': 'FOTO',
         }
+    def __init__(self, *args, **kwargs):
+        super(trabajadoresForms, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            if field != 'estado':
+                self.fields[field].widget.attrs.update({
+                    'class': 'form-control'
+                })
 
 class CodigoBarrasForms(forms.ModelForm):
     class Meta:
