@@ -14,4 +14,11 @@ class trabajadoresForms(forms.ModelForm):
         'telefono',
         'foto',
         ]
-        
+
+    def __init__(self, *args, **kwargs):
+        super(trabajadoresForms, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            if field != 'estado':
+                self.fields[field].widget.attrs.update({
+                    'class': 'form-control'
+                })
