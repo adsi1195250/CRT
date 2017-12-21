@@ -46,3 +46,5 @@ class PermisoAusentismo(models.Model):
 	idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
 	def __str__(self):
 		return self.idPermisoAusentismo
+
+
