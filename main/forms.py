@@ -10,7 +10,7 @@ class trabajadoresForms(forms.ModelForm):
             'fechaIngreso',
             'fechaNacimiento',
             'edad',
-            'cargo',
+            'area',
             'telefono',
             'foto',
         ]
@@ -20,7 +20,7 @@ class trabajadoresForms(forms.ModelForm):
             'fechaIngreso': 'FECHA DE INGRESO',
             'fechaNacimiento': 'FECHA DE NACIMIENTO',
             'edad': 'EDAD',
-            'cargo': 'CARGO',
+            'area': 'AREA',
             'telefono': 'TELEFONO',
             'foto': 'FOTO',
         }

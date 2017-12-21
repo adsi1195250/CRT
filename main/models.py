@@ -10,7 +10,7 @@ class Trabajadores(models.Model):
 	fechaIngreso = models.DateField()
 	fechaNacimiento = models.DateField()
 	edad = models.SmallIntegerField()
-	cargo = models.BooleanField()
+	area = models.BooleanField()
 	telefono = models.CharField(max_length=11)
 	foto = models.ImageField(height_field=None, width_field=None, max_length=100)
 	def __str__(self):

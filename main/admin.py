@@ -4,7 +4,7 @@ from .forms import *
 
 # Register your models here.
 class TrabajadoresAdmin(admin.ModelAdmin):
-	list_display=["__str__","id","nombres","cedula", "fechaIngreso", "fechaNacimiento", "edad", "cargo", "telefono", "foto"]
+	list_display=["__str__","id","nombres","cedula", "fechaIngreso", "fechaNacimiento", "edad", "area", "telefono", "foto"]
 
 class CodigoBarrasAdmin(admin.ModelAdmin):
 	list_display=["__str__","idCodigoBarras","CodigoBarras","idTrabajadores"]
