@@ -1,54 +1,57 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h3>Trabajadores</h3>
-<div class="row">
-        <div class="col-lg-10">
-                <a onclick="return abrir_modal('{% url 'crear_trabajador' %}')" class="btn btn-primary">
-                        Crear
-                </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div style="padding-top: 10px"></div>
+                <a onclick="return abrir_modal('{% url 'crear_trabajador' %}')" class="btn btn-info ">Crear</a>
+            </div>
         </div>
-</div>
-<hr/>
-<div class="row">
-        <div class="col-lg-12">
-                <table id="tabla" class="display" cellspacing="0" width="100%">
-                        <thead>
-                                <tr>
-                                        <th class="text-center">Nombres</th>
-                                        <th class="text-center">Cedula</th>
-                                        <th class="text-center">Fecha de ingreso</th>
-                                        <th class="text-center">Fecha de nacimiento</th>
-                                        <th class="text-center">Edad</th>
-                                        <th class="text-center">Cargo</th>
-                                        <th class="text-center">Telefono</th>
-                                </tr>
-                        </thead>
-                        <tbody>
-                        {% for trabajador in trabajadores %}
-                <tr>
-                    <td>{{ trabajador.nombres }}</td>
-                    <td>{{ trabajador.cedula }}</td>
-                    <td>{{ trabajador.fechaIngreso }}</td>
-                    <td>{{ trabajador.fechaNacimiento }}</td>
-                    <td>{{ trabajador.edad }}</td>
-                    <td>{{ trabajador.cargo}}</td>
-                    <td>{{ trabajador.telefono }}</td>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Nombres</th>
+                            <th class="text-center">Cedula</th>
+                            <th class="text-center">Fecha de ingreso</th>
+                            <th class="text-center">Fecha de nacimiento</th>
+                            <th class="text-center">Edad</th>
+                            <th class="text-center">Cargo</th>
+                            <th class="text-center">Telefono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for trabajador in object_list %}
+                        <tr>
+                            <td>{{ trabajador.nombres }}</td>
+                            <td>{{ trabajador.cedula }}</td>
+                            <td>{{ trabajador.fechaIngreso }}</td>
+                            <td>{{ trabajador.fechaNacimiento }}</td>
+                            <td>{{ trabajador.edad }}</td>
+                            <td>{{ trabajador.cargo}}</td>
+                            <td>{{ trabajador.telefono }}</td>
 
-                    <td class="text-center">
-                        <a onclick="return abrir_modal('{% url 'detalle_trabajador' trabajador.id %}')" class="btn">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </a>
-                        <a onclick="return abrir_modal('{% url 'modificar_trabajador' trabajador.id %}')" class="btn">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                    </td>
-                                </tr>
-                        {% endfor %}
-                        </tbody>
+                            <td class="text-center">
+                                <a onclick="return abrir_modal('{% url 'detalle_trabajador' trabajador.id %}')" class="btn">
+                                    <span class="fas fa-eye"></span>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a onclick="return abrir_modal('{% url 'modificar_trabajador' trabajador.id %}')" class="btn">
+                                    <span class="fas fa-edit"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
                 </table>
+            </div>
         </div>
-</div>
-<div id="popup" class="modal fade" role="dialog">
+        <div id="popup" class="modal fade" role="dialog">
 
-</div>
+        </div>
+
+    </div>
 {% endblock %}

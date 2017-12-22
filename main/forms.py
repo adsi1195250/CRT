@@ -1,9 +1,15 @@
+from crispy_forms.bootstrap import StrictButton
+from crispy_forms.layout import Layout, Div, Submit, Button
+from datetimewidget.widgets import DateTimeWidget, DateWidget
+
 from main.models import *
 from django import forms
+from crispy_forms.helper import FormHelper
+from django.contrib.admin.widgets import AdminDateWidget
 
 class trabajadoresForms(forms.ModelForm):
     class Meta:
-        models = Trabajadores
+        model = Trabajadores
         fields=[
             'nombres',
             'cedula',
@@ -14,27 +20,62 @@ class trabajadoresForms(forms.ModelForm):
             'telefono',
             'foto',
         ]
-        labels = {
-            'nombres': 'NOMBRE COMPLETO',
-            'cedula': 'CEDULA',
-            'fechaIngreso': 'FECHA DE INGRESO',
-            'fechaNacimiento': 'FECHA DE NACIMIENTO',
-            'edad': 'EDAD',
-            'area': 'AREA',
-            'telefono': 'TELEFONO',
-            'foto': 'FOTO',
+        widgets = {
+            # Use localization and bootstrap 3
+            'fechaIngreso': DateWidget(usel10n=True, bootstrap_version=3),
+            'fechaNacimiento': DateWidget(usel10n=True, bootstrap_version=3)
         }
+
+        labels = {
+            'nombres': 'Nombre completo',
+            'cedula': 'Cedula',
+            'fechaIngreso': 'Fecha de ingreso',
+            'fechaNacimiento': 'Fecha de nacimiento',
+            'edad': 'Edad',
+            'area': 'Area',
+            'telefono': 'Telefono',
+            'foto': 'Foto',
+        }
+
     def __init__(self, *args, **kwargs):
         super(trabajadoresForms, self).__init__(*args, **kwargs)
-        for field in iter(self.fields):
+        self.helper = FormHelper()
+        #self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.form_class = 'form-horizontal'
+
+        self.helper.layout = Layout(
+            'nombres',
+            'cedula',
+            Div(
+                Div('fechaIngreso', css_class='col-md-6', ),
+                Div('fechaNacimiento', css_class='col-md-6', ),
+                css_class='row',
+            ),
+            Div(
+                Div('edad', css_class='col-md-5', ),
+                Div('telefono', css_class='col-md-5',),
+                Div('area', css_class='col-md-2', ),
+                css_class='row',
+            ),
+            'foto',
+
+        )
+        """    
+            for field in iter(self.fields):
             if field != 'estado':
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control'
                 })
+        """
+
+
+
+
 
 class CodigoBarrasForms(forms.ModelForm):
     class Meta:
-        models = CodigoBarras
+        model = CodigoBarras
         fields=[
             'CodigoBarras',
             'idTrabajadores',
@@ -46,7 +87,7 @@ class CodigoBarrasForms(forms.ModelForm):
 
 class Historial_IOForms(forms.ModelForm):
     class Meta:
-        models = Historial_IO
+        model = Historial_IO
         fields=[
             'horaEntrada',
             'horaSalida',
@@ -66,7 +107,7 @@ class Historial_IOForms(forms.ModelForm):
 
 class PermisoAusentismoForms(forms.ModelForm):
     class Meta:
-        models = PermisoAusentismo
+        model = PermisoAusentismo
         fields=[
             'fechaSalida',
             #'totalHoras',
@@ -75,7 +116,7 @@ class PermisoAusentismoForms(forms.ModelForm):
             'periodoIncapacidadFinal',
             'diasIncapacidad',
             'codigoDiagnostico',
-            'descipcion',
+            'descripcion',
             'idTrabajador',
         ]
         labels = {
