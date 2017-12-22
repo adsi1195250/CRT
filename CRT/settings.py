@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'main.apps.MainConfig',
     'crispy_forms',
+    'datetimewidget',
     'main',
 ]
 
@@ -85,7 +86,9 @@ DATABASES = {
         'NAME': 'crt_db',
         'USER': 'root',
         'PASSWORD': 'BTabares99',
+        #'PASSWORD': '1234',
         'HOST': '192.168.1.32',
+        #'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -134,4 +137,4 @@ STATICFILES_DIRS = [
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static_env","static_root")
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
