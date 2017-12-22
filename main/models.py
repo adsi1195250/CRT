@@ -31,6 +31,8 @@ class Historial_IO(models.Model):
 	horaDescanso = models.DateTimeField()
 	horaPausasActivas = models.DateTimeField()
 	horaAlmuerzo = models.DateTimeField()
+	def __str__(self):
+		return '%s'%self.idHistorial
 
 
 class PermisoAusentismo(models.Model):
@@ -45,6 +47,4 @@ class PermisoAusentismo(models.Model):
 	descripcion= models.CharField(max_length=500)
 	idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
 	def __str__(self):
-		return self.idPermisoAusentismo
-
-
+		return '%s'%self.idPermisoAusentismo

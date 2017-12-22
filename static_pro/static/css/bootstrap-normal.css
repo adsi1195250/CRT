@@ -91,7 +91,6 @@
   }
   .table {
     border-collapse: collapse !important;
-
   }
   .table td,
   .table th {
@@ -117,7 +116,6 @@ html {
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: transparent;
-
 }
 
 @-ms-viewport {
@@ -136,12 +134,7 @@ body {
   line-height: 1.5;
   color: #888;
   text-align: left;
-  background: url(../img/IMG_1020.jpeg) no-repeat center center fixed;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-
+  background-color: #fff;
 }
 
 [tabindex="-1"]:focus {
@@ -658,7 +651,6 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  align: center;
 }
 
 @media (min-width: 576px) {
@@ -1719,7 +1711,6 @@ pre code {
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
-
 }
 
 .table th,
@@ -2153,19 +2144,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 .form-group {
   margin-bottom: 1rem;
-
 }
-
-.footer-center{
-  color:#abebc6;
-  text-align: center;
-  background: #16a085;
-  height: auto;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
 
 .form-text {
   display: block;
@@ -3699,7 +3678,7 @@ tbody.collapse.show {
 }
 
 .custom-file-input {
-  min-width: 23rem;
+  min-width: 14rem;
   max-width: 100%;
   height: calc(2.25rem + 2px);
   margin: 0;
@@ -3727,13 +3706,12 @@ tbody.collapse.show {
       -ms-user-select: none;
           user-select: none;
   background-color: #fff;
-  border-radius: 0.4rem;
   border: 1px solid #ced4da;
+  border-radius: 0.4rem;
 }
 
 .custom-file-control:lang(en):empty::after {
-  content: "Registrar Codigo...";
-  margin-right: 60%;
+  content: "Choose file...";
 }
 
 .custom-file-control::before {
@@ -3744,7 +3722,7 @@ tbody.collapse.show {
   z-index: 6;
   display: block;
   height: calc(2.25rem + 2px);
-  padding: 0.375rem 2.0rem;
+  padding: 0.375rem 0.75rem;
   line-height: 1.5;
   color: #5a5a5a;
   background-color: #f7f7f9;
@@ -3753,7 +3731,7 @@ tbody.collapse.show {
 }
 
 .custom-file-control:lang(en)::before {
-  content: "Cargar";
+  content: "Browse";
 }
 
 .nav {
