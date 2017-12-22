@@ -2,16 +2,18 @@
 <div class="modal-dialog modal-lg">
         <div class="modal-content">
             {% if object %}
-                <form role="form" action="{% url 'editar_trabajador' trabajador.pk %}" method="post">
+                <form role="form" action="{% url 'modificar_trabajador' object.id %}" method="post">
+                 {% csrf_token %}
             {% else %}
                 <form role="form" action="{% url 'crear_trabajador' %}" method="post">
+                 {% csrf_token %}
             {% endif %}
                 <div class="modal-header">
                     <h3>Crear trabajador</h3>
-                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <button type="button" class="close" data-dismiss="modal">X</button>
                 </div>
                 <div class="modal-body">
-                    {% csrf_token %}
+
                     <div class="panel panel-default">
                             <div class="panel-body">
                                 {% crispy form %}

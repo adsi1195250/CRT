@@ -15,14 +15,16 @@ class ListarTrabajador(ListView):
     context_object_name = 'trabajador'
 
 class CrearTrabajador(CreateView):
+    model = Trabajadores
     template_name = 'Trabajadores/trabajador_modal.html'
     form_class = trabajadoresForms
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('listado_trabajadores')
 
 class ModificarTrabajdor(UpdateView):
     model = Trabajadores
     form_class = trabajadoresForms
-    success_url = reverse_lazy('inicio')
+    template_name = 'Trabajadores/trabajador_modal.html'
+    success_url = reverse_lazy('listado_trabajadores')
 
 class DetalleTrabajador(DetailView):
     model = Trabajadores

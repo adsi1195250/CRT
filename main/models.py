@@ -12,16 +12,20 @@ class Trabajadores(models.Model):
 	edad = models.SmallIntegerField()
 	area = models.BooleanField()
 	telefono = models.CharField(max_length=11)
-	foto = models.ImageField(height_field=None, width_field=None, max_length=100)
+	CodigoBarras = models.CharField(max_length=500)
+	#foto = models.ImageField()
 	def __str__(self):
 		return '%s'%self.cedula
 
+"""
 class CodigoBarras(models.Model):
 	idCodigoBarras = models.AutoField(primary_key=True)
 	CodigoBarras = models.CharField(max_length=200)
 	idTrabajadores = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
 	def __str__(self):
 		return self.CodigoBarras
+"""
+
 
 class Historial_IO(models.Model):
 	idHistorial = models.AutoField(primary_key=True)
