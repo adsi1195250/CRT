@@ -1,13 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="form-group">
-    <label class="custom-file">
-      <input type="text" name="inputname" value="datos a enviar" readonly>
-      <input type="text" name="inputname" value="datos a enviar" disabled>
-      <button>Cargar</button>
-    </label>
-  </div>
 
-  <h1>Ingrese el codigo de barras</h1>
-  <input></input>
-{% endblock content %}
+<!--<script type="text/javascript">
+function validar(e) {
+
+
+
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true; //Tecla de retroceso (para poder borrar)
+    if (tecla==44) return true; //Coma ( En este caso para diferenciar los decimales )
+    if (tecla==48) return true;
+    if (tecla==49) return true;
+    if (tecla==50) return true;
+    if (tecla==51) return true;
+    if (tecla==52) return true;
+    if (tecla==53) return true;
+    if (tecla==54) return true;
+    if (tecla==55) return true;
+    if (tecla==56) return true;
+    if (tecla==57) return true;
+    if (tecla==58) return true;
+    if (tecla==60) return true;
+
+    patron = /1/; //ver nota
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+</script>
+-->
+
+<div class="form-group2">
+  <label class="custom-file">
+    <div class="form-group">
+      <input name="telefono" id="inputDefault" type="password" placeholder="Ingrese el codigo de barras"/>
+      <button type="submit" class="btn btn-primary"style="width: 85px; height: 40px; background-color: #56CC9D;">Cargar</button>
+    </div>
+    </div>
+  </label>
+</div>
+
+  {% endblock content %}
