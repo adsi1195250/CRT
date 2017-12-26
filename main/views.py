@@ -36,8 +36,9 @@ class EliminarTrabajador(DeleteView):
     success_url = reverse_lazy('listado_trabajadores')
 
 def registrarJornada(request):
-    return render(request, 'registrarJornada/registrarJornadaModal.html')
+    return render(request, 'registrarJornada/registrarJornada.html')
 
 class registrarJornadaModal(CreateView):
     model = Historial_IO
+    form_class = Historial_IOForms
     template_name =  'registrarJornada/registrarJornadaModal.html'
