@@ -1,0 +1,23 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Eliminar trabajador</h3>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="{% url 'eliminar_trabajador' object.id %}">
+                {% csrf_token %}
+                <h3>¿Desea eliminar a <strong>{{ object.nombres }}</strong> ?</h3>
+                <br>
+                <br>
+                <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+                <button type="button" class="btn btn-info" onclick="return cerrar_modal()">Cancelar</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="col-lg-12 text-right">
+
+            </div>
+        </div>
+    </div>
+</div>

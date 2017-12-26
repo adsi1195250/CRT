@@ -91,6 +91,7 @@
   }
   .table {
     border-collapse: collapse !important;
+
   }
   .table td,
   .table th {
@@ -1719,6 +1720,7 @@ pre code {
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
+
 }
 
 .table th,
@@ -2168,6 +2170,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 .form-group {
   margin-bottom: 1rem;
+<<<<<<< HEAD
 }
 
 .form-group2 {
@@ -2177,6 +2180,9 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   top: 50%;
   margin-top: -15px; /* 50% of the line-height in a */
   text-align: center;
+=======
+
+>>>>>>> crudTj
 }
 
 .footer-center{

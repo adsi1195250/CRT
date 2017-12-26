@@ -1,4 +1,4 @@
-from crispy_forms.bootstrap import StrictButton
+from crispy_forms.bootstrap import StrictButton, FormActions
 from crispy_forms.layout import Layout, Div, Submit, Button
 from datetimewidget.widgets import DateTimeWidget, DateWidget
 
@@ -11,6 +11,7 @@ class trabajadoresForms(forms.ModelForm):
     class Meta:
         model = Trabajadores
         fields=[
+            'id',
             'nombres',
             'cedula',
             'fechaIngreso',
@@ -18,7 +19,8 @@ class trabajadoresForms(forms.ModelForm):
             'edad',
             'area',
             'telefono',
-            'foto',
+            'CodigoBarras'
+            #'foto',
         ]
         widgets = {
             # Use localization and bootstrap 3
@@ -34,7 +36,9 @@ class trabajadoresForms(forms.ModelForm):
             'edad': 'Edad',
             'area': 'Area',
             'telefono': 'Telefono',
-            'foto': 'Foto',
+            'CodigoBarras':'Codigo de barras',
+            #'foto': 'Foto',
+
         }
 
     def __init__(self, *args, **kwargs):
@@ -58,7 +62,9 @@ class trabajadoresForms(forms.ModelForm):
                 Div('area', css_class='col-md-2', ),
                 css_class='row',
             ),
-            'foto',
+            'CodigoBarras'
+            #'foto',
+
 
         )
         """    
@@ -69,21 +75,6 @@ class trabajadoresForms(forms.ModelForm):
                 })
         """
 
-
-
-
-
-class CodigoBarrasForms(forms.ModelForm):
-    class Meta:
-        model = CodigoBarras
-        fields=[
-            'CodigoBarras',
-            'idTrabajadores',
-        ]
-        labels = {
-            'CodigoBarras': 'CODIGO BARRAS',
-            'idTrabajadores': 'ID  TRABAJADORES',
-        }
 
 class Historial_IOForms(forms.ModelForm):
     class Meta:
