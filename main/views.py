@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 
-from main.forms import trabajadoresForms
-from main.models import Trabajadores
+from main.forms import *
+from main.models import *
 
 
 def index(request):
@@ -19,7 +19,7 @@ class CrearTrabajador(CreateView):
     form_class = trabajadoresForms
     success_url = reverse_lazy('inicio')
 
-class ModificarTrabajdor(UpdateView):
+class ModificarTrabajador(UpdateView):
     model = Trabajadores
     form_class = trabajadoresForms
     success_url = reverse_lazy('inicio')
@@ -30,3 +30,7 @@ class DetalleTrabajador(DetailView):
 
 def registrarJornada(request):
     return render(request, 'registrarJornada/registrarJornada.html')
+
+class registrarJornadaModal(CreateView):
+    form_class = Historial_IOForms
+    template_name =  'registrarJornada/registrarJornadaModal.html'

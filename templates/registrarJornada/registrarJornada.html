@@ -4,8 +4,6 @@
 <!--<script type="text/javascript">
 function validar(e) {
 
-
-
     tecla = (document.all) ? e.keyCode : e.which;
     if (tecla==8) return true; //Tecla de retroceso (para poder borrar)
     if (tecla==44) return true; //Coma ( En este caso para diferenciar los decimales )
@@ -33,10 +31,11 @@ function validar(e) {
   <label class="custom-file">
     <div class="form-group">
       <input name="telefono" id="inputDefault" type="password" placeholder="Ingrese el codigo de barras"/>
-      <button type="submit" class="btn btn-primary"style="width: 85px; height: 40px; background-color: #56CC9D;">Cargar</button>
+      <a onclick="return abrir_modal('{% url 'index' %}')" class="btn btn-info ">Crear</a>
+      <a onclick="return abrir_modal('{% url 'registrarJornadaModal' %}')" class="btn btn-primary"><strong>Cargar</strong></a>
     </div>
     </div>
   </label>
 </div>
 
-  {% endblock content %}
+{% endblock content %}
