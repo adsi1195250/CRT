@@ -28,6 +28,8 @@ class DetalleTrabajador(DetailView):
     model = Trabajadores
     template_name = 'Trabajadores/detalle_trabajador.html'
 
+
+
 def registrarJornada(request):
     return render(request, 'registrarJornada/registrarJornada.html')
 
