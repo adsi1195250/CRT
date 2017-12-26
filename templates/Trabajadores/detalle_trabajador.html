@@ -3,24 +3,39 @@
         <div class="modal-header">
             <h3>Detalle trabajador</h3>
             <button type="button" class="close" data-dismiss="modal">X</button>
-
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-lg-4">
-                    <label>Nombres:</label>
+                <div class="col-md-3">
+                    <p><strong>Nombres:</strong></p>
+
+                    <p>Cedula:</p>
+
+                    <p>Fecha de ingreso:</p>
+
+                    <p>Fecha de nacimiento:</p>
+
+                    <p>Edad:</p>
+
+                    <p>Telefono:</p>
+
+                    <p>Codigo de barras</p>
+
+                </div>
+                 <div class="col-md-9">
+
                     <p>{{ object.nombres }}</p>
-                    <label>Cedula:</label>
+
                     <p>{{ object.cedula }}</p>
-                    <label>Fecha de ingreso:</label>
+
                     <p>{{ object.fechaIngreso }}</p>
-                    <label>Fecha de nacimiento:</label>
+
                     <p>{{ object.fechaNacimiento }}</p>
-                    <label>Edad:</label>
+
                     <p>{{ object.edad }}</p>
-                    <label>Telefono:</label>
+
                     <p>{{ object.telefono }}</p>
-                    <label>Codigo de barras</label>
+
                     <p>{{ object.CodigoBarras }}</p>
                 </div>
             </div>

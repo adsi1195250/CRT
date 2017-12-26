@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from main.forms import trabajadoresForms
 from main.models import Trabajadores
@@ -20,7 +20,7 @@ class CrearTrabajador(CreateView):
     form_class = trabajadoresForms
     success_url = reverse_lazy('listado_trabajadores')
 
-class ModificarTrabajdor(UpdateView):
+class ModificarTrabajador(UpdateView):
     model = Trabajadores
     form_class = trabajadoresForms
     template_name = 'Trabajadores/trabajador_modal.html'
@@ -29,6 +29,11 @@ class ModificarTrabajdor(UpdateView):
 class DetalleTrabajador(DetailView):
     model = Trabajadores
     template_name = 'Trabajadores/detalle_trabajador.html'
+
+class EliminarTrabajador(DeleteView):
+    model = Trabajadores
+    template_name = 'Trabajadores/trabajador_eliminar.html'
+    success_url = reverse_lazy('listado_trabajadores')
 
 def registrarJornada(request):
     return render(request, 'registrarJornada/registrarJornada.html')
