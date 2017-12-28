@@ -1,6 +1,7 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 
 from main.forms import *
 from main.models import *
@@ -36,9 +37,44 @@ class EliminarTrabajador(DeleteView):
     success_url = reverse_lazy('listado_trabajadores')
 
 def registrarJornada(request):
+    codigo = request.GET.get('CodigoBarras', '')
+    if codigo:
+        return render(request,'Trabajadores/detalle_trabajador.html')
+    print(codigo)
     return render(request, 'registrarJornada/registrarJornada.html')
 
+"""
 class registrarJornadaModal(CreateView):
-    model = Historial_IO
+    model = Trabajadores
     form_class = Historial_IOForms
     template_name =  'registrarJornada/registrarJornadaModal.html'
+"""
+
+def registrarJornadaModal(request):
+    trabajador = Trabajadores.objects.all().first()
+    form=Historial_IOForms(request.POST or None,initial={"id_trabajadores": trabajador})
+    #form.data.get('id_trabajador',trabajador)
+
+    context={
+        'form':form,
+        'trabajador':trabajador,
+    }
+    if form.is_valid():
+        instance = form.save(commit=False)
+        print(instance)
+        instance.save()
+        return render(request, 'registrarJornada/registrarJornada.html', context)
+        #print(form)
+    return render(request, 'registrarJornada/registrarJornadaModal.html',context)
+
+
+def detail(request, CodigoBarras):
+    print("dfsef")
+    try:
+        p = Trabajadores.objects.get(CodigoBarras=CodigoBarras)
+    except Trabajadores.DoesNotExist:
+        raise Http404("Poll does not exist")
+    return render(request, 'Trabajadores/detalle_trabajador.html', {'poll': p})
+
+
+

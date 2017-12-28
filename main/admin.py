@@ -6,9 +6,14 @@ from .forms import *
 class TrabajadoresAdmin(admin.ModelAdmin):
 	list_display=["__str__","id","nombres","cedula", "fechaIngreso", "fechaNacimiento", "edad", "area", "telefono"]
 
+"""
+class Historial_IOAdmin(admin.ModelAdmin):
+	list_display=["__str__","idHistorial","horaEntrada","horaSalida","horaDesayuno", "horaDescanso", "horaPausasActivas", "horaAlmuerzo","id_trabajadores"]
+"""
 
 class Historial_IOAdmin(admin.ModelAdmin):
-	list_display=["__str__","idHistorial","horaEntrada","horaSalida","horaDesayuno", "horaDescanso", "horaPausasActivas", "horaAlmuerzo"]
+	list_display=["__str__","idHistorial","accion_jornada","hora","id_trabajadores"]
+
 
 class PermisoAusentismoAdmin(admin.ModelAdmin):
 	list_display=["__str__","idPermisoAusentismo","fechaSalida","motivo","periodoIncapacidadInicial","periodoIncapacidadFinal", "diasIncapacidad", "codigoDiagnostico", "descripcion", "idTrabajador"]

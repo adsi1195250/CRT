@@ -15,7 +15,7 @@ class Trabajadores(models.Model):
 	CodigoBarras = models.CharField(max_length=500)
 	#foto = models.ImageField()
 	def __str__(self):
-		return '%s'%self.cedula
+		return '%s'%(self.nombres)
 
 """
 class CodigoBarras(models.Model):
@@ -26,7 +26,7 @@ class CodigoBarras(models.Model):
 		return self.CodigoBarras
 """
 
-
+"""
 class Historial_IO(models.Model):
 	idHistorial = models.AutoField(primary_key=True)
 	horaEntrada = models.DateTimeField()
@@ -35,8 +35,37 @@ class Historial_IO(models.Model):
 	horaDescanso = models.DateTimeField()
 	horaPausasActivas = models.DateTimeField()
 	horaAlmuerzo = models.DateTimeField()
+	id_trabajadores = models.ForeignKey(Trabajadores,on_delete=models.CASCADE)
 	def __str__(self):
 		return '%s'%self.idHistorial
+"""
+
+class Historial_IO(models.Model):
+	idHistorial = models.AutoField(primary_key=True)
+	ENTRADA = 'EN'
+	SALIDA = 'SA'
+	DESAYUNO = 'DY'
+	DESCANSO = 'DC'
+	PAUSAS_ACTIVAS = 'PA'
+	ALMUERZO = 'AL'
+	ELECCIONES = (
+		(ENTRADA, 'Entrada'),
+		(SALIDA, 'Salida'),
+		(DESAYUNO, 'Desayuno'),
+		(DESCANSO, 'Descanso'),
+		(PAUSAS_ACTIVAS, 'Pausas Activas'),
+		(ALMUERZO, 'Almuerzo'),
+	)
+	accion_jornada = models.CharField(
+		max_length=2,
+		choices=ELECCIONES,
+		default=ENTRADA,
+	)
+	hora = models.DateTimeField(auto_now_add=True)
+	id_trabajadores = models.ForeignKey(Trabajadores,on_delete=models.CASCADE)
+	def __str__(self):
+		return '%s'%self.idHistorial
+
 
 
 class PermisoAusentismo(models.Model):

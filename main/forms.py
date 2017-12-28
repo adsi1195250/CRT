@@ -1,5 +1,5 @@
-from crispy_forms.bootstrap import StrictButton, FormActions
-from crispy_forms.layout import Layout, Div, Submit, Button
+from crispy_forms.bootstrap import StrictButton, FormActions, InlineRadios, InlineField
+from crispy_forms.layout import Layout, Div, Submit, Button, Field
 from datetimewidget.widgets import DateTimeWidget, DateWidget
 
 from main.models import *
@@ -75,10 +75,16 @@ class trabajadoresForms(forms.ModelForm):
                 })
         """
 
-
+"""
 class Historial_IOForms(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(Historial_IOForms, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+            self.fields['id_trabajadores'].disabled = True
     class Meta:
         model = Historial_IO
+
         fields=[
             'horaEntrada',
             'horaSalida',
@@ -86,6 +92,7 @@ class Historial_IOForms(forms.ModelForm):
             'horaDescanso',
             'horaPausasActivas',
             'horaAlmuerzo',
+            'id_trabajadores',
         ]
         labels = {
             'horaEntrada': 'HORA DE ENTRADA',
@@ -95,6 +102,38 @@ class Historial_IOForms(forms.ModelForm):
             'horaPausasActivas': 'HORA DE PAUSAS ACTIVAS',
             'horaAlmuerzo': 'HORA DE ALMUERZO',
         }
+"""
+
+
+class Historial_IOForms(forms.ModelForm):
+    class Meta:
+        model = Historial_IO
+        fields = '__all__'
+
+        labels = {
+            'accion_jornada':'Seleccione la acción',
+            'hora': 'Hora',
+            'id_trabajadores': 'Trabajador',
+        }
+        disabled_widget = forms.MultipleHiddenInput(attrs={'disabled': True})
+
+    def __init__(self, *args, **kwargs):
+        super(Historial_IOForms, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-inline'
+        #self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        #self.helper.form_class = 'form-horizontal'
+
+        self.helper.layout = Layout(
+            Div(
+                Div(InlineRadios('accion_jornada'),css_class='col-md-12'),
+                css_class='row',
+            ),
+
+            Field('id_trabajadores',type='hidden',readonly=True),
+        )
+
+
 
 class PermisoAusentismoForms(forms.ModelForm):
     class Meta:
