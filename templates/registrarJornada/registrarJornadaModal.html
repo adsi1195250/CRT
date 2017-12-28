@@ -1,13 +1,12 @@
+{% load crispy_forms_tags %}
 <div class="modal-dialog modal-lg">
         <div class="modal-content">
                 {% if object %}
-                <form role="form" action="{% url 'productos:modificar_proveedor' object.pk %}" method="post">
-                {% else %}
-                <form role="form" action="{% url 'productos:crear_proveedor' %}" method="post">
+                <form role="form" action="{% url 'registrarJornadaModal' %}" method="post">
                 {% endif %}
                         <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">x</button>
-                <h3>Modificar Proveedor</h3>
+                <h3>Registrar Jornada</h3>
             </div>
             <div class="modal-body">
                                 {% csrf_token %}
