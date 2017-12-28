@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import datetime, date, time, timedelta
+from time import gmtime, strftime
 
 # Create your models here.
 class Trabajadores(models.Model):
@@ -29,7 +31,7 @@ class CodigoBarras(models.Model):
 
 class Historial_IO(models.Model):
 	idHistorial = models.AutoField(primary_key=True)
-	horaEntrada = models.DateTimeField()
+	horaEntrada =  models.DateTimeField()
 	horaSalida = models.DateTimeField()
 	horaDesayuno = models.DateTimeField()
 	horaDescanso = models.DateTimeField()

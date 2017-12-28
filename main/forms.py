@@ -6,6 +6,7 @@ from main.models import *
 from django import forms
 from crispy_forms.helper import FormHelper
 from django.contrib.admin.widgets import AdminDateWidget
+from datetime import datetime, date, time, timedelta
 
 class trabajadoresForms(forms.ModelForm):
     class Meta:
@@ -67,14 +68,13 @@ class trabajadoresForms(forms.ModelForm):
 
 
         )
-        """    
+        """
             for field in iter(self.fields):
             if field != 'estado':
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control'
                 })
         """
-
 
 class Historial_IOForms(forms.ModelForm):
     class Meta:
@@ -87,6 +87,15 @@ class Historial_IOForms(forms.ModelForm):
             'horaPausasActivas',
             'horaAlmuerzo',
         ]
+        widgets = {
+            # Use localization and bootstrap 3
+            'horaEntrada': DateTimeWidget(bootstrap_version=4),
+            'horaSalida': DateTimeWidget( bootstrap_version=3),
+            'horaDescanso': DateTimeWidget(bootstrap_version=3),
+            'horaDesayuno': DateTimeWidget(bootstrap_version=3),
+            'horaPausasActivas': DateTimeWidget( bootstrap_version=3),
+            'horaAlmuerzo': DateTimeWidget(bootstrap_version=3),
+        }
         labels = {
             'horaEntrada': 'HORA DE ENTRADA',
             'horaSalida': 'HORA DE SALIDA',
@@ -95,6 +104,7 @@ class Historial_IOForms(forms.ModelForm):
             'horaPausasActivas': 'HORA DE PAUSAS ACTIVAS',
             'horaAlmuerzo': 'HORA DE ALMUERZO',
         }
+
 
 class PermisoAusentismoForms(forms.ModelForm):
     class Meta:

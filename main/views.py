@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from datetime import datetime, date, time, timedelta
 
 from main.forms import *
 from main.models import *
@@ -36,6 +38,13 @@ class EliminarTrabajador(DeleteView):
     success_url = reverse_lazy('listado_trabajadores')
 
 def registrarJornada(request):
+    #all_trab = Trabajadores.objects.all()
+    codigoBarritas = request.GET.get('CodigoBarras', '')
+    #print(codigoBarritas)
+    all_trab1 = Trabajadores.objects.filter(CodigoBarras=codigoBarritas)
+    #print(all_trab1)
+    ahora = datetime.now()  # Obtiene fecha y hora actual
+    print("Fecha y Hora:", ahora)
     return render(request, 'registrarJornada/registrarJornada.html')
 
 class registrarJornadaModal(CreateView):
