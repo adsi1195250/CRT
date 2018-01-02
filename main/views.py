@@ -1,3 +1,5 @@
+import urllib
+
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -136,7 +138,10 @@ def buscar(request):
             print(cont)
             form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id})
             # form.data.get('id_trabajador',trabajador)
-
+            cp = request.GET.copy()
+            cp.pop('CodigoBarras')
+            params = urllib.urlencode(cp)
+            print(params)
             context = {
                 'form': form,
                 'trabajadores': trabajadores,
