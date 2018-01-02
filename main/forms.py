@@ -51,6 +51,7 @@ class trabajadoresForms(forms.ModelForm):
         self.helper.layout = Layout(
             'nombres',
             'cedula',
+
             Div(
                 Div('fechaIngreso', css_class='col-md-6', ),
                 Div('fechaNacimiento', css_class='col-md-6', ),
@@ -126,7 +127,7 @@ class Historial_IOForms(forms.ModelForm):
 
         self.helper.layout = Layout(
             Div(
-                Div(InlineRadios('accion_jornada'),css_class='col-md-12'),
+                Div(InlineRadios('accion_jornada'),css_class='col-md-3'),
                 css_class='row',
             ),
 
