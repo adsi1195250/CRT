@@ -1,5 +1,5 @@
-from crispy_forms.bootstrap import StrictButton, FormActions
-from crispy_forms.layout import Layout, Div, Submit, Button
+from crispy_forms.bootstrap import StrictButton, FormActions, InlineRadios, InlineField
+from crispy_forms.layout import Layout, Div, Submit, Button, Field
 from datetimewidget.widgets import DateTimeWidget, DateWidget
 
 from main.models import *
@@ -18,7 +18,7 @@ class trabajadoresForms(forms.ModelForm):
             'fechaIngreso',
             'fechaNacimiento',
             'edad',
-            'area',
+            'administrador',
             'telefono',
             'CodigoBarras'
             #'foto',
@@ -35,7 +35,7 @@ class trabajadoresForms(forms.ModelForm):
             'fechaIngreso': 'Fecha de ingreso',
             'fechaNacimiento': 'Fecha de nacimiento',
             'edad': 'Edad',
-            'area': 'Area',
+            'administrador': 'Admin',
             'telefono': 'Telefono',
             'CodigoBarras':'Codigo de barras',
             #'foto': 'Foto',
@@ -60,7 +60,7 @@ class trabajadoresForms(forms.ModelForm):
             Div(
                 Div('edad', css_class='col-md-5', ),
                 Div('telefono', css_class='col-md-5',),
-                Div('area', css_class='col-md-2', ),
+                Div('administrador', css_class='col-md-2', ),
                 css_class='row',
             ),
             'CodigoBarras'
@@ -76,16 +76,28 @@ class trabajadoresForms(forms.ModelForm):
                 })
         """
 
+"""
 class Historial_IOForms(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(Historial_IOForms, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+            self.fields['id_trabajadores'].disabled = True
     class Meta:
         model = Historial_IO
+
         fields=[
             'horaEntrada',
             'horaSalida',
-            'horaDesayuno',
-            'horaDescanso',
-            'horaPausasActivas',
-            'horaAlmuerzo',
+            'horaInicioDesayuno',
+            'horaFinDesayuno',
+            'horaInicioDescanso',
+            'horaFinDescanso',
+            'horaInicioPausasActivas',
+            'horaFinPausasActivas',
+            'horaInicioAlmuerzo',
+            'horaFinAlmuerzo',
+            'id_trabajadores',
         ]
         widgets = {
             # Use localization and bootstrap 3
@@ -99,11 +111,45 @@ class Historial_IOForms(forms.ModelForm):
         labels = {
             'horaEntrada': 'HORA DE ENTRADA',
             'horaSalida': 'HORA DE SALIDA',
-            'horaDesayuno': 'HORA DE DESAYUNO',
-            'horaDescanso': 'HORA DE DESCANSO',
-            'horaPausasActivas': 'HORA DE PAUSAS ACTIVAS',
-            'horaAlmuerzo': 'HORA DE ALMUERZO',
+            'horaInicioDesayuno': 'HORA INICIO DE DESAYUNO',
+            'horaFinDesayuno': 'HORA FIN DE DESAYUNO',
+            'horaInicioDescanso': 'HORA INICIO DE DESCANSO',
+            'horaFinDescanso': 'HORA FIN DE DESCANSO',
+            'horaInicioPausasActivas': 'HORA INICIO DE PAUSAS ACTIVAS',
+            'horaFinPausasActivas': 'HORA FIN DE PAUSAS ACTIVAS',
+            'horaInicioAlmuerzo': 'HORA INICIO DE ALMUERZO',
+            'horaFinAlmuerzoAlmuerzo': 'HORA FIN DE ALMUERZO',
         }
+"""
+
+class Historial_IOForms(forms.ModelForm):
+    class Meta:
+        model = Historial_IO
+        fields = '__all__'
+
+        labels = {
+            'accion_jornada':'Seleccione la acción',
+            'hora': 'Hora',
+            'id_trabajadores': 'Trabajador',
+        }
+        disabled_widget = forms.MultipleHiddenInput(attrs={'disabled': True})
+
+    def __init__(self, *args, **kwargs):
+        super(Historial_IOForms, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-inline'
+        #self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        #self.helper.form_class = 'form-horizontal'
+
+        self.helper.layout = Layout(
+            Div(
+                Div(InlineRadios('accion_jornada'),css_class='col-sm-12', style="background: #FAFAFA; padding: 50px;"),
+                #Div(Field('accion_jornada'),css_class='col-md-12'),
+                css_class='row',
+            ),
+
+            Field('id_trabajadores',type='hidden',readonly=True),
+        )
 
 
 class PermisoAusentismoForms(forms.ModelForm):

@@ -12,12 +12,12 @@ class Trabajadores(models.Model):
 	fechaIngreso = models.DateField()
 	fechaNacimiento = models.DateField()
 	edad = models.SmallIntegerField()
-	area = models.BooleanField()
+	administrador = models.BooleanField()
 	telefono = models.CharField(max_length=11)
 	CodigoBarras = models.CharField(max_length=500)
 	#foto = models.ImageField()
 	def __str__(self):
-		return '%s'%self.cedula
+		return '%s'%(self.nombres)
 
 """
 class CodigoBarras(models.Model):
@@ -28,15 +28,55 @@ class CodigoBarras(models.Model):
 		return self.CodigoBarras
 """
 
+"""
+class Historial_IO(models.Model):
+	idHistorial = models.AutoField(primary_key=True)
+	horaEntrada =  models.BooleanField(default=False)
+	horaSalida = models.BooleanField(default=True)
+	horaInicioDesayuno = models.DateTimeField()
+	horaFinDesayuno = models.DateTimeField()
+	horaInicioDescanso = models.DateTimeField()
+	horaFinDescanso = models.DateTimeField()
+	horaInicioPausasActivas = models.DateTimeField()
+	horaFinPausasActivas = models.DateTimeField()
+	horaInicioAlmuerzo = models.DateTimeField()
+	horaFinAlmuerzo = models.DateTimeField()
+	id_trabajadores = models.ForeignKey(Trabajadores,on_delete=models.CASCADE)
+	def __str__(self):
+		return '%s'%self.idHistorial
+"""
 
 class Historial_IO(models.Model):
 	idHistorial = models.AutoField(primary_key=True)
-	horaEntrada =  models.DateTimeField()
-	horaSalida = models.DateTimeField()
-	horaDesayuno = models.DateTimeField()
-	horaDescanso = models.DateTimeField()
-	horaPausasActivas = models.DateTimeField()
-	horaAlmuerzo = models.DateTimeField()
+	ENTRADA = 'EN'
+	SALIDA = 'SA'
+	DESAYUNO_INICIO = 'DYI'
+	DESAYUNO_FIN = 'DYF'
+	DESCANSO_INICIO = 'DCI'
+	DESCANSO_FIN = 'DCF'
+	PAUSAS_ACTIVAS_INICIO = 'PAI'
+	PAUSAS_ACTIVAS_FIN = 'PAF'
+	ALMUERZO_INICIO = 'ALI'
+	ALMUERZO_FIN = 'ALF'
+	ELECCIONES = (
+		(ENTRADA, 'Entrada'),
+		(SALIDA, 'Salida'),
+		(DESAYUNO_INICIO, 'Inicio Desayuno'),
+		(DESAYUNO_FIN, 'Fin Desayuno'),
+		(DESCANSO_INICIO, 'Inicio Descanso'),
+		(DESCANSO_FIN, 'Fin Descanso'),
+		(PAUSAS_ACTIVAS_INICIO, 'Inicio Pausas Activas'),
+		(PAUSAS_ACTIVAS_FIN, 'Fin Pausas Activas'),
+		(ALMUERZO_INICIO, 'Inicio Almuerzo'),
+		(ALMUERZO_FIN, 'Fin Almuerzo'),
+	)
+	accion_jornada = models.CharField(
+		max_length=3,
+		choices=ELECCIONES,
+		default=ENTRADA,
+	)
+	hora = models.DateTimeField(auto_now_add=True)
+	id_trabajadores = models.ForeignKey(Trabajadores,on_delete=models.CASCADE)
 	def __str__(self):
 		return '%s'%self.idHistorial
 
