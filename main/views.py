@@ -38,6 +38,35 @@ class EliminarTrabajador(DeleteView):
     template_name = 'Trabajadores/trabajador_eliminar.html'
     success_url = reverse_lazy('listado_trabajadores')
 
+
+cont=0
+class listarInformeIO(ListView):
+    model = Historial_IO
+    template_name = 'registrarJornada/listarInformeIO.html'
+    trabajador = Trabajadores.objects.all()
+    boolean = False
+    #dica = ['nombre', 'horaEnt', 'horaAlm', 'horaSal']
+    dica = []
+    trabajador2 = []
+    for i in trabajador:
+        for Historial_IO in model.objects.all():
+            if i == Historial_IO.id_trabajadores:
+                boolean = True
+                dic = {'nombres':i.nombres ,'accion' : Historial_IO.accion_jornada, 'hora' : Historial_IO.hora}
+                dica.append(Historial_IO.accion_jornada)
+            else:
+                trabajador2 = i
+
+
+        #dic = { Historial_IO.id_trabajadores : Historial_IO.accion_jornada }
+
+
+            #print(trabajadores.nombres)
+            #print(Historial_IO.id_trabajadores, "---")
+    print(dica)
+    print(trabajador2)
+
+
 def registrarJornada(request):
 
     #all_trab = Trabajadores.objects.all()

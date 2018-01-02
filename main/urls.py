@@ -14,5 +14,6 @@ urlpatterns = [
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras, name='codigo_barras'),
     url(r'^codigo_barras/$', detail, name='detail'),
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras.as_view(), name='codigo_barras'),
+    url(r'^listarInformeIO/$', listarInformeIO.as_view(), name="listado_informe"),
 
 ]

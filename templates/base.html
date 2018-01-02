@@ -11,16 +11,18 @@
   {%include 'base/navbar.html'%}
 
 
-{%block content%}
-    {% include 'base/container.html' %}
-{%endblock%}
+  {% block content %}
+      {% include 'base/container.html' %}
+  {% endblock %}
 
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
 
     <!-- Scroll to Top Button-->
+
+    <!--{% include "base/footer.html" %}-->
+</footer>
 </body>
-    {%include 'base/footer.html'%}
 <script>
     function abrir_modal(url)
 {
