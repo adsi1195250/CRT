@@ -42,8 +42,20 @@ class EliminarTrabajador(DeleteView):
     success_url = reverse_lazy('listado_trabajadores')
 
 
-cont=0
 class listarInformeIO(ListView):
+    a = {}
+    b= []
+    cont=0
+    for x in Trabajadores.objects.all():
+        for i in Historial_IO.objects.all():
+            if x.cedula == i.id_trabajadores.cedula:
+                a['nombre'] = i.id_trabajadores.nombres
+                a[i.accion_jornada] = i.hora.ctime()
+                cont=cont+1
+        b.append(a)
+        a={}
+    print(b)
+"""
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
     trabajador = Trabajadores.objects.all()
@@ -68,6 +80,7 @@ class listarInformeIO(ListView):
             #print(Historial_IO.id_trabajadores, "---")
     print(dica)
     print(trabajador2)
+"""
 
 
 def registrarJornada(request):
@@ -89,14 +102,14 @@ def registrarJornada(request):
 class registrarJornadaModal(CreateView):
     model = Historial_IO
     form_class = Historial_IOForms
-    
+
     def get(self, request, *args, **kwargs):
         print(request)
         codigo = request.GET.get('CodigoBarras', '')
         print(codigo)
         return HttpResponse(request)
         #codigo = request.GET.get('CodigoBarras', '')
-    
+
     def get_context_data(self, **kwargs):
         context = super(registrarJornadaModal, self).get_context_data(**kwargs)
         context['trabajador'] = Trabajadores.objects.all().first()
@@ -171,7 +184,6 @@ def buscar(request):
                 'trabajadores': trabajadores,
                 'query': q,
             }
-
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.save()
@@ -180,4 +192,3 @@ def buscar(request):
             return render(request, 'registrarJornada/registrarJornada.html',context)
 
     return render(request, 'registrarJornada/registrarJornada.html', {'errors': errors})
-
