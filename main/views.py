@@ -1,9 +1,12 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 from django.shortcuts import redirect
 from datetime import datetime, date, time, timedelta
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+
 
 from main.forms import *
 from main.models import *
@@ -79,18 +82,34 @@ def registrarJornada(request):
     codigo = request.GET.get('CodigoBarras', '')
     if codigo:
         return render(request,'Trabajadores/detalle_trabajador.html')
-    print(codigo)
+    print('Codigo',codigo)
     return render(request, 'registrarJornada/registrarJornada.html')
 
 """
 class registrarJornadaModal(CreateView):
-    model = Trabajadores
+    model = Historial_IO
     form_class = Historial_IOForms
+    
+    def get(self, request, *args, **kwargs):
+        print(request)
+        codigo = request.GET.get('CodigoBarras', '')
+        print(codigo)
+        return HttpResponse(request)
+        #codigo = request.GET.get('CodigoBarras', '')
+    
+    def get_context_data(self, **kwargs):
+        context = super(registrarJornadaModal, self).get_context_data(**kwargs)
+        context['trabajador'] = Trabajadores.objects.all().first()
+        print(context)
+        return context
     template_name =  'registrarJornada/registrarJornadaModal.html'
 """
 
+
 def registrarJornadaModal(request):
     trabajador = Trabajadores.objects.all().first()
+    codigo = request.POST.get('CodigoBarras', '')
+    print("valor:",codigo)
     form=Historial_IOForms(request.POST or None,initial={"id_trabajadores": trabajador})
     #form.data.get('id_trabajador',trabajador)
 
@@ -114,3 +133,51 @@ def detail(request, CodigoBarras):
     except Trabajadores.DoesNotExist:
         raise Http404("Poll does not exist")
     return render(request, 'Trabajadores/detalle_trabajador.html', {'poll': p})
+
+
+def buscar(request):
+    errors = []
+    id=-1
+    if 'CodigoBarras' in request.GET:
+        q = request.GET['CodigoBarras']
+        #print(q)
+        if not q:
+            errors.append('Por favor introduce un termino de busqueda.')
+        else:
+            trabajadores = Trabajadores.objects.filter(CodigoBarras=q)
+            #modelo=Historial_IO.objects.all()
+           #print(trabajadores.values()[0])
+            if trabajadores.count() > 0:
+                id = trabajadores.get().id
+                #print(id)
+            a = {}
+            b= []
+            cont=0
+            for x in Trabajadores.objects.all():
+                for i in Historial_IO.objects.all():
+                    if x.cedula == i.id_trabajadores.cedula:
+                        a['nombre'] = i.id_trabajadores.nombres
+                        a[i.accion_jornada] = i.hora.ctime()
+                        cont=cont+1
+                b.append(a)
+                a={}
+            print(b)
+            print(cont)
+            form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id})
+            # form.data.get('id_trabajador',trabajador)
+
+            context = {
+                'form': form,
+                'trabajadores': trabajadores,
+                'query': q,
+            }
+
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.save()
+                return redirect('registrarJornada')
+                # print(form)
+            return render(request, 'registrarJornada/registrarJornada.html',context)
+
+    return render(request, 'registrarJornada/registrarJornada.html', {'errors': errors})
+

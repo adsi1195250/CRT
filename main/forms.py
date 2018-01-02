@@ -52,6 +52,7 @@ class trabajadoresForms(forms.ModelForm):
         self.helper.layout = Layout(
             'nombres',
             'cedula',
+
             Div(
                 Div('fechaIngreso', css_class='col-md-6', ),
                 Div('fechaNacimiento', css_class='col-md-6', ),
