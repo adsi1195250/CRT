@@ -1,41 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 
-<!--<script type="text/javascript">
-function validar(e) {
+{% if trabajadores %}
 
-    tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla==8) return true; //Tecla de retroceso (para poder borrar)
-    if (tecla==44) return true; //Coma ( En este caso para diferenciar los decimales )
-    if (tecla==48) return true;
-    if (tecla==49) return true;
-    if (tecla==50) return true;
-    if (tecla==51) return true;
-    if (tecla==52) return true;
-    if (tecla==53) return true;
-    if (tecla==54) return true;
-    if (tecla==55) return true;
-    if (tecla==56) return true;
-    if (tecla==57) return true;
-    if (tecla==58) return true;
-    if (tecla==60) return true;
-
-    patron = /1/; //ver nota
-    te = String.fromCharCode(tecla);
-    return patron.test(te);
-}
-</script>
--->
-
-
-
-        <form action="." method="GET">
+	<p>Trabajadores: {{trabajadores|length }} trabajador{{trabajadores|pluralize }}.</p>
+	<ul>
+		{% for trabajador in trabajadores %}
+			<li>{{ trabajador.nombres }}</li>
+		{% endfor %}
+     <form role="form" action=" " method="post">{% csrf_token %}
+         {{ form }}
+         <input type="submit" class="btn btn-primary" name="submit" value="Guardar">
+     </form>
+	</ul>
+{% else %}
+	<p>Ningun trabajador  con el criterio de busqueda.</p>
+{% endif %}
+<div class="form-group2">
+  <label class="custom-file" >
+        <form action="." method="GET" >
             {% csrf_token %}
-            <input name="CodigoBarras" id="CodigoBarras"  placeholder="Ingrese el codigo de barras"/>
-
-            <a type="submit" onclick="return abrir_modal('{% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Crear</a>
-            <input type="submit" value="Search" onclick="return '{% url 'detail' %}'">
+            <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+            <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
+            <input type="submit" value="Cargar" class="btn btn-secondary"/>
         </form>
+
+    </label>
+  </div>
+    <!--
+    <div class="form">
+      <input name="CodigoBarras" id="" value="354" placeholder="Ingrese el codigo de barras"/>
+      <a onclick="return abrir_modal('{s% url 'codigo_barras' %}')" class="btn btn-secondary ">Crear</a>
+    </div>
+    -->
 
 
 <div id="popup" class="modal fade" role="dialog">

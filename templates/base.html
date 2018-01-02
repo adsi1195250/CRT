@@ -10,6 +10,7 @@
   <!-- Navigation-->
   {%include 'base/navbar.html'%}
 
+
 {%block content%}
     {% include 'base/container.html' %}
 {%endblock%}
@@ -19,9 +20,6 @@
 
     <!-- Scroll to Top Button-->
 </body>
-
-{%include 'base/footer.html'%}
-
 
 <script>
     function abrir_modal(url)
@@ -47,6 +45,15 @@ $(document).ready(function()
         }
     } );
 });
+
+/*function limpiar() {
+    document.getElementById("prueba").value = "";
+}
+Esta función podria servir
+*/
+
 </script>
+
+
 
 </html>

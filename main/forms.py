@@ -6,6 +6,7 @@ from main.models import *
 from django import forms
 from crispy_forms.helper import FormHelper
 from django.contrib.admin.widgets import AdminDateWidget
+from datetime import datetime, date, time, timedelta
 
 class trabajadoresForms(forms.ModelForm):
     class Meta:
@@ -17,7 +18,7 @@ class trabajadoresForms(forms.ModelForm):
             'fechaIngreso',
             'fechaNacimiento',
             'edad',
-            'area',
+            'administrador',
             'telefono',
             'CodigoBarras'
             #'foto',
@@ -34,7 +35,7 @@ class trabajadoresForms(forms.ModelForm):
             'fechaIngreso': 'Fecha de ingreso',
             'fechaNacimiento': 'Fecha de nacimiento',
             'edad': 'Edad',
-            'area': 'Area',
+            'administrador': 'Admin',
             'telefono': 'Telefono',
             'CodigoBarras':'Codigo de barras',
             #'foto': 'Foto',
@@ -60,7 +61,7 @@ class trabajadoresForms(forms.ModelForm):
             Div(
                 Div('edad', css_class='col-md-5', ),
                 Div('telefono', css_class='col-md-5',),
-                Div('area', css_class='col-md-2', ),
+                Div('administrador', css_class='col-md-2', ),
                 css_class='row',
             ),
             'CodigoBarras'
@@ -68,7 +69,7 @@ class trabajadoresForms(forms.ModelForm):
 
 
         )
-        """    
+        """
             for field in iter(self.fields):
             if field != 'estado':
                 self.fields[field].widget.attrs.update({
@@ -89,22 +90,38 @@ class Historial_IOForms(forms.ModelForm):
         fields=[
             'horaEntrada',
             'horaSalida',
-            'horaDesayuno',
-            'horaDescanso',
-            'horaPausasActivas',
-            'horaAlmuerzo',
+            'horaInicioDesayuno',
+            'horaFinDesayuno',
+            'horaInicioDescanso',
+            'horaFinDescanso',
+            'horaInicioPausasActivas',
+            'horaFinPausasActivas',
+            'horaInicioAlmuerzo',
+            'horaFinAlmuerzo',
             'id_trabajadores',
         ]
+        widgets = {
+            # Use localization and bootstrap 3
+            'horaEntrada': DateTimeWidget(bootstrap_version=4),
+            'horaSalida': DateTimeWidget( bootstrap_version=3),
+            'horaDescanso': DateTimeWidget(bootstrap_version=3),
+            'horaDesayuno': DateTimeWidget(bootstrap_version=3),
+            'horaPausasActivas': DateTimeWidget( bootstrap_version=3),
+            'horaAlmuerzo': DateTimeWidget(bootstrap_version=3),
+        }
         labels = {
             'horaEntrada': 'HORA DE ENTRADA',
             'horaSalida': 'HORA DE SALIDA',
-            'horaDesayuno': 'HORA DE DESAYUNO',
-            'horaDescanso': 'HORA DE DESCANSO',
-            'horaPausasActivas': 'HORA DE PAUSAS ACTIVAS',
-            'horaAlmuerzo': 'HORA DE ALMUERZO',
+            'horaInicioDesayuno': 'HORA INICIO DE DESAYUNO',
+            'horaFinDesayuno': 'HORA FIN DE DESAYUNO',
+            'horaInicioDescanso': 'HORA INICIO DE DESCANSO',
+            'horaFinDescanso': 'HORA FIN DE DESCANSO',
+            'horaInicioPausasActivas': 'HORA INICIO DE PAUSAS ACTIVAS',
+            'horaFinPausasActivas': 'HORA FIN DE PAUSAS ACTIVAS',
+            'horaInicioAlmuerzo': 'HORA INICIO DE ALMUERZO',
+            'horaFinAlmuerzoAlmuerzo': 'HORA FIN DE ALMUERZO',
         }
 """
-
 
 class Historial_IOForms(forms.ModelForm):
     class Meta:
@@ -127,13 +144,13 @@ class Historial_IOForms(forms.ModelForm):
 
         self.helper.layout = Layout(
             Div(
-                Div(InlineRadios('accion_jornada'),css_class='col-md-3'),
+                Div(InlineRadios('accion_jornada'),css_class='col-sm-12', style="background: #FAFAFA; padding: 50px;"),
+                #Div(Field('accion_jornada'),css_class='col-md-12'),
                 css_class='row',
             ),
 
             Field('id_trabajadores',type='hidden',readonly=True),
         )
-
 
 
 class PermisoAusentismoForms(forms.ModelForm):
