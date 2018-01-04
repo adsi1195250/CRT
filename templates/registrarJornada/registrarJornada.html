@@ -2,19 +2,6 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<<<<<<< HEAD
-  <div class="form-group2">
-    <label class="custom-file" >
-      <div class="form-group">
-          <form action="." method="GET" >
-              {% csrf_token %}
-              <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
-              <a type="submit" onclick="return abrir_modal('{% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>
-              <!--<input type="submit" value="Search" onclick="return '{% url 'detail' %}'">-->
-          </form>
-        </div>
-      </label>
-=======
 {% if trabajadores %}
 
 	<p>Trabajadores: {{trabajadores|length }} trabajador{{trabajadores|pluralize }}.</p>
@@ -54,12 +41,7 @@
       </div>
       -->
 
-<<<<<<< HEAD
-  <div id="popup" class="modal fade" role="dialog">
-=======
 
 <div id="popup" class="modal fade" role="dialog">
->>>>>>> bc510609620e39446c7077ce1c81f38cbc497097
-
   </div>
 {% endblock %}

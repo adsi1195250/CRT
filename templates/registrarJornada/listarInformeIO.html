@@ -11,7 +11,7 @@
               <label class="custom-file">
                 <form action="." method="GET" >
                   {% csrf_token %}
-                  <input type="password"  name="CodigoBarras" id="prueba" value="" placeholder="Ingrese la cedula del colaborador"  onkeypress="return event.keyCode!=13"/>
+                  <input type="password" name="cedula" id="prueba" value="" placeholder="Ingrese la cedula del colaborador"  onkeypress="return event.keyCode!=13"/>
                   <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
                   <input type="submit" value="Cargar" class="btn btn-primary"/>
                 </form>
@@ -23,42 +23,43 @@
     </div>
 
 
-
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-responsive table-hover table-bordered">
-          <thead>
-            <tr class="table-success">
-              <th class="text-center">Nombres</th>
-              <th class="text-center">Hora Entrada</th>
-              <th class=" text-center">Hora Desayuno</th>
-              <th class=" text-center">Hora fin Desayuno</th>
-              <th class=" text-center">hora Pausas Activas</th>
-              <th class=" text-center">Hora Fin Pausas Activas</th>
-              <th class=" text-center">Hora Salida</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for a in b %}
-              <tr class="table-light table-striped table-mine">
-                <td>{{ a.nombre }}</td>
-                <td>{{ a.EN }}</td>
-                <td>{{ a.DYI }}</td>
-                <td>{{ a.DYF }}</td>
-                <td>{{ a.PAI }}</td>
-                <td>{{ a.PAF }}</td>
-                <td>{{ a.SA }}</td>
+    {% if cedula == Historial_IO.id_trabajadores %}
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-responsive table-hover table-bordered">
+            <thead>
+              <tr class="table-success">
+                <th class="text-center">Nombres</th>
+                <th class="text-center">Hora Entrada</th>
+                <th class=" text-center">Hora Desayuno</th>
+                <th class=" text-center">Hora fin Desayuno</th>
+                <th class=" text-center">hora Pausas Activas</th>
+                <th class=" text-center">Hora Fin Pausas Activas</th>
+                <th class=" text-center">Hora Salida</th>
               </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        {% if not object_list %}
-          <div style="background-color: rgba(0,0,0,0.53); width: 100%; border-radius: 10px">
-            <h1 style="color: #fefefe"> No existen registros </h1>
-          </div>
-        {% endif %}
+            </thead>
+            <tbody>
+              {% for a in b %}
+                <tr class="table-light table-striped table-mine">
+                  <td>{{ a.nombre }}</td>
+                  <td>{{ a.EN }}</td>
+                  <td>{{ a.DYI }}</td>
+                  <td>{{ a.DYF }}</td>
+                  <td>{{ a.PAI }}</td>
+                  <td>{{ a.PAF }}</td>
+                  <td>{{ a.SA }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% if not object_list %}
+            <div style="background-color: rgba(0,0,0,0.53); width: 100%; border-radius: 10px">
+              <h1 style="color: #fefefe"> No existen registros </h1>
+            </div>
+          {% endif %}
+        </div>
       </div>
-    </div>
+    {% endif %}
     <div id="popup" class="modal fade" role="dialog">
 
     </div>
