@@ -7,13 +7,13 @@ from time import gmtime, strftime
 # Create your models here.
 class Trabajadores(models.Model):
 	id = models.AutoField(primary_key=True)
-	nombres = models.CharField(max_length=255,blank=True,null=True)
+	nombres = models.CharField(max_length=255)
 	cedula = models.CharField(max_length=11)
 	fechaIngreso = models.DateField()
 	fechaNacimiento = models.DateField()
 	edad = models.SmallIntegerField()
 	administrador = models.BooleanField()
-	telefono = models.CharField(max_length=11)
+	telefono = models.CharField(max_length=11, blank=True,null=True)
 	CodigoBarras = models.CharField(max_length=500)
 	#foto = models.ImageField()
 	def __str__(self):
@@ -75,7 +75,7 @@ class Historial_IO(models.Model):
 		choices=ELECCIONES,
 		default=ENTRADA,
 	)
-	hora = models.DateTimeField(auto_now_add=True)
+	hora = models.DateField(auto_now_add=True)
 	id_trabajadores = models.ForeignKey(Trabajadores,on_delete=models.CASCADE)
 	def __str__(self):
 		return '%s'%self.idHistorial
