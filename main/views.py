@@ -70,7 +70,7 @@ class listarInformeIO(ListView):
         else:
             pass
             #print("YESaaaaaaaaaaaaaa")
-        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = 'asdasd')
+        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = '')
         #filtro = Historial_IO.objects.filter(hora = hoy)
         #filtro = Historial_IO.objects.filter(hora__month = mes)
         #filtro = Historial_IO.objects.filter(hora__year = año)

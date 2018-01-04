@@ -718,7 +718,6 @@ pre code {
       flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
-
 }
 
 .no-gutters {
@@ -2209,8 +2208,8 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 .footer-center{
   position:fixed;
-left:x;
-top:y;
+  left:x;
+  top:y;
 }
 
 footer{

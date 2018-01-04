@@ -2,7 +2,6 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-
 {% if trabajadores %}
 	<ul></ul>
 	<ul>
@@ -51,24 +50,20 @@
             <div class="row">
                <form role="form" action=" " method="post">{% csrf_token %}
                     {% crispy form %}
-
                 </form>
             </div>
-        </div>
-    <!--
-     <input type="submit" class="btn btn-primary" name="submit" value="Guardar">-->
-	</ul>
+
 {% else %}
 	<p>Ningun trabajador  con el criterio de busqueda.</p>
     <div class="form-group2">
-      <label class="custom-file" >
-            <form action="." method="get" >
+        <label class="custom-file" >
+            <form action="." method="GET" >
                 {% csrf_token %}
-                <input type="password"  name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+                <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
                 <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
-                <input type="submit"  value="Cargar" class="btn btn-secondary"/>
+                <input type="submit" value="Cargar" class="btn btn-secondary"/>
             </form>
-      </label>
+        </label>
     </div>
 {% endif %}
 
@@ -87,27 +82,5 @@
 
 
 <div id="popup" class="modal fade" role="dialog">
-
-
-</div>
-
-    <script>
-(function () {
-    function checkTime(i) {
-        return (i < 10) ? "0" + i : i;
-    }
-
-    function startTime() {
-        var today = new Date(),
-            h = checkTime(today.getHours()),
-            m = checkTime(today.getMinutes()),
-            s = checkTime(today.getSeconds());
-        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-        t = setTimeout(function () {
-            startTime()
-        }, 500);
-    }
-    startTime();
-})();
-</script>
+  </div>
 {% endblock %}
