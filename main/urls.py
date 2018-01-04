@@ -10,9 +10,10 @@ urlpatterns = [
     url(r'^eliminar_trabajador/(?P<pk>.+)/$',EliminarTrabajador.as_view(), name="eliminar_trabajador"),
     url(r'^registrarJornada/$',buscar, name="registrarJornada"),
     #url(r'^registrarJornadaModal/$',registrarJornadaModal.as_view(), name="registrarJornadaModal"),
-    url(r'^registrarJornadaModal/$',registrarJornadaModal, name="registrarJornadaModal"),
+    url(r'^registrarJornadaModal/$',buscar, name="registrarJornadaModal"),
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras, name='codigo_barras'),
     url(r'^codigo_barras/$', detail, name='detail'),
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras.as_view(), name='codigo_barras'),
+    url(r'^listarInformeIO/$', listarInformeIO.as_view(), name="listado_informe"),
 
 ]

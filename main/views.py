@@ -22,6 +22,16 @@ class ListarTrabajador(ListView):
     template_name = 'Trabajadores/trabajadores.html'
     context_object_name = 'trabajador'
 
+    """
+    def get_context_data(self, **kwargs):
+        # Llamamos ala implementacion primero del  context
+        context = super(ListarTrabajador, self).get_context_data(**kwargs)
+        # Agregamos el publisher
+        epa = 'Fucionaaaaaaaaa'
+        context['epa'] = epa
+        print(context)
+        return context
+    """
 class CrearTrabajador(CreateView):
     model = Trabajadores
     template_name = 'Trabajadores/trabajador_modal.html'
@@ -43,6 +53,58 @@ class EliminarTrabajador(DeleteView):
     template_name = 'Trabajadores/trabajador_eliminar.html'
     success_url = reverse_lazy('listado_trabajadores')
 
+
+class listarInformeIO(ListView):
+    model = Historial_IO
+    template_name = 'registrarJornada/listarInformeIO.html'
+
+    def get_context_data(self, **kwargs):
+        # Llamamos ala implementacion primero del  context
+        context = super(listarInformeIO, self).get_context_data(**kwargs)
+        # Agregamos el publisher
+
+        a = {}
+        b = []
+        cont = 0
+        for x in Trabajadores.objects.all():
+            for i in Historial_IO.objects.all():
+                if x.cedula == i.id_trabajadores.cedula:
+                    a['nombre'] = i.id_trabajadores.nombres
+                    a[i.accion_jornada] = i.hora.ctime()
+                    cont = cont + 1
+            b.append(a)
+            a = {}
+        context['informe'] = b
+        #print(context)
+        return context
+"""
+    model = Historial_IO
+    template_name = 'registrarJornada/listarInformeIO.html'
+    trabajador = Trabajadores.objects.all()
+    boolean = False
+    #dica = ['nombre', 'horaEnt', 'horaAlm', 'horaSal']
+    dica = []
+    trabajador2 = []
+    for i in trabajador:
+        for Historial_IO in model.objects.all():
+            if i == Historial_IO.id_trabajadores:
+                boolean = True
+                dic = {'nombres':i.nombres ,'accion' : Historial_IO.accion_jornada, 'hora' : Historial_IO.hora}
+                dica.append(Historial_IO.accion_jornada)
+            else:
+                trabajador2 = i
+
+
+        #dic = { Historial_IO.id_trabajadores : Historial_IO.accion_jornada }
+
+
+            #print(trabajadores.nombres)
+            #print(Historial_IO.id_trabajadores, "---")
+    print(dica)
+    print(trabajador2)
+"""
+
+
 def registrarJornada(request):
 
     #all_trab = Trabajadores.objects.all()
@@ -62,14 +124,14 @@ def registrarJornada(request):
 class registrarJornadaModal(CreateView):
     model = Historial_IO
     form_class = Historial_IOForms
-    
+
     def get(self, request, *args, **kwargs):
         print(request)
         codigo = request.GET.get('CodigoBarras', '')
         print(codigo)
         return HttpResponse(request)
         #codigo = request.GET.get('CodigoBarras', '')
-    
+
     def get_context_data(self, **kwargs):
         context = super(registrarJornadaModal, self).get_context_data(**kwargs)
         context['trabajador'] = Trabajadores.objects.all().first()
@@ -113,7 +175,7 @@ def buscar(request):
     id=-1
     if 'CodigoBarras' in request.GET:
         q = request.GET['CodigoBarras']
-        #print(q)
+        print(q)
         if not q:
             errors.append('Por favor introduce un termino de busqueda.')
         else:
@@ -134,20 +196,20 @@ def buscar(request):
                         cont=cont+1
                 b.append(a)
                 a={}
-            print(b)
-            print(cont)
+            #print(b)
+            #print(cont)
             form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id})
             # form.data.get('id_trabajador',trabajador)
             cp = request.GET.copy()
-            cp.pop('CodigoBarras')
-            params = urllib.urlencode(cp)
-            print(params)
+            #cp.pop('CodigoBarras')
+            print(cp)
+            #params = urllib.urlencode(cp)
+            #print(params)
             context = {
                 'form': form,
                 'trabajadores': trabajadores,
                 'query': q,
             }
-
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.save()
@@ -156,4 +218,3 @@ def buscar(request):
             return render(request, 'registrarJornada/registrarJornada.html',context)
 
     return render(request, 'registrarJornada/registrarJornada.html', {'errors': errors})
-

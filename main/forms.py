@@ -1,5 +1,5 @@
 from crispy_forms.bootstrap import StrictButton, FormActions, InlineRadios, InlineField
-from crispy_forms.layout import Layout, Div, Submit, Button, Field
+from crispy_forms.layout import Layout, Div, Submit, Button, Field, ButtonHolder, HTML
 from datetimewidget.widgets import DateTimeWidget, DateWidget
 
 from main.models import *
@@ -65,6 +65,7 @@ class trabajadoresForms(forms.ModelForm):
                 css_class='row',
             ),
             'CodigoBarras'
+
             #'foto',
 
 
@@ -138,19 +139,48 @@ class Historial_IOForms(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(Historial_IOForms, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_class = 'form-inline'
-        #self.helper.field_template = 'bootstrap3/layout/inline_field.html'
-        #self.helper.form_class = 'form-horizontal'
-
+        #self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Div(
-                Div(InlineRadios('accion_jornada'),css_class='col-sm-12', style="background: #FAFAFA; padding: 50px;"),
+                #Div(InlineRadios('accion_jornada'), style="padding-left: 50px;border-radius:50px;"),css_class='col-sm-5'),
                 #Div(Field('accion_jornada'),css_class='col-md-12'),
-                css_class='row',
+                HTML('<div class="row" style="padding-left:5%"> '
+                        '<div style="padding-left: 0px"></div>'
+                        '{% for x,y in form.fields.accion_jornada.choices %}'
+                            '{% if y == "Inicio Pausas Activas" or y == "Fin Pausas Activas" %}'
+                                '<div class="col-sm-3" style="">'
+                                '<label class="radio-inline">'
+                                    '<input type="radio" name="accion_jornada" value="{{ x }}"> {{ y }}'
+                                '</label>'
+                            '{% else %}'
+                                '{% if y == "Entrada" %}'
+                                    '<div class="col-sm-2" style="">'
+                                    '<label class="radio-inline">'
+                                        '<input type="radio" name="accion_jornada" value="{{ x }}" checked="checked"> {{ y }}'
+                                    '</label>'
+                                '{% else %}'
+                                    '<div class="col-sm-2" style="">'
+                                    '<label class="radio-inline">'
+                                        '<input type="radio" name="accion_jornada" value="{{ x }}"> {{ y }}'
+                                    '</label>'
+                                '{% endif %}'
+                            '{% endif %}'
+                            '</div>'
+                        '{% endfor %}'
+                     '</div>'),),
+            Div(
+                FormActions(
+                    Submit('save', 'Guardar',css_class='btn-default'),
+                    HTML('<a type="button" class="btn btn-danger" href="{% url "registrarJornada" %}" >Cancelar</a>'),
+                ),
+                style='text-align:center;padding-right:1%;padding-top:1%'
             ),
-
-            Field('id_trabajadores',type='hidden',readonly=True),
+            Field('id_trabajadores', type='hidden', readonly=True),
         )
+
+
 
 
 class PermisoAusentismoForms(forms.ModelForm):

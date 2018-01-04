@@ -60,15 +60,15 @@ class Historial_IO(models.Model):
 	ALMUERZO_FIN = 'ALF'
 	ELECCIONES = (
 		(ENTRADA, 'Entrada'),
-		(SALIDA, 'Salida'),
 		(DESAYUNO_INICIO, 'Inicio Desayuno'),
-		(DESAYUNO_FIN, 'Fin Desayuno'),
-		(DESCANSO_INICIO, 'Inicio Descanso'),
-		(DESCANSO_FIN, 'Fin Descanso'),
-		(PAUSAS_ACTIVAS_INICIO, 'Inicio Pausas Activas'),
-		(PAUSAS_ACTIVAS_FIN, 'Fin Pausas Activas'),
 		(ALMUERZO_INICIO, 'Inicio Almuerzo'),
+		(PAUSAS_ACTIVAS_INICIO, 'Inicio Pausas Activas'),
+		(DESCANSO_INICIO, 'Inicio Descanso'),
+		(SALIDA, 'Salida'),
+		(DESAYUNO_FIN, 'Fin Desayuno'),
 		(ALMUERZO_FIN, 'Fin Almuerzo'),
+		(PAUSAS_ACTIVAS_FIN, 'Fin Pausas Activas'),
+		(DESCANSO_FIN, 'Fin Descanso'),
 	)
 	accion_jornada = models.CharField(
 		max_length=3,
