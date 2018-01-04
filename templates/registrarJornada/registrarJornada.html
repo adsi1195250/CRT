@@ -2,80 +2,32 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<<<<<<< HEAD
 {% if trabajadores %}
-=======
->>>>>>> 48e4495f12c5b45ef8ace28805be21f1cdbda85d
 
-{% if trabajadores %}
-	<ul></ul>
+	<p>Trabajadores: {{trabajadores|length }} trabajador{{trabajadores|pluralize }}.</p>
 	<ul>
-      <div style="padding-top: 5%"> </div>
-        <div class="container" style="background-color: #fefefe;border-radius: 10px;">
-            <div class="row" style="background-color:rgba(74,255,202,0.71);border-top-right-radius: 10px;border-top-left-radius: 10px">
-                <div class="col-md-11">
-                    <h3 class="" style="padding-left: 10%"><strong>Registrar Jornada</strong></h3>
-                </div>
-            </div>
-            <div class="row" style="background-color:#4eac92">
-                <div class="col-md-6">
-                    <h3 style="color: #fefefe"  class="text-md-center"> <strong>Colaborador:</strong> </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3 style="color: #fefefe" class="text-md-center">{{ trabajadores.first }}</h3>
-                </div>
-            </div>
-             <div class="row" style="background-color:#4eac92">
-                <div class="col-md-6">
-                    <h3 style="color: #fefefe" class="text-md-center"><strong> Hora de registro: </strong></h3>
-                </div>
-                <div class="col-md-6">
-                    <h3 style="color: #fefefe" class="text-md-center" id="time"></h3>
-                </div>
-            </div>
-
-            <div class="row" style="background-color:#55b281">
-                <div class="col-sm-2">
-                    <h4 >Entrada</h4>
-                </div>
-                <div class="col-sm-2">
-                    <h4 >Desayuno</h4>
-                </div>
-                <div class="col-sm-2">
-                    <h4 >Almuerzo</h4>
-                </div>
-                <div class="col-sm-3">
-                    <h4 >Pausas activas</h4>
-                </div>
-                <div class="col-sm-2">
-                    <h4 >Descanso</h4>
-                </div>
-            </div>
-            <div style="height: 10px"></div>
-            <div class="row">
-               <form role="form" action=" " method="post">{% csrf_token %}
-                    {% crispy form %}
-
-                </form>
-            </div>
-        </div>
-    <!--
-     <input type="submit" class="btn btn-primary" name="submit" value="Guardar">-->
+		{% for trabajador in trabajadores %}
+			<li>{{ trabajador.nombres }}</li>
+		{% endfor %}
+     <form role="form" action=" " method="post">{% csrf_token %}
+         {{ form }}
+         <input type="submit" class="btn btn-primary" name="submit" value="Guardar">
+     </form>
 	</ul>
 {% else %}
 	<p>Ningun trabajador  con el criterio de busqueda.</p>
-    <div class="form-group2">
-      <label class="custom-file" >
-            <form action="." method="get" >
-                {% csrf_token %}
-                <input type="password"  name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
-                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
-                <input type="submit"  value="Cargar" class="btn btn-secondary"/>
-            </form>
-      </label>
-    </div>
 {% endif %}
+<div class="form-group2">
+  <label class="custom-file" >
+        <form action="." method="GET" >
+            {% csrf_token %}
+            <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+            <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
+            <input type="submit" value="Cargar" class="btn btn-secondary"/>
+        </form>
 
+    </label>
+  </div>
     <!--
     <div class="form">
       <input name="CodigoBarras" id="" value="354" placeholder="Ingrese el codigo de barras"/>
@@ -91,31 +43,5 @@
 
 
 <div id="popup" class="modal fade" role="dialog">
-<<<<<<< HEAD
   </div>
-=======
-
-
-</div>
-
-    <script>
-(function () {
-    function checkTime(i) {
-        return (i < 10) ? "0" + i : i;
-    }
-
-    function startTime() {
-        var today = new Date(),
-            h = checkTime(today.getHours()),
-            m = checkTime(today.getMinutes()),
-            s = checkTime(today.getSeconds());
-        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-        t = setTimeout(function () {
-            startTime()
-        }, 500);
-    }
-    startTime();
-})();
-</script>
->>>>>>> 48e4495f12c5b45ef8ace28805be21f1cdbda85d
 {% endblock %}

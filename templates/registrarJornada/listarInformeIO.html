@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
+  <div class="container" id="filaa">
+    <div class="row" >
       <div class="col-lg-12">
         <div style="padding-top: 30px"></div>
-        <div style="background-color: rgba(0,0,0,0.53); width: 100%; height: 55px; border-radius: 10px">
+        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 55px; border-radius: 10px;">
           <h1 style="color: #abebc6; text-align:left; padding-left:20px;"><strong>Informe De Jornada</strong></h1>
             <div class="formaa">
               <label class="custom-file">
@@ -19,10 +19,8 @@
             </div>
         </form>
         </div>
-<<<<<<< HEAD
       </div>
     </div>
-
 
     {% if cedula == Historial_IO.id_trabajadores %}
       <div class="row">
@@ -37,34 +35,9 @@
                 <th class=" text-center">hora Pausas Activas</th>
                 <th class=" text-center">Hora Fin Pausas Activas</th>
                 <th class=" text-center">Hora Salida</th>
-=======
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-responsive table-hover table-bordered">
-          <thead>
-            <tr class="table-success">
-              <th class="text-center">Nombres</th>
-              <th class="text-center">Hora Entrada</th>
-              <th class=" text-center">Hora Desayuno</th>
-              <th class=" text-center">Hora fin Desayuno</th>
-              <th class=" text-center">hora Pausas Activas</th>
-              <th class=" text-center">Hora Fin Pausas Activas</th>
-              <th class=" text-center">Hora Salida</th>
+
             </tr>
           </thead>
-          <tbody>
-            {% for a in b %}
-              <tr class="table-light table-striped table-mine">
-                <td>{{ a.nombre }}</td>
-                <td>{{ a.EN }}</td>
-                <td>{{ a.DYI }}</td>
-                <td>{{ a.DYF }}</td>
-                <td>{{ a.PAI }}</td>
-                <td>{{ a.PAF }}</td>
-                <td>{{ a.SA }}</td>
->>>>>>> 48e4495f12c5b45ef8ace28805be21f1cdbda85d
-              </tr>
-            </thead>
             <tbody>
               {% for a in b %}
                 <tr class="table-light table-striped table-mine">
