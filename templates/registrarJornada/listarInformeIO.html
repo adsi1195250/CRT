@@ -19,6 +19,7 @@
             </div>
         </form>
         </div>
+<<<<<<< HEAD
       </div>
     </div>
 
@@ -36,6 +37,32 @@
                 <th class=" text-center">hora Pausas Activas</th>
                 <th class=" text-center">Hora Fin Pausas Activas</th>
                 <th class=" text-center">Hora Salida</th>
+=======
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-responsive table-hover table-bordered">
+          <thead>
+            <tr class="table-success">
+              <th class="text-center">Nombres</th>
+              <th class="text-center">Hora Entrada</th>
+              <th class=" text-center">Hora Desayuno</th>
+              <th class=" text-center">Hora fin Desayuno</th>
+              <th class=" text-center">hora Pausas Activas</th>
+              <th class=" text-center">Hora Fin Pausas Activas</th>
+              <th class=" text-center">Hora Salida</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in b %}
+              <tr class="table-light table-striped table-mine">
+                <td>{{ a.nombre }}</td>
+                <td>{{ a.EN }}</td>
+                <td>{{ a.DYI }}</td>
+                <td>{{ a.DYF }}</td>
+                <td>{{ a.PAI }}</td>
+                <td>{{ a.PAF }}</td>
+                <td>{{ a.SA }}</td>
+>>>>>>> 48e4495f12c5b45ef8ace28805be21f1cdbda85d
               </tr>
             </thead>
             <tbody>

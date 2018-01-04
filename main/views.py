@@ -1,3 +1,5 @@
+import urllib
+
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -20,6 +22,16 @@ class ListarTrabajador(ListView):
     template_name = 'Trabajadores/trabajadores.html'
     context_object_name = 'trabajador'
 
+    """
+    def get_context_data(self, **kwargs):
+        # Llamamos ala implementacion primero del  context
+        context = super(ListarTrabajador, self).get_context_data(**kwargs)
+        # Agregamos el publisher
+        epa = 'Fucionaaaaaaaaa'
+        context['epa'] = epa
+        print(context)
+        return context
+    """
 class CrearTrabajador(CreateView):
     model = Trabajadores
     template_name = 'Trabajadores/trabajador_modal.html'
@@ -185,7 +197,7 @@ def buscar(request):
     id=-1
     if 'CodigoBarras' in request.GET:
         q = request.GET['CodigoBarras']
-        #print(q)
+        print(q)
         if not q:
             errors.append('Por favor introduce un termino de busqueda.')
         else:
@@ -206,11 +218,15 @@ def buscar(request):
                         cont=cont+1
                 b.append(a)
                 a={}
-            print(b)
-            print(cont)
+            #print(b)
+            #print(cont)
             form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id})
             # form.data.get('id_trabajador',trabajador)
-
+            cp = request.GET.copy()
+            #cp.pop('CodigoBarras')
+            print(cp)
+            #params = urllib.urlencode(cp)
+            #print(params)
             context = {
                 'form': form,
                 'trabajadores': trabajadores,
