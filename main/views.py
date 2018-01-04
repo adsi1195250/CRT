@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 from django.shortcuts import redirect
-from datetime import datetime, date, time, timedelta
+from datetime import *
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 
@@ -57,26 +57,48 @@ class EliminarTrabajador(DeleteView):
 class listarInformeIO(ListView):
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
-
     def get_context_data(self, **kwargs):
-        # Llamamos ala implementacion primero del  context
-        context = super(listarInformeIO, self).get_context_data(**kwargs)
-        # Agregamos el publisher
-
+        context = super(listarInformeIO,self).get_context_data(**kwargs)
+        hoy = str(date.today())
+        mes = str(date.today().month)
+        año = str(date.today().year)
+        aa = '2018-01-03'
+        #print("HOYYYYYYYY",hoy)
+        if hoy == aa:
+            pass
+            #print("LO pase a string")
+        else:
+            pass
+            #print("YESaaaaaaaaaaaaaa")
+        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = 'asdasd')
+        #filtro = Historial_IO.objects.filter(hora = hoy)
+        #filtro = Historial_IO.objects.filter(hora__month = mes)
+        #filtro = Historial_IO.objects.filter(hora__year = año)
+        nb = Historial_IO.objects.all()
+        kk = []
+        for i in Historial_IO.objects.all():
+            ia = i.id_trabajadores
+            kk.append(i.id_trabajadores)
+        print(filtro)
+        for i in nb:
+            datee = i.hora
+            #print (datee)
+            #print ("  ----  ")
+        #print("Hora ",nb)
         a = {}
-        b = []
-        cont = 0
+        self.b= []
         for x in Trabajadores.objects.all():
-            for i in Historial_IO.objects.all():
+            for i in filtro:
                 if x.cedula == i.id_trabajadores.cedula:
                     a['nombre'] = i.id_trabajadores.nombres
-                    a[i.accion_jornada] = i.hora.ctime()
-                    cont = cont + 1
-            b.append(a)
-            a = {}
-        context['informe'] = b
-        #print(context)
+                    a[i.accion_jornada] = i.hora
+            self.b.append(a)
+            a={}
+        #print(self.b)
+        context['b'] = self.b
         return context
+
+
 """
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
