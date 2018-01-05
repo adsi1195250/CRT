@@ -1,6 +1,7 @@
 from crispy_forms.bootstrap import StrictButton, FormActions, InlineRadios, InlineField
 from crispy_forms.layout import Layout, Div, Submit, Button, Field, ButtonHolder, HTML
 from datetimewidget.widgets import DateTimeWidget, DateWidget
+from django.core.exceptions import ValidationError
 
 from main.models import *
 from django import forms
@@ -136,6 +137,8 @@ class Historial_IOForms(forms.ModelForm):
         }
         disabled_widget = forms.MultipleHiddenInput(attrs={'disabled': True})
 
+
+
     def __init__(self, *args, **kwargs):
         super(Historial_IOForms, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -162,7 +165,7 @@ class Historial_IOForms(forms.ModelForm):
                                     '</label>'
                                 '{% else %}'
                                     '<div class="col-sm-2" style="">'
-                                    '<label class="radio-inline">'
+                                    '<label class="radio-inline ">'
                                         '<input type="radio" name="accion_jornada" value="{{ x }}"> {{ y }}'
                                     '</label>'
                                 '{% endif %}'
@@ -180,6 +183,26 @@ class Historial_IOForms(forms.ModelForm):
             Field('id_trabajadores', type='hidden', readonly=True),
         )
 
+    def clean_id_trabajadores(self):
+        id_trabajadores=self.cleaned_data['id_trabajadores']
+        #print(id_trabajadores)
+        return id_trabajadores
+
+    def clean_accion_jornada(self):
+        accion_jornada=self.cleaned_data['accion_jornada']
+        return accion_jornada
+
+    def clean(self):
+        cleaned_data = super().clean()
+        accion_jornada = cleaned_data.get("accion_jornada")
+        id_trabajadores = cleaned_data.get("id_trabajadores")
+
+            # Only do something if both fields are valid so far.
+        print(accion_jornada)
+        print(id_trabajadores)
+        datos = Historial_IO.objects.filter(hora__exact=date.today(), accion_jornada__iexact=accion_jornada,id_trabajadores__nombres__exact=id_trabajadores)
+        if datos.count() > 0:
+            raise ValidationError('La acción ya se encuentra registrada en este día.')
 
 
 
