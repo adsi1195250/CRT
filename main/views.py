@@ -257,7 +257,9 @@ def buscar(request):
             form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id})
             # form.data.get('id_trabajador',trabajador)
             cp = request.GET.copy()
-            #cp.pop('CodigoBarras')
+            cp.pop('cb')
+            print(request.GET)
+            
             #print(cp)
 
             #params = urllib.urlencode(cp)

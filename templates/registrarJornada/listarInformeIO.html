@@ -28,7 +28,7 @@
           <table class="table table-responsive table-hover table-bordered">
             <thead>
               <tr class="table-success">
-                <th class="text-center">Nombres</th>
+
                 <th class="text-center">Hora Entrada</th>
                 <th class=" text-center">Hora Desayuno</th>
                 <th class=" text-center">Hora fin Desayuno</th>
@@ -40,7 +40,6 @@
             <tbody>
               {% for a in object_list %}
                 <tr class="table-light table-striped table-mine">
-                  <td>{{ a.nombres }}</td>
                   <td>{{ a.EN }}</td>
                   <td>{{ a.DYI }}</td>
                   <td>{{ a.DYF }}</td>
