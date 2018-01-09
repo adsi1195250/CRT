@@ -22,7 +22,7 @@ class Historial_IOAdmin(admin.ModelAdmin):
 """
 
 class Historial_IOAdmin(admin.ModelAdmin):
-	list_display=["__str__","idHistorial","accion_jornada","hora","id_trabajadores"]
+	list_display=["__str__","idHistorial","accion_jornada","fecha" ,"hora","id_trabajadores"]
 
 
 class PermisoAusentismoAdmin(admin.ModelAdmin):

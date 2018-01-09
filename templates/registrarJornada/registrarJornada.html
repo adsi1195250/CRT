@@ -56,14 +56,14 @@
 {% else %}
 	<p>Ningun trabajador  con el criterio de busqueda.</p>
     <div class="form-group2">
-        <label class="custom-file" >
-            <form action="." method="GET" >
-                {% csrf_token %}
-                <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
-                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
-                <input type="submit" value="Cargar" class="btn btn-secondary"/>
-            </form>
-        </label>
+      <label class="custom-file" >
+        <form action="." method="GET" >
+          {% csrf_token %}
+          <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+          <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
+          <input type="submit" value="Cargar" class="btn btn-secondary"/>
+        </form>
+      </label>
     </div>
 {% endif %}
 

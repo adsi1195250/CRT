@@ -131,6 +131,7 @@ class Historial_IOForms(forms.ModelForm):
 
         labels = {
             'accion_jornada':'Seleccione la acción',
+            'fecha': 'Fecha',
             'hora': 'Hora',
             'id_trabajadores': 'Trabajador',
         }

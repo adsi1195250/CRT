@@ -57,8 +57,53 @@ class EliminarTrabajador(DeleteView):
 class listarInformeIO(ListView):
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
+    def get_queryset(self):
+        q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
+        hoy = str(date.today().day)
+        #filtro = Historial_IO.objects.filter(hora = hoy)
+        #for f in q:
+        #    fq = f.hora
+        #    print(fq)
+        a = {}
+        j = {}
+        ocho = {}
+        nueve = {}
+        self.b= []
+        self.z= []
+        for i in q:
+            fq = i.fecha.day
+            a['nombre'] = i.id_trabajadores.nombres
+            if fq == 4:
+                a[i.accion_jornada] = i.fecha
+            elif fq==5:
+                j[i.accion_jornada] = i.fecha
+            elif fq==8:
+                ocho[i.accion_jornada] = i.fecha
+                ocho[i.accion_jornada_hora] = i.hora
+            elif fq==9:
+                nueve[i.accion_jornada] = i.fecha
+                nueve[i.accion_jornada_hora] = i.hora
+            #print("Here",fq)
+            #if fq == 5:
+            #   j[i.accion_jornada] = i.hora
+
+        #print("None",i)
+        self.b.append(a)
+        self.b.append(j)
+        self.b.append(ocho)
+        self.b.append(nueve)
+        # a.update(j)  //Combinar dos  diccionarios
+        #print(self.z)
+        #self.b.append(a)
+        #print(self.b)
+        # print(m)
+        #print(self.b)
+        a={}
+        j={}
+        return self.b
+
+    """
     def get_context_data(self, **kwargs):
-        context = super(listarInformeIO,self).get_context_data(**kwargs)
         hoy = str(date.today())
         mes = str(date.today().month)
         año = str(date.today().year)
@@ -69,8 +114,13 @@ class listarInformeIO(ListView):
             #print("LO pase a string")
         else:
             pass
-            #print("YESaaaaaaaaaaaaaa")
-        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = '')
+        q = 0
+        context = {
+            'context': super(listarInformeIO,self).get_context_data(**kwargs),
+            'q': self.request.GET.get('cedula', ''),
+        }
+        #print("YESaaaaaaaaaaaaaa", context)
+        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = q)
         #filtro = Historial_IO.objects.filter(hora = hoy)
         #filtro = Historial_IO.objects.filter(hora__month = mes)
         #filtro = Historial_IO.objects.filter(hora__year = año)
@@ -79,7 +129,7 @@ class listarInformeIO(ListView):
         for i in Historial_IO.objects.all():
             ia = i.id_trabajadores
             kk.append(i.id_trabajadores)
-        print(filtro)
+        print(context)
         for i in nb:
             datee = i.hora
             #print (datee)
@@ -94,10 +144,54 @@ class listarInformeIO(ListView):
                     a[i.accion_jornada] = i.hora
             self.b.append(a)
             a={}
-        #print(self.b)
+        print(context)
         context['b'] = self.b
         return context
+    """
 
+
+"""
+def get_context_data(self, **kwargs):
+context = super(listarInformeIO,self).get_context_data(**kwargs)
+hoy = str(date.today())
+mes = str(date.today().month)
+año = str(date.today().year)
+aa = '2018-01-03'
+#print("HOYYYYYYYY",hoy)
+if hoy == aa:
+    pass
+    #print("LO pase a string")
+else:
+    pass
+    #print("YESaaaaaaaaaaaaaa")
+filtro = Historial_IO.objects.filter(id_trabajadores__cedula = '')
+#filtro = Historial_IO.objects.filter(hora = hoy)
+#filtro = Historial_IO.objects.filter(hora__month = mes)
+#filtro = Historial_IO.objects.filter(hora__year = año)
+nb = Historial_IO.objects.all()
+kk = []
+for i in Historial_IO.objects.all():
+    ia = i.id_trabajadores
+    kk.append(i.id_trabajadores)
+print(filtro)
+for i in nb:
+    datee = i.hora
+    #print (datee)
+    #print ("  ----  ")
+#print("Hora ",nb)
+a = {}
+self.b= []
+for x in Trabajadores.objects.all():
+    for i in filtro:
+        if x.cedula == i.id_trabajadores.cedula:
+            a['nombre'] = i.id_trabajadores.nombres
+            a[i.accion_jornada] = i.hora
+    self.b.append(a)
+    a={}
+#print(self.b)
+context['b'] = self.b
+return context
+"""
 
 """
     model = Historial_IO
@@ -214,7 +308,7 @@ def buscar(request):
                 for i in Historial_IO.objects.all():
                     if x.cedula == i.id_trabajadores.cedula:
                         a['nombre'] = i.id_trabajadores.nombres
-                        a[i.accion_jornada] = i.hora.ctime()
+                        a[i.accion_jornada] = i.hora
                         cont=cont+1
                 b.append(a)
                 a={}
