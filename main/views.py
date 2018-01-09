@@ -1,7 +1,7 @@
 import urllib
 
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
@@ -53,7 +53,7 @@ class EliminarTrabajador(DeleteView):
     template_name = 'Trabajadores/trabajador_eliminar.html'
     success_url = reverse_lazy('listado_trabajadores')
 
-
+"""
 class listarInformeIO(ListView):
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
@@ -147,8 +147,36 @@ class listarInformeIO(ListView):
         print(context)
         context['b'] = self.b
         return context
+<<<<<<< HEAD
     """
+=======
+"""
+class listarInformeIO(ListView):
+    model = Historial_IO
+    template_name = 'registrarJornada/listarInformeIO.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(listarInformeIO, self).get_context_data(**kwargs)
+        q = self.request.GET.get("cedula")
+        context['cedula'] = q
+        print(context)
+        return context
+>>>>>>> 6825f436bf2daa074b87b9db269732fd74c281c6
+
+    def get_queryset(self):
+        queryset = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get("cedula"))
+        a = {}
+        self.b = []
+        for i in queryset:
+            a['nombre'] = i.id_trabajadores.nombres
+            a[i.accion_jornada] = i.hora
+        self.b.append(a)
+        a = {}
+
+        print(self.b)
+        #self.request.GET.get("browse")
+        #print(queryset)
+        return self.b
 
 """
 def get_context_data(self, **kwargs):
@@ -257,10 +285,10 @@ class registrarJornadaModal(CreateView):
 """
 
 
-def registrarJornadaModal(request):
+def registrarJornadaModal(request,pk):
     trabajador = Trabajadores.objects.all().first()
-    codigo = request.POST.get('CodigoBarras', '')
-    print("valor:",codigo)
+    pk = request.POST.get('CodigoBarras', '')
+    print("valor:",pk)
     form=Historial_IOForms(request.POST or None,initial={"id_trabajadores": trabajador})
     #form.data.get('id_trabajador',trabajador)
 
@@ -289,11 +317,15 @@ def detail(request, CodigoBarras):
 def buscar(request):
     errors = []
     id=-1
-    if 'CodigoBarras' in request.GET:
-        q = request.GET['CodigoBarras']
-        print(q)
+    success = False
+    if 'cb' in request.GET:
+        q = request.GET['cb']
+        #print(q)
+        existe_colaborador=Trabajadores.objects.all()
+
         if not q:
             errors.append('Por favor introduce un termino de busqueda.')
+            print(errors)
         else:
             trabajadores = Trabajadores.objects.filter(CodigoBarras=q)
             #modelo=Historial_IO.objects.all()
@@ -301,6 +333,11 @@ def buscar(request):
             if trabajadores.count() > 0:
                 id = trabajadores.get().id
                 #print(id)
+            else:
+                if not existe_colaborador.count() != 0:
+                    errors.append('Por favor registre primero un Colaborador.')
+                else:
+                    errors.append('Colaborador no econtrado.')
             a = {}
             b= []
             cont=0
@@ -318,19 +355,31 @@ def buscar(request):
             # form.data.get('id_trabajador',trabajador)
             cp = request.GET.copy()
             #cp.pop('CodigoBarras')
-            print(cp)
+            #print(cp)
+
             #params = urllib.urlencode(cp)
             #print(params)
             context = {
                 'form': form,
                 'trabajadores': trabajadores,
                 'query': q,
+                'errors':errors,
             }
-            if form.is_valid():
-                instance = form.save(commit=False)
-                instance.save()
-                return redirect('registrarJornada')
-                # print(form)
+
+            if request.method == 'POST':
+                if form.is_valid():
+                    instance = form.save(commit=False)
+                    instance.save()
+                    mensaje_exitoso=[]
+                    mensaje_exitoso.append('Se ha registrado con exito !')
+                    success=True
+                    #return HttpResponseRedirect('',mensaje_exitoso)
+                    return redirect('registrarJornada')
+                    #return render(request,'registrarJornada/registrarJornada.html', {'mensaje': mensaje_exitoso})
+                    # print(form)
+                else:
+                    errors.append('La acción ya se encuntra registrada en este día.')
+
             return render(request, 'registrarJornada/registrarJornada.html',context)
 
     return render(request, 'registrarJornada/registrarJornada.html', {'errors': errors})
