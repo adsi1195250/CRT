@@ -53,7 +53,7 @@ class EliminarTrabajador(DeleteView):
     template_name = 'Trabajadores/trabajador_eliminar.html'
     success_url = reverse_lazy('listado_trabajadores')
 
-"""
+
 class listarInformeIO(ListView):
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
@@ -147,9 +147,8 @@ class listarInformeIO(ListView):
         print(context)
         context['b'] = self.b
         return context
-<<<<<<< HEAD
     """
-=======
+
 """
 class listarInformeIO(ListView):
     model = Historial_IO
@@ -161,7 +160,6 @@ class listarInformeIO(ListView):
         context['cedula'] = q
         print(context)
         return context
->>>>>>> 6825f436bf2daa074b87b9db269732fd74c281c6
 
     def get_queryset(self):
         queryset = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get("cedula"))
@@ -178,7 +176,6 @@ class listarInformeIO(ListView):
         #print(queryset)
         return self.b
 
-"""
 def get_context_data(self, **kwargs):
 context = super(listarInformeIO,self).get_context_data(**kwargs)
 hoy = str(date.today())

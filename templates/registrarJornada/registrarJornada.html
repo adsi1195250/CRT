@@ -84,24 +84,6 @@
             <h1><span class="badge badge-success">{{ x }}</span></h1>
         {% endfor %}
         </div>
-
-<<<<<<< HEAD
-{% else %}
-	<p>Ningun trabajador  con el criterio de busqueda.</p>
-    <div class="form-group2">
-      <label class="custom-file" >
-        <form action="." method="GET" >
-          {% csrf_token %}
-          <input type="password" name="CodigoBarras" id="prueba" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
-          <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
-          <input type="submit" value="Cargar" class="btn btn-secondary"/>
-        </form>
-      </label>
-    </div>
-{% endif %}
-=======
->>>>>>> 6825f436bf2daa074b87b9db269732fd74c281c6
-
     {% endif %}
 
 
