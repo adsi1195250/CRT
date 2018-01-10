@@ -91,8 +91,15 @@ DATABASES = {
         #'HOST': '192.168.1.32',
         #'HOST': '192.168.0.22',
         'HOST': 'localhost',
+<<<<<<< HEAD
         #'PASSWORD': '1234',
         #'PASSWORD': '1234',
+=======
+
+        'PASSWORD': '1234',
+        #'PASSWORD': '1234',
+
+>>>>>>> 21789c31afb165edf15842e70d53021cef4c73cc
         #'HOST': '192.168.0.22',
         #'HOST': 'localhost',
         'PORT': '3306',
