@@ -91,7 +91,6 @@
   }
   .table {
     border-collapse: collapse !important;
-
   }
   .table td,
   .table th {
@@ -1736,7 +1735,6 @@ pre code {
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
-
 }
 
 .table th,
