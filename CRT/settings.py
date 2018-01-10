@@ -86,17 +86,13 @@ DATABASES = {
         },
         'NAME': 'crt_db',
         'USER': 'root',
-        #'PASSWORD': 'BTabares99',
+        'PASSWORD': 'BTabares99',
         #'PASSWORD': '1234',
         #'HOST': '192.168.1.32',
         #'HOST': '192.168.0.22',
         'HOST': 'localhost',
-<<<<<<< HEAD
-        'PASSWORD': '1234',
-=======
         #'PASSWORD': '1234',
->>>>>>> 856f3d5de7b69a6fb7d3361bd418a9da6cf3d37a
-
+        #'PASSWORD': '1234',
         #'HOST': '192.168.0.22',
         #'HOST': 'localhost',
         'PORT': '3306',
