@@ -20,7 +20,8 @@
         </div>
         <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: auto; border-radius: 10px; text-align:center">
           <h1 style="color: #abebc6;  padding-left:20px;" >Imprimir documento</h1>
-          <input type="button" onclick="window.print()" class="fas fa-print" style="width: 70px; height: 40px; margin-top:10px; margin-right: 20px; ">
+           <a href="{% url 'report' %}" class="top-menu"><span class="fas fa-print"  style="width: 70px; height: 40px; margin-top:10px; margin-right: 20px; "></span></a>
+
       </div>
       </div>
     </div>
@@ -44,11 +45,9 @@
                 <th class=" text-center">Hora Salida</th>
                 <th class=" text-center">Horas Trabajadas</th>
                 <th class=" text-center">Horas Descansadas</th>
-
-            </tr>
-          </thead>
+              </tr>
+            </thead>
             <tbody>
-
               {% for a in object_list %}
               <!--h1 style="background-color:#000;">{{a}}</h1-->
 
@@ -576,6 +575,12 @@
                       <td>{{ a.SA }}</td>
                       {% else %}
                           <td>No hay registro</td>
+                      <td>
+                        Horas Trabajadas
+                      </td>
+                      <td>
+                        Horas Descansadas
+                      </td>
                     {% endif %}
                   </tr>
                 {% endif %}
@@ -640,17 +645,17 @@
                     <tr class="table-light table-striped table-mine">
                       <td>{{ 11 }}</td>
                       {% if a.EN.day == 11 %}
-                        <td>{{ a.EN }}</td>
-                      {% else %}
-                        <td >No hay registro</td>
+                        <td>{{ a.HEN }}</td>
+                        {% else %}
+                          <td >No hay registro</td>
                       {% endif %}
                       {% if a.DYI.day == 11 %}
-                        <td>{{ a.DYI }}</td>
-                      {% else %}
+                        <td>{{ a.HDYI }}</td>
+                        {% else %}
                           <td>No hay registro</td>
                       {% endif %}
                       {% if a.DYF.day == 11 %}
-                        <td>{{ a.DYF }}</td>
+                        <td>{{ a.HDYF }}</td>
                         {% else %}
                             <td>No hay registro</td>
                       {% endif %}
@@ -685,14 +690,14 @@
                             <td>No hay registro</td>
                       {% endif %}
                       {% if a.SA.day == 11 %}
-                        <td>{{ a.SA }}</td>
+                        <td>{{ a.HSA }}</td>
                         {% else %}
                             <td>No hay registro</td>
                       {% endif %}
-                      </tr>
-                    {% endif %}
+                    </tr>
+                  {% endif %}
 
-                    {% if a.EN.day == 12 %}
+                  {% if a.EN.day == 12 %}
                     <tr class="table-light table-striped table-mine">
                       <td>{{ 12 }}</td>
                       {% if a.EN.day == 12 %}
