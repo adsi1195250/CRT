@@ -51,6 +51,7 @@
                 <div class="row">
                    <form role="form" action=" " method="post">{% csrf_token %}
                        {% crispy form %}
+
                    </form>
 
                 </div>
@@ -84,8 +85,6 @@
             <h1><span class="badge badge-success">{{ x }}</span></h1>
         {% endfor %}
         </div>
-
-
     {% endif %}
 
 

@@ -75,7 +75,35 @@ class Historial_IO(models.Model):
 		choices=ELECCIONES,
 		default=ENTRADA,
 	)
-	hora = models.DateField(auto_now_add=True)
+	HORA_ENTRADA = 'HEN'
+	HORA_SALIDA = 'HSA'
+	HORA_DESAYUNO_INICIO = 'HDYI'
+	HORA_DESAYUNO_FIN = 'HDYF'
+	HORA_DESCANSO_INICIO = 'HDCI'
+	HORA_DESCANSO_FIN = 'HDCF'
+	HORA_PAUSAS_ACTIVAS_INICIO = 'HPAI'
+	HORA_PAUSAS_ACTIVAS_FIN = 'HPAF'
+	HORA_ALMUERZO_INICIO = 'HALI'
+	HORA_ALMUERZO_FIN = 'HALF'
+	ELECCIONES_HORA = (
+		(HORA_ENTRADA, 'Hora Entrada'),
+		(HORA_DESAYUNO_INICIO, 'Hora Inicio Desayuno'),
+		(HORA_ALMUERZO_INICIO, 'Hora Inicio Almuerzo'),
+		(HORA_PAUSAS_ACTIVAS_INICIO, 'Hora Inicio Pausas Activas'),
+		(HORA_DESCANSO_INICIO, 'Hora Inicio Descanso'),
+		(HORA_SALIDA, 'Hora Salida'),
+		(HORA_DESAYUNO_FIN, 'Hora Fin Desayuno'),
+		(HORA_ALMUERZO_FIN, 'Hora Fin Almuerzo'),
+		(HORA_PAUSAS_ACTIVAS_FIN, 'Hora Fin Pausas Activas'),
+		(HORA_DESCANSO_FIN, 'Hora Fin Descanso'),
+	)
+	accion_jornada_hora = models.CharField(
+		max_length=4,
+		choices=ELECCIONES_HORA,
+		default= HORA_ENTRADA,
+	)
+	fecha = models.DateField(auto_now_add=True)
+	hora = models.TimeField(auto_now_add=True)
 	id_trabajadores = models.ForeignKey(Trabajadores,on_delete=models.CASCADE)
 	def __str__(self):
 		return '%s'%self.idHistorial

@@ -1,5 +1,8 @@
+
 {% load crispy_forms_tags %}
+
 <div class="modal-dialog modal-lg">
+
         <div class="modal-content">
             {% if object %}
                 <form role="form" action="{% url 'modificar_trabajador' object.id %}" method="post">
@@ -10,13 +13,16 @@
             {% endif %}
                 <div class="modal-header">
                     <h3>Crear trabajador</h3>
+                    <p>Date: <input type="text" id="datepicker"></p>
                     <button type="button" class="close" data-dismiss="modal">X</button>
                 </div>
                 <div class="modal-body">
 
                     <div class="panel panel-default">
                             <div class="panel-body">
+                                {{ form.media }}
                                 {% crispy form %}
+
                                 <input type="submit" class="btn btn-primary" name="submit" value="Guardar">
                                 <button type="button" class="btn btn-danger" onclick="return cerrar_modal()">
                                 Cancelar

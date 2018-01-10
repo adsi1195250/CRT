@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container" id="filaa">
+  <div class="container">
     <div class="row" >
       <div class="col-lg-12">
         <div style="padding-top: 30px"></div>
         <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 55px; border-radius: 10px;">
-          <h2 style="color: #abebc6; text-align:left; padding-left:20px;"><strong>Informe De Jornada: {% if object_list %} {% for x in object_list %}{{ x.nombre }}{% endfor %} {% endif %}</strong></h2>
+          <h1 style="color: #abebc6; text-align:left; padding-left:20px;">Informe De Jornada: {%if object_list%} {%for a in object_list%} {{a.nombre}} {% endfor %}  {%endif%}</h1>
             <div class="formaa">
               <label class="custom-file">
                 <form action="." method="GET" >
@@ -17,38 +17,1805 @@
                 </form>
               </label>
             </div>
-        </form>
         </div>
+        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: auto; border-radius: 10px; text-align:center">
+          <h1 style="color: #abebc6;  padding-left:20px;" >Imprimir documento</h1>
+          <input type="button" onclick="window.print()" class="fas fa-print" style="width: 70px; height: 40px; margin-top:10px; margin-right: 20px; ">
+      </div>
       </div>
     </div>
-
-
       <div class="row">
         <div class="col-md-12">
           <table class="table table-responsive table-hover table-bordered">
             <thead>
               <tr class="table-success">
 
+
+                <th class="text-center">Día</th>
                 <th class="text-center">Hora Entrada</th>
                 <th class=" text-center">Hora Desayuno</th>
                 <th class=" text-center">Hora fin Desayuno</th>
+                <th class=" text-center">Hora Almuerzo</th>
+                <th class=" text-center">Hora fin Almuerzo</th>
                 <th class=" text-center">hora Pausas Activas</th>
                 <th class=" text-center">Hora Fin Pausas Activas</th>
+                <th class=" text-center">Hora Descanso</th>
+                <th class=" text-center">Hora fin Descanso</th>
                 <th class=" text-center">Hora Salida</th>
+                <th class=" text-center">Horas Trabajadas</th>
+                <th class=" text-center">Horas Descansadas</th>
+
             </tr>
           </thead>
             <tbody>
+
               {% for a in object_list %}
+              <!--h1 style="background-color:#000;">{{a}}</h1-->
+
+              {% if a.EN.day == 1 %}
                 <tr class="table-light table-striped table-mine">
-                  <td>{{ a.EN }}</td>
-                  <td>{{ a.DYI }}</td>
-                  <td>{{ a.DYF }}</td>
-                  <td>{{ a.PAI }}</td>
-                  <td>{{ a.PAF }}</td>
-                  <td>{{ a.SA }}</td>
+                  <td>{{ 1 }}</td>
+                  {% if a.EN.day == 1 %}
+                    <td>{{ a.EN }}</td>
+                    {% else %}
+                      <td >No hay registro</td>
+                  {% endif %}
+                  {% if a.DYI.day == 1 %}
+                    <td>{{ a.DYI }}</td>
+                    {% else %}
+                      <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYF.day == 1 %}
+                    <td>{{ a.DYF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALI.day == 1 %}
+                    <td>{{ a.ALI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALF.day == 1 %}
+                    <td>{{ a.ALF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAI.day == 1 %}
+                    <td>{{ a.PAI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAF.day == 1 %}
+                    <td>{{ a.PAF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCI.day == 1 %}
+                    <td>{{ a.DCI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCF.day == 1 %}
+                    <td>{{ a.DCF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.SA.day == 1 %}
+                    <td>{{ a.SA }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
                 </tr>
+              {% endif %}
+
+              {% if a.EN.day == 2 %}
+                <tr class="table-light table-striped table-mine">
+                  <td>{{ 2 }}</td>
+                  {% if a.EN.day == 2 %}
+                    <td>{{ a.EN }}</td>
+                    {% else %}
+                    <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYI.day == 2 %}
+                    <td>{{ a.DYI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYF.day == 2 %}
+                    <td>{{ a.DYF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALI.day == 2 %}
+                    <td>{{ a.ALI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALF.day == 2 %}
+                    <td>{{ a.ALF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAI.day == 2 %}
+                    <td>{{ a.PAI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAF.day == 2 %}
+                    <td>{{ a.PAF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCI.day == 2 %}
+                    <td>{{ a.DCI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCF.day == 2 %}
+                    <td>{{ a.DCF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.SA.day == 2 %}
+                    <td>{{ a.SA }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                </tr>
+              {% endif %}
+
+              {% if a.EN.day == 3 %}
+                <tr class="table-light table-striped table-mine">
+                  <td>{{ 3 }}</td>
+                  {% if a.EN.day == 3 %}
+                    <td>{{ a.EN }}</td>
+                    {% else %}
+                    <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYI.day == 3 %}
+                    <td>{{ a.DYI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYF.day == 3 %}
+                    <td>{{ a.DYF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALI.day == 3 %}
+                    <td>{{ a.ALI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALF.day == 3 %}
+                    <td>{{ a.ALF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAI.day == 3 %}
+                    <td>{{ a.PAI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAF.day == 3 %}
+                    <td>{{ a.PAF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCI.day == 3 %}
+                    <td>{{ a.DCI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCF.day == 3 %}
+                    <td>{{ a.DCF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.SA.day == 3 %}
+                    <td>{{ a.SA }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                </tr>
+              {% endif %}
+
+              {% if a.EN.day == 4 %}
+                <tr class="table-light table-striped table-mine">
+                    <td>{{ 4 }}</td>
+                  {% if a.EN.day == 4 %}
+                    <td>{{ a.EN }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYI.day == 4 %}
+                    <td>{{ a.DYI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DYF.day == 4 %}
+                    <td>{{ a.DYF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALI.day == 4 %}
+                    <td>{{ a.ALI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.ALF.day == 4 %}
+                    <td>{{ a.ALF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAI.day == 4 %}
+                    <td>{{ a.PAI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.PAF.day == 4 %}
+                    <td>{{ a.PAF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCI.day == 4 %}
+                    <td>{{ a.DCI }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.DCF.day == 4 %}
+                    <td>{{ a.DCF }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  {% if a.SA.day == 4 %}
+                    <td>{{ a.SA }}</td>
+                    {% else %}
+                        <td>No hay registro</td>
+                  {% endif %}
+                  <td>
+                    Horas trabajadas
+                  </td>
+                  <td>
+                    Horas Descansadas
+                  </td>
+                </tr>
+              {% endif %}
+
+                {% if a.EN.day == 5 %}
+                  <tr class="table-light table-striped table-mine">
+                    <td>{{ 5 }}</td>
+                    {% if a.EN.day == 5 %}
+                      <td>{{ a.EN }}</td>
+                    {% else %}
+                      <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYI.day == 5 %}
+                      <td>{{ a.DYI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYF.day == 5 %}
+                      <td>{{ a.DYF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALI.day == 5 %}
+                      <td>{{ a.ALI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALF.day == 5 %}
+                      <td>{{ a.ALF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAI.day == 5 %}
+                      <td>{{ a.PAI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAF.day == 5 %}
+                      <td>{{ a.PAF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCI.day == 5 %}
+                      <td>{{ a.DCI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCF.day == 5 %}
+                      <td>{{ a.DCF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.SA.day == 5 %}
+                      <td>{{ a.SA }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    <td>
+                      Horas Trabajadas
+                    </td>
+                    <td>
+                      Horas Descansadas
+                    </td>
+                  </tr>
+                {% endif %}
+
+                {% if a.EN.day == 6 %}
+                  <tr class="table-light table-striped table-mine">
+                    <td>{{ 6 }}</td>
+                    {% if a.EN.day == 6 %}
+                      <td>{{ a.EN }}</td>
+                      {% else %}
+                      <td >No hay registro</td>
+                    {% endif %}
+                    {% if a.DYI.day == 6 %}
+                      <td>{{ a.DYI }}</td>
+                      {% else %}
+                        <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYF.day == 6 %}
+                      <td>{{ a.DYF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALI.day == 6 %}
+                      <td>{{ a.ALI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALF.day == 6 %}
+                      <td>{{ a.ALF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAI.day == 6 %}
+                      <td>{{ a.PAI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAF.day == 6 %}
+                      <td>{{ a.PAF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCI.day == 6 %}
+                      <td>{{ a.DCI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCF.day == 6 %}
+                      <td>{{ a.DCF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.SA.day == 6 %}
+                      <td>{{ a.SA }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    <td>
+                      Horas Trabajadas
+                    </td>
+                    <td>
+                      Horas Descansadas
+                    </td>
+                  </tr>
+                {% endif %}
+
+                {% if a.EN.day == 7 %}
+                  <tr class="table-light table-striped table-mine">
+                    <td>{{ 7 }}</td>
+                    {% if a.EN.day == 7 %}
+                      <td>{{ a.EN }}</td>
+                    {% else %}
+                      <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYI.day == 7 %}
+                      <td>{{ a.DYI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYF.day == 7 %}
+                      <td>{{ a.DYF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALI.day == 7 %}
+                      <td>{{ a.ALI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALF.day == 7 %}
+                      <td>{{ a.ALF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAI.day == 7 %}
+                      <td>{{ a.PAI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAF.day == 7 %}
+                      <td>{{ a.PAF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCI.day == 7 %}
+                      <td>{{ a.DCI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCF.day == 7 %}
+                      <td>{{ a.DCF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.SA.day == 7 %}
+                      <td>{{ a.SA }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                  </tr>
+                {% endif %}
+
+                {% if a.EN.day == 8 %}
+                  <tr class="table-light table-striped table-mine">
+                    <td>{{ 8 }}</td>
+                    {% if a.EN.day == 8 %}
+                      <td>{{ a.HEN}}</td>
+                    {% else %}
+                      <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYI.day == 8 %}
+                      <td>{{ a.HDYI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYF.day == 8 %}
+                      <td>{{ a.DYF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALI.day == 8 %}
+                      <td>{{ a.HALI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALF.day == 8 %}
+                      <td>{{ a.ALF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAI.day == 8 %}
+                      <td>{{ a.PAI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAF.day == 8 %}
+                      <td>{{ a.PAF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCI.day == 8 %}
+                      <td>{{ a.DCI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCF.day == 8 %}
+                      <td>{{ a.DCF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.SA.day == 8 %}
+                      <td>{{ a.SA }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    <td>
+                      Horas Trabajadas
+                    </td>
+                    <td>
+                      Horas Descansadas
+                    </td>
+                  </tr>
+                {% endif %}
+
+                {% if a.EN.day == 9 %}
+                  <tr class="table-light table-striped table-mine">
+                      <td>{{ 9 }}</td>
+                    {% if a.EN.day == 9 %}
+                      <td>{{ a.HEN }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYI.day == 9 %}
+                      <td>{{ a.HDYI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYF.day == 9 %}
+                      <td>{{ a.DYF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALI.day == 9 %}
+                      <td>{{ a.ALI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALF.day == 9 %}
+                      <td>{{ a.ALF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAI.day == 9 %}
+                      <td>{{ a.PAI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAF.day == 9 %}
+                      <td>{{ a.PAF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCI.day == 9 %}
+                      <td>{{ a.DCI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCF.day == 9 %}
+                      <td>{{ a.DCF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.SA.day == 9 %}
+                      <td>{{ a.SA }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                  </tr>
+                {% endif %}
+
+                {% if a.EN.day == 10 %}
+                  <tr class="table-light table-striped table-mine">
+                    <td>{{ 10 }}</td>
+                    {% if a.EN.day == 10 %}
+                      <td>{{ a.EN }}</td>
+                      {% else %}
+                      <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYI.day == 10 %}
+                      <td>{{ a.DYI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DYF.day == 10 %}
+                      <td>{{ a.DYF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALI.day == 10 %}
+                      <td>{{ a.ALI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.ALF.day == 10 %}
+                      <td>{{ a.ALF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAI.day == 10 %}
+                      <td>{{ a.PAI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.PAF.day == 10 %}
+                      <td>{{ a.PAF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCI.day == 10 %}
+                      <td>{{ a.DCI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.DCF.day == 10 %}
+                      <td>{{ a.DCF }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                    {% if a.SA.day == 10 %}
+                      <td>{{ a.SA }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                    {% endif %}
+                  </tr>
+                {% endif %}
+
+                  {% if a.EN.day == 11 %}
+                    <tr class="table-light table-striped table-mine">
+                      <td>{{ 11 }}</td>
+                      {% if a.EN.day == 11 %}
+                        <td>{{ a.EN }}</td>
+                      {% else %}
+                        <td >No hay registro</td>
+                      {% endif %}
+                      {% if a.DYI.day == 11 %}
+                        <td>{{ a.DYI }}</td>
+                      {% else %}
+                          <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYF.day == 11 %}
+                        <td>{{ a.DYF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALI.day == 11 %}
+                        <td>{{ a.ALI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALF.day == 11 %}
+                        <td>{{ a.ALF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAI.day == 11 %}
+                        <td>{{ a.PAI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAF.day == 11 %}
+                        <td>{{ a.PAF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCI.day == 11 %}
+                        <td>{{ a.DCI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCF.day == 11 %}
+                        <td>{{ a.DCF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.SA.day == 11 %}
+                        <td>{{ a.SA }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      </tr>
+                    {% endif %}
+
+                    {% if a.EN.day == 12 %}
+                    <tr class="table-light table-striped table-mine">
+                      <td>{{ 12 }}</td>
+                      {% if a.EN.day == 12 %}
+                        <td>{{ a.EN }}</td>
+                      {% else %}
+                        <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYI.day == 12 %}
+                        <td>{{ a.DYI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYF.day == 12 %}
+                        <td>{{ a.DYF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALI.day == 12 %}
+                        <td>{{ a.ALI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALF.day == 12 %}
+                        <td>{{ a.ALF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAI.day == 12 %}
+                        <td>{{ a.PAI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAF.day == 12 %}
+                        <td>{{ a.PAF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCI.day == 12 %}
+                        <td>{{ a.DCI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCF.day == 12 %}
+                        <td>{{ a.DCF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.SA.day == 13 %}
+                        <td>{{ a.SA }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                    </tr>
+                    {% endif %}
+
+                    {% if a.EN.day == 13 %}
+                    <tr class="table-light table-striped table-mine">
+                      <td>{{ 13 }}</td>
+                      {% if a.EN.day == 13 %}
+                        <td>{{ a.EN }}</td>
+                      {% else %}
+                        <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYI.day == 13 %}
+                        <td>{{ a.DYI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYF.day == 13 %}
+                        <td>{{ a.DYF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALI.day == 13 %}
+                        <td>{{ a.ALI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALF.day == 13 %}
+                        <td>{{ a.ALF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAI.day == 13 %}
+                        <td>{{ a.PAI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAF.day == 13 %}
+                        <td>{{ a.PAF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCI.day == 13 %}
+                        <td>{{ a.DCI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCF.day == 13 %}
+                        <td>{{ a.DCF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.SA.day == 13 %}
+                        <td>{{ a.SA }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      </tr>
+                    {% endif %}
+
+                    {% if a.EN.day == 14 %}
+                    <tr class="table-light table-striped table-mine">
+                        <td>{{ 14 }}</td>
+                      {% if a.EN.day == 14 %}
+                        <td>{{ a.EN }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYI.day == 14 %}
+                        <td>{{ a.DYI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DYF.day == 14 %}
+                        <td>{{ a.DYF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALI.day == 14 %}
+                        <td>{{ a.ALI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.ALF.day == 14 %}
+                        <td>{{ a.ALF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAI.day == 14 %}
+                        <td>{{ a.PAI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.PAF.day == 14 %}
+                        <td>{{ a.PAF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCI.day == 14 %}
+                        <td>{{ a.DCI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.DCF.day == 14 %}
+                        <td>{{ a.DCF }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      {% if a.SA.day == 14 %}
+                        <td>{{ a.SA }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                      {% endif %}
+                      </tr>
+                      {% endif %}
+
+                      {% if a.EN.day == 15 %}
+                      <tr class="table-light table-striped table-mine">
+                        <td>{{ 15 }}</td>
+                        {% if a.EN.day == 15 %}
+                          <td>{{ a.EN }}</td>
+                        {% else %}
+                          <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYI.day == 15 %}
+                          <td>{{ a.DYI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYF.day == 15 %}
+                          <td>{{ a.DYF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALI.day == 15 %}
+                          <td>{{ a.ALI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALF.day == 15 %}
+                          <td>{{ a.ALF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAI.day == 15 %}
+                          <td>{{ a.PAI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAF.day == 15 %}
+                          <td>{{ a.PAF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCI.day == 15 %}
+                          <td>{{ a.DCI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCF.day == 15 %}
+                          <td>{{ a.DCF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.SA.day == 15 %}
+                          <td>{{ a.SA }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                      </tr>
+                    {% endif %}
+
+                    {% if a.EN.day == 16 %}
+                      <tr class="table-light table-striped table-mine">
+                        <td>{{ 16 }}</td>
+                        {% if a.EN.day == 16 %}
+                          <td>{{ a.EN }}</td>
+                        {% else %}
+                          <td >No hay registro</td>
+                        {% endif %}
+                        {% if a.DYI.day == 16 %}
+                          <td>{{ a.DYI }}</td>
+                        {% else %}
+                            <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYF.day == 16 %}
+                          <td>{{ a.DYF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALI.day == 16 %}
+                          <td>{{ a.ALI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALF.day == 16 %}
+                          <td>{{ a.ALF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAI.day == 16 %}
+                          <td>{{ a.PAI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAF.day == 16 %}
+                          <td>{{ a.PAF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCI.day == 16 %}
+                          <td>{{ a.DCI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCF.day == 16 %}
+                          <td>{{ a.DCF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.SA.day == 16 %}
+                          <td>{{ a.SA }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        </tr>
+                      {% endif %}
+
+                      {% if a.EN.day == 17 %}
+                      <tr class="table-light table-striped table-mine">
+                        <td>{{ 17 }}</td>
+                        {% if a.EN.day == 17 %}
+                          <td>{{ a.EN }}</td>
+                        {% else %}
+                          <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYI.day == 17 %}
+                          <td>{{ a.DYI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYF.day == 17 %}
+                          <td>{{ a.DYF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALI.day == 17 %}
+                          <td>{{ a.ALI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALF.day == 17 %}
+                          <td>{{ a.ALF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAI.day == 17 %}
+                          <td>{{ a.PAI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAF.day == 17 %}
+                          <td>{{ a.PAF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCI.day == 17 %}
+                          <td>{{ a.DCI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCF.day == 17 %}
+                          <td>{{ a.DCF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.SA.day == 17 %}
+                          <td>{{ a.SA }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                      </tr>
+                      {% endif %}
+
+                      {% if a.EN.day == 18 %}
+                      <tr class="table-light table-striped table-mine">
+                        <td>{{ 18 }}</td>
+                        {% if a.EN.day == 18 %}
+                          <td>{{ a.EN }}</td>
+                        {% else %}
+                          <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYI.day == 18 %}
+                          <td>{{ a.DYI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYF.day == 18 %}
+                          <td>{{ a.DYF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALI.day == 18 %}
+                          <td>{{ a.ALI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALF.day == 18 %}
+                          <td>{{ a.ALF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAI.day == 18 %}
+                          <td>{{ a.PAI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAF.day == 18 %}
+                          <td>{{ a.PAF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCI.day == 18 %}
+                          <td>{{ a.DCI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCF.day == 18 %}
+                          <td>{{ a.DCF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.SA.day == 18 %}
+                          <td>{{ a.SA }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        </tr>
+                      {% endif %}
+
+                      {% if a.EN.day == 19 %}
+                      <tr class="table-light table-striped table-mine">
+                          <td>{{ 19 }}</td>
+                        {% if a.EN.day == 19 %}
+                          <td>{{ a.EN }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYI.day == 19 %}
+                          <td>{{ a.DYI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DYF.day == 19 %}
+                          <td>{{ a.DYF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALI.day == 19 %}
+                          <td>{{ a.ALI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.ALF.day == 19 %}
+                          <td>{{ a.ALF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAI.day == 19 %}
+                          <td>{{ a.PAI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.PAF.day == 19 %}
+                          <td>{{ a.PAF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCI.day == 19 %}
+                          <td>{{ a.DCI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.DCF.day == 19 %}
+                          <td>{{ a.DCF }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        {% if a.SA.day == 19 %}
+                          <td>{{ a.SA }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                        {% endif %}
+                        </tr>
+                        {% endif %}
+
+                        {% if a.EN.day == 20 %}
+                        <tr class="table-light table-striped table-mine">
+                          <td>{{ 20 }}</td>
+                          {% if a.EN.day == 20 %}
+                            <td>{{ a.EN }}</td>
+                          {% else %}
+                            <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYI.day == 20 %}
+                            <td>{{ a.DYI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYF.day == 20 %}
+                            <td>{{ a.DYF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALI.day == 20 %}
+                            <td>{{ a.ALI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALF.day == 20 %}
+                            <td>{{ a.ALF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAI.day == 20 %}
+                            <td>{{ a.PAI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAF.day == 20 %}
+                            <td>{{ a.PAF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCI.day == 20 %}
+                            <td>{{ a.DCI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCF.day == 20 %}
+                            <td>{{ a.DCF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.SA.day == 20 %}
+                            <td>{{ a.SA }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                        </tr>
+                      {% endif %}
+
+
+                      {% if a.EN.day == 21 %}
+                        <tr class="table-light table-striped table-mine">
+                          <td>{{ 21 }}</td>
+                          {% if a.EN.day == 21 %}
+                            <td>{{ a.EN }}</td>
+                          {% else %}
+                            <td >No hay registro</td>
+                          {% endif %}
+                          {% if a.DYI.day == 21 %}
+                            <td>{{ a.DYI }}</td>
+                          {% else %}
+                              <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYF.day == 21 %}
+                            <td>{{ a.DYF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALI.day == 21 %}
+                            <td>{{ a.ALI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALF.day == 21 %}
+                            <td>{{ a.ALF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAI.day == 21 %}
+                            <td>{{ a.PAI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAF.day == 21 %}
+                            <td>{{ a.PAF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCI.day == 21 %}
+                            <td>{{ a.DCI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCF.day == 21 %}
+                            <td>{{ a.DCF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.SA.day == 21 %}
+                            <td>{{ a.SA }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          </tr>
+                        {% endif %}
+
+                        {% if a.EN.day == 22 %}
+                        <tr class="table-light table-striped table-mine">
+                          <td>{{ 22 }}</td>
+                          {% if a.EN.day == 22 %}
+                            <td>{{ a.EN }}</td>
+                          {% else %}
+                            <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYI.day == 22 %}
+                            <td>{{ a.DYI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYF.day == 22 %}
+                            <td>{{ a.DYF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALI.day == 22 %}
+                            <td>{{ a.ALI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALF.day == 22 %}
+                            <td>{{ a.ALF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAI.day == 22 %}
+                            <td>{{ a.PAI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAF.day == 22 %}
+                            <td>{{ a.PAF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCI.day == 22 %}
+                            <td>{{ a.DCI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCF.day == 22 %}
+                            <td>{{ a.DCF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.SA.day == 22 %}
+                            <td>{{ a.SA }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                        </tr>
+                        {% endif %}
+
+                        {% if a.EN.day == 23 %}
+                        <tr class="table-light table-striped table-mine">
+                          <td>{{ 23 }}</td>
+                          {% if a.EN.day == 23 %}
+                            <td>{{ a.EN }}</td>
+                          {% else %}
+                            <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYI.day == 23 %}
+                            <td>{{ a.DYI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYF.day == 23 %}
+                            <td>{{ a.DYF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALI.day == 23 %}
+                            <td>{{ a.ALI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALF.day == 23 %}
+                            <td>{{ a.ALF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAI.day == 23 %}
+                            <td>{{ a.PAI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAF.day == 23 %}
+                            <td>{{ a.PAF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCI.day == 23 %}
+                            <td>{{ a.DCI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCF.day == 23 %}
+                            <td>{{ a.DCF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.SA.day == 23 %}
+                            <td>{{ a.SA }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          </tr>
+                        {% endif %}
+
+                        {% if a.EN.day == 24 %}
+                        <tr class="table-light table-striped table-mine">
+                            <td>{{ 24 }}</td>
+                          {% if a.EN.day == 24 %}
+                            <td>{{ a.EN }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYI.day == 24 %}
+                            <td>{{ a.DYI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DYF.day == 24 %}
+                            <td>{{ a.DYF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALI.day == 24 %}
+                            <td>{{ a.ALI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.ALF.day == 24 %}
+                            <td>{{ a.ALF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAI.day == 24 %}
+                            <td>{{ a.PAI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.PAF.day == 24 %}
+                            <td>{{ a.PAF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCI.day == 24 %}
+                            <td>{{ a.DCI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.DCF.day == 24 %}
+                            <td>{{ a.DCF }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          {% if a.SA.day == 24 %}
+                            <td>{{ a.SA }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                          {% endif %}
+                          </tr>
+                          {% endif %}
+
+                          {% if a.EN.day == 25 %}
+                          <tr class="table-light table-striped table-mine">
+                            <td>{{ 25 }}</td>
+                            {% if a.EN.day == 25 %}
+                              <td>{{ a.EN }}</td>
+                            {% else %}
+                              <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYI.day == 25 %}
+                              <td>{{ a.DYI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYF.day == 25 %}
+                              <td>{{ a.DYF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALI.day == 25 %}
+                              <td>{{ a.ALI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALF.day == 25 %}
+                              <td>{{ a.ALF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAI.day == 25 %}
+                              <td>{{ a.PAI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAF.day == 25 %}
+                              <td>{{ a.PAF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCI.day == 25 %}
+                              <td>{{ a.DCI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCF.day == 25 %}
+                              <td>{{ a.DCF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.SA.day == 25 %}
+                              <td>{{ a.SA }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                          </tr>
+                        {% endif %}
+
+                        {% if a.EN.day == 26 %}
+                          <tr class="table-light table-striped table-mine">
+                            <td>{{ 26 }}</td>
+                            {% if a.EN.day == 26 %}
+                              <td>{{ a.EN }}</td>
+                            {% else %}
+                              <td >No hay registro</td>
+                            {% endif %}
+                            {% if a.DYI.day == 26 %}
+                              <td>{{ a.DYI }}</td>
+                            {% else %}
+                                <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYF.day == 26 %}
+                              <td>{{ a.DYF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALI.day == 26 %}
+                              <td>{{ a.ALI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALF.day == 26 %}
+                              <td>{{ a.ALF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAI.day == 26 %}
+                              <td>{{ a.PAI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAF.day == 26 %}
+                              <td>{{ a.PAF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCI.day == 26 %}
+                              <td>{{ a.DCI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCF.day == 26 %}
+                              <td>{{ a.DCF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.SA.day == 26 %}
+                              <td>{{ a.SA }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            </tr>
+                          {% endif %}
+
+                          {% if a.EN.day == 27 %}
+                          <tr class="table-light table-striped table-mine">
+                            <td>{{ 27 }}</td>
+                            {% if a.EN.day == 27 %}
+                              <td>{{ a.EN }}</td>
+                            {% else %}
+                              <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYI.day == 27 %}
+                              <td>{{ a.DYI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYF.day == 27 %}
+                              <td>{{ a.DYF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALI.day == 27 %}
+                              <td>{{ a.ALI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALF.day == 27 %}
+                              <td>{{ a.ALF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAI.day == 27 %}
+                              <td>{{ a.PAI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAF.day == 27 %}
+                              <td>{{ a.PAF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCI.day == 27 %}
+                              <td>{{ a.DCI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCF.day == 27 %}
+                              <td>{{ a.DCF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.SA.day == 27 %}
+                              <td>{{ a.SA }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                          </tr>
+                          {% endif %}
+
+                          {% if a.EN.day == 28 %}
+                          <tr class="table-light table-striped table-mine">
+                            <td>{{ 28 }}</td>
+                            {% if a.EN.day == 28 %}
+                              <td>{{ a.EN }}</td>
+                            {% else %}
+                              <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYI.day == 28 %}
+                              <td>{{ a.DYI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYF.day == 28 %}
+                              <td>{{ a.DYF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALI.day == 28 %}
+                              <td>{{ a.ALI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALF.day == 28 %}
+                              <td>{{ a.ALF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAI.day == 28 %}
+                              <td>{{ a.PAI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAF.day == 28 %}
+                              <td>{{ a.PAF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCI.day == 28 %}
+                              <td>{{ a.DCI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCF.day == 28 %}
+                              <td>{{ a.DCF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.SA.day == 28 %}
+                              <td>{{ a.SA }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            </tr>
+                          {% endif %}
+
+                          {% if a.EN.day == 29 %}
+                          <tr class="table-light table-striped table-mine">
+                              <td>{{ 29 }}</td>
+                            {% if a.EN.day == 29 %}
+                              <td>{{ a.EN }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYI.day == 29 %}
+                              <td>{{ a.DYI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYF.day == 29 %}
+                              <td>{{ a.DYF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALI.day == 29 %}
+                              <td>{{ a.ALI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALF.day == 29 %}
+                              <td>{{ a.ALF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAI.day == 29 %}
+                              <td>{{ a.PAI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAF.day == 29 %}
+                              <td>{{ a.PAF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCI.day == 29 %}
+                              <td>{{ a.DCI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCF.day == 29 %}
+                              <td>{{ a.DCF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.SA.day == 29 %}
+                              <td>{{ a.SA }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            </tr>
+                            {% endif %}
+
+                            {% if a.EN.day == 30 %}
+                            <tr class="table-light table-striped table-mine">
+                              <td>{{ 30 }}</td>
+                              {% if a.EN.day == 30 %}
+                                <td>{{ a.EN }}</td>
+                              {% else %}
+                                <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.DYI.day == 30 %}
+                                <td>{{ a.DYI }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.DYF.day == 30 %}
+                                <td>{{ a.DYF }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.ALI.day == 30 %}
+                                <td>{{ a.ALI }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.ALF.day == 30 %}
+                                <td>{{ a.ALF }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.PAI.day == 30 %}
+                                <td>{{ a.PAI }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.PAF.day == 30 %}
+                                <td>{{ a.PAF }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.DCI.day == 30 %}
+                                <td>{{ a.DCI }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.DCF.day == 30 %}
+                                <td>{{ a.DCF }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                              {% if a.SA.day == 30 %}
+                                <td>{{ a.SA }}</td>
+                                {% else %}
+                                    <td>No hay registro</td>
+                              {% endif %}
+                            </tr>
+                          {% endif %}
+
+
+                          {% if a.EN.day == 31 %}
+                          <tr class="table-light table-striped table-mine">
+                            <td>{{ 31 }}</td>
+                            {% if a.EN.day == 31 %}
+                              <td>{{ a.EN }}</td>
+                            {% else %}
+                              <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYI.day == 31 %}
+                              <td>{{ a.DYI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DYF.day == 31 %}
+                              <td>{{ a.DYF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALI.day == 31 %}
+                              <td>{{ a.ALI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.ALF.day == 31 %}
+                              <td>{{ a.ALF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAI.day == 31 %}
+                              <td>{{ a.PAI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.PAF.day == 31 %}
+                              <td>{{ a.PAF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCI.day == 31 %}
+                              <td>{{ a.DCI }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.DCF.day == 31 %}
+                              <td>{{ a.DCF }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                            {% if a.SA.day == 31 %}
+                              <td>{{ a.SA }}</td>
+                              {% else %}
+                                  <td>No hay registro</td>
+                            {% endif %}
+                          </tr>
+                        {% endif %}
               {% endfor %}
             </tbody>
+
           </table>
           {% if not object_list %}
             <div style="background-color: rgba(0,0,0,0.53); width: 100%; border-radius: 10px">
@@ -57,12 +1824,9 @@
           {% endif %}
         </div>
       </div>
-
-
-
-
     <div id="popup" class="modal fade" role="dialog">
 
     </div>
   </div>
+
 {% endblock %}

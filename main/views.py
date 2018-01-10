@@ -53,12 +53,57 @@ class EliminarTrabajador(DeleteView):
     template_name = 'Trabajadores/trabajador_eliminar.html'
     success_url = reverse_lazy('listado_trabajadores')
 
-"""
+
 class listarInformeIO(ListView):
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
+    def get_queryset(self):
+        q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
+        hoy = str(date.today().day)
+        #filtro = Historial_IO.objects.filter(hora = hoy)
+        #for f in q:
+        #    fq = f.hora
+        #    print(fq)
+        a = {}
+        j = {}
+        ocho = {}
+        nueve = {}
+        self.b= []
+        self.z= []
+        for i in q:
+            fq = i.fecha.day
+            a['nombre'] = i.id_trabajadores.nombres
+            if fq == 4:
+                a[i.accion_jornada] = i.fecha
+            elif fq==5:
+                j[i.accion_jornada] = i.fecha
+            elif fq==8:
+                ocho[i.accion_jornada] = i.fecha
+                ocho[i.accion_jornada_hora] = i.hora
+            elif fq==9:
+                nueve[i.accion_jornada] = i.fecha
+                nueve[i.accion_jornada_hora] = i.hora
+            #print("Here",fq)
+            #if fq == 5:
+            #   j[i.accion_jornada] = i.hora
+
+        #print("None",i)
+        self.b.append(a)
+        self.b.append(j)
+        self.b.append(ocho)
+        self.b.append(nueve)
+        # a.update(j)  //Combinar dos  diccionarios
+        #print(self.z)
+        #self.b.append(a)
+        #print(self.b)
+        # print(m)
+        #print(self.b)
+        a={}
+        j={}
+        return self.b
+
+    """
     def get_context_data(self, **kwargs):
-        context = super(listarInformeIO,self).get_context_data(**kwargs)
         hoy = str(date.today())
         mes = str(date.today().month)
         año = str(date.today().year)
@@ -69,8 +114,13 @@ class listarInformeIO(ListView):
             #print("LO pase a string")
         else:
             pass
-            #print("YESaaaaaaaaaaaaaa")
-        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = '')
+        q = 0
+        context = {
+            'context': super(listarInformeIO,self).get_context_data(**kwargs),
+            'q': self.request.GET.get('cedula', ''),
+        }
+        #print("YESaaaaaaaaaaaaaa", context)
+        filtro = Historial_IO.objects.filter(id_trabajadores__cedula = q)
         #filtro = Historial_IO.objects.filter(hora = hoy)
         #filtro = Historial_IO.objects.filter(hora__month = mes)
         #filtro = Historial_IO.objects.filter(hora__year = año)
@@ -79,7 +129,7 @@ class listarInformeIO(ListView):
         for i in Historial_IO.objects.all():
             ia = i.id_trabajadores
             kk.append(i.id_trabajadores)
-        print(filtro)
+        print(context)
         for i in nb:
             datee = i.hora
             #print (datee)
@@ -94,9 +144,11 @@ class listarInformeIO(ListView):
                     a[i.accion_jornada] = i.hora
             self.b.append(a)
             a={}
-        #print(self.b)
+        print(context)
         context['b'] = self.b
         return context
+    """
+
 """
 class listarInformeIO(ListView):
     model = Historial_IO
@@ -123,6 +175,48 @@ class listarInformeIO(ListView):
         #self.request.GET.get("browse")
         #print(queryset)
         return self.b
+
+def get_context_data(self, **kwargs):
+context = super(listarInformeIO,self).get_context_data(**kwargs)
+hoy = str(date.today())
+mes = str(date.today().month)
+año = str(date.today().year)
+aa = '2018-01-03'
+#print("HOYYYYYYYY",hoy)
+if hoy == aa:
+    pass
+    #print("LO pase a string")
+else:
+    pass
+    #print("YESaaaaaaaaaaaaaa")
+filtro = Historial_IO.objects.filter(id_trabajadores__cedula = '')
+#filtro = Historial_IO.objects.filter(hora = hoy)
+#filtro = Historial_IO.objects.filter(hora__month = mes)
+#filtro = Historial_IO.objects.filter(hora__year = año)
+nb = Historial_IO.objects.all()
+kk = []
+for i in Historial_IO.objects.all():
+    ia = i.id_trabajadores
+    kk.append(i.id_trabajadores)
+print(filtro)
+for i in nb:
+    datee = i.hora
+    #print (datee)
+    #print ("  ----  ")
+#print("Hora ",nb)
+a = {}
+self.b= []
+for x in Trabajadores.objects.all():
+    for i in filtro:
+        if x.cedula == i.id_trabajadores.cedula:
+            a['nombre'] = i.id_trabajadores.nombres
+            a[i.accion_jornada] = i.hora
+    self.b.append(a)
+    a={}
+#print(self.b)
+context['b'] = self.b
+return context
+"""
 
 """
     model = Historial_IO
@@ -248,17 +342,21 @@ def buscar(request):
                 for i in Historial_IO.objects.all():
                     if x.cedula == i.id_trabajadores.cedula:
                         a['nombre'] = i.id_trabajadores.nombres
-                        a[i.accion_jornada] = i.hora.ctime()
+                        a[i.accion_jornada] = i.hora
                         cont=cont+1
                 b.append(a)
                 a={}
             #print(b)
             #print(cont)
-            form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id})
+
+
+            form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id,"accion_jornada_hora":'HEN'})
+
+            #print(form.data)
             # form.data.get('id_trabajador',trabajador)
             cp = request.GET.copy()
             cp.pop('cb')
-            print(request.GET)
+            #print(request.GET)
             
             #print(cp)
 
@@ -274,6 +372,28 @@ def buscar(request):
             if request.method == 'POST':
                 if form.is_valid():
                     instance = form.save(commit=False)
+                    accion_jornada = instance.accion_jornada
+                    if accion_jornada == 'EN':
+                        instance.accion_jornada_hora = 'HEN'
+                    elif accion_jornada == 'SA':
+                        instance.accion_jornada_hora = 'HSA'
+                    elif accion_jornada == 'DYI':
+                        instance.accion_jornada_hora = 'HDYI'
+                    elif accion_jornada == 'DYF':
+                        instance.accion_jornada_hora = 'HDYF'
+                    elif accion_jornada == 'DCI':
+                        instance.accion_jornada_hora = 'HDCI'
+                    elif accion_jornada == 'DCF':
+                        instance.accion_jornada_hora = 'HDCF'
+                    elif accion_jornada == 'PAI':
+                        instance.accion_jornada_hora = 'HPAI'
+                    elif accion_jornada == 'PAF':
+                        instance.accion_jornada_hora = 'HPAF'
+                    elif accion_jornada == 'ALI':
+                        instance.accion_jornada_hora = 'HALI'
+                    elif accion_jornada == 'ALF':
+                        instance.accion_jornada_hora = 'HALF'
+                    #print(instance.accion_jornada_hora)
                     instance.save()
                     mensaje_exitoso=[]
                     mensaje_exitoso.append('Se ha registrado con exito !')
@@ -283,6 +403,7 @@ def buscar(request):
                     #return render(request,'registrarJornada/registrarJornada.html', {'mensaje': mensaje_exitoso})
                     # print(form)
                 else:
+                    print('no entra')
                     errors.append('La acción ya se encuntra registrada en este día.')
 
             return render(request, 'registrarJornada/registrarJornada.html',context)
