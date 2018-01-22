@@ -7,19 +7,65 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item ">
-        <a class="nav-link  btn-lg"  href="{% url 'listado_trabajadores' %}">Colaboradores </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link  btn-lg" href="{% url 'registrarJornada' %}">Registrar Jornada</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link  btn-lg" href="{% url 'listado_informe' %}">Listar información de entrada y salida</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link btn-lg" href="#">Permiso de ausentismo</a>
-      </li>
+      {% if request.user.is_authenticated %}
+        <li class="nav-item ">
+          <a class="nav-link  btn-lg"  href="{% url 'listado_trabajadores' %}">Colaboradores </a>
+        </li>
+      {% endif %}
+      {% if not request.user.is_authenticated or request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link  btn-lg" href="{% url 'registrarJornada' %}">Registrar Jornada</a>
+        </li>
+      {% endif %}
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link  btn-lg" href="{% url 'listado_informe' %}">Listar información de entrada y salida</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn-lg" href="#">Permiso de ausentismo</a>
+        </li>
+      {% endif %}
     </ul>
 
+    {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+        <!--form class="form-inline" method="POST" style="margin-right: 10px;" action="{% url 'auth_login' %}">{% csrf_token %}
+          <!--div class="form-group">
+            <i class="fa fa-user-circle" aria-hidden="true" style="color:red; margin-right: 5px;"></i>
+              <input type="text" name="username" class="form-control" placeholder="usuario" style="margin-right: 5px;">
+          </div>
+          <div class="input-group" style="margin-right:7px;">
+              <input type="text" name="username" class="form-control" placeholder="usuario">
+              <span class="input-group-addon">
+                  <i class="fa fa-user-circle" aria-hidden="true" style="color:#F3969A;"></i>
+              </span>
+          </div>
+          <!--div class="form-group">
+            <i class="fa fa-unlock-alt" aria-hidden="true" style="color:#F3969A; margin-right: 5px;"></i>
+            <input type="password" name="Password" class="form-control" style="margin-right: 5px;" placeholder="clave">
+          </div>
+          <div class="input-group" style="margin-right:7px;">
+              <input type="password" name="Password" class="form-control"  placeholder="clave">
+              <span class="input-group-addon">
+                  <i class="fa fa-unlock-alt" aria-hidden="true" style="color:#F3969A;"></i>
+              </span>
+          </div-->
+          <a style="margin-right: 10px;" href="{% url 'auth_login' %}" class="btn btn-secondary">Iniciar sesión
+          <i class="fab fa-optin-monster" aria-hidden="true"></i>
+        </a>
+        </form>
+    {% endif %}
+    <ul class="nav navbar-nav navbar-right" style="margin-right: 35px;">
+        {% if request.user.is_authenticated %}
+          <li><a class="btn btn-secondary" href="{% url 'auth_logout' %}">Salir
+            <i class="fab fa-earlybirds" aria-hidden="true"></i>
+          </a></li>
+        {% else %}
+          <li><a class="btn btn-secondary"href="{% url 'registration_register' %}">Registrate
+          <i class="fab fa-angellist" aria-hidden="true"></i>
+          </a></li>
+
+          <!--<li<a href="{% url 'auth_login' %}">Entrar</a></li>-->
+        {% endif %}
+    </ul>
   </div>
 </nav>

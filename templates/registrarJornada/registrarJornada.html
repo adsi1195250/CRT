@@ -2,7 +2,6 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-
     {% if trabajadores %}
         <ul></ul>
         <ul>
@@ -70,28 +69,28 @@
     {% else %}
 
         <div class="form-group2">
-            <label class="custom-file" >
-                <form action="." method="GET" >
-                    {% csrf_token %}
-                    <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+          <label class="custom-file" >
+            <form action="." method="GET" >
+              {% csrf_token %}
+                <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
 
-                    <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
-                    <input type="submit" value="Cargar" class="btn btn-secondary"/>
-                </form>
-            </label>
-        {% for error in errors %}
-            <h1><span class="badge badge-primary">{{ error }}</span></h1>
-        {% endfor %}
-        {% for x in mensaje %}
-            <h1><span class="badge badge-success">{{ x }}</span></h1>
-        {% endfor %}
+                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
+                <input type="submit" value="Cargar" class="btn btn-secondary">
+            </form>
+          </label>
+          {% for error in errors %}
+              <h1><span class="badge badge-primary">{{ error }}</span></h1>
+          {% endfor %}
+          {% for x in mensaje %}
+              <h1><span class="badge badge-success">{{ x }}</span></h1>
+          {% endfor %}
         </div>
     {% endif %}
 
 
-<div id="popup" class="modal fade" role="dialog">
+  <div id="popup" class="modal fade" role="dialog">
 
-</div>
+  </div>
     <script>
 (function () {
     function checkTime(i) {
