@@ -1,0 +1,38 @@
+body {
+  min-height: 100%;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+.navbar-default{
+  background-color: #172548 !important;
+  border-color: #337AB7;
+}
+
+.jumbotron{
+  background-color: #172548 !important;
+  color: white !important;
+}
+
+.navbar-static-top{
+  margin-bottom: 0px;
+
+}
+
+.navbar-default .navbar-brand{
+  color: #FFF;
+}
+
+.navbar-default .navbar-brand: hover{
+  color: #337AB7;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #FAFFBD;
+}
+
+.navbar-default .navbar-nav>li>a: hover{
+  color: #FAFFBD;
+}
