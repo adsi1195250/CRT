@@ -1,5 +1,6 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from main.views import *
+
 
 urlpatterns = [
     url(r'^$', index, name='inicio'),
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^registrarJornadaModal/$',buscar, name="registrarJornadaModal"),
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras, name='codigo_barras'),
     url(r'^codigo_barras/$', detail, name='detail'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras.as_view(), name='codigo_barras'),
     url(r'^listarInformeIO/$', listarInformeIO.as_view(), name="listado_informe"),
 

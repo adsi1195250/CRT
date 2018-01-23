@@ -27,9 +27,40 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+"""
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = 'brayantabares10a2014@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_PORT= '25'
+#EMAIL_HOST = "localhost"
+#EMAIL_PORT = "1025"
+EMAIL_USE_TLS = True
+"""
+
+
+ADMINS = (
+    ('Brayan', 'brayantabares10a2014@gmail.com'),
+)
+
+MANAGERS = ADMINS
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+TEST_EMAIL_BACKEND_RECIPIENTS = ADMINS
+
+FROM_EMAIL = ADMINS[0][1]
+EMAIL_SUBJECT_PREFIX = '[main]'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = FROM_EMAIL
+
+# Enter your gmail PW from the ADMINS email entered above.
+EMAIL_HOST_PASSWORD = 'Diosesamor123'
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +72,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'datetimewidget',
     'main',
+    'registration',
     'jquery',
 ]
 
@@ -74,7 +106,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'CRT.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -91,15 +122,12 @@ DATABASES = {
         #'HOST': '192.168.1.32',
         #'HOST': '192.168.0.22',
         'HOST': 'localhost',
-<<<<<<< HEAD
-        #'PASSWORD': '1234',
-        #'PASSWORD': '1234',
-=======
 
-        'PASSWORD': '1234',
+        #'PASSWORD': '1234',
         #'PASSWORD': '1234',
 
->>>>>>> 21789c31afb165edf15842e70d53021cef4c73cc
+        #'PASSWORD': '1234',
+        #'PASSWORD': '1234',
         #'HOST': '192.168.0.22',
         #'HOST': 'localhost',
         'PORT': '3306',
@@ -140,10 +168,17 @@ USE_L10N = True
 USE_TZ = True
 
 
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+SITE_ID = 1
+#LOGIN_REDIRECT_URL = '/'
+#CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/'
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static_pro','static'),
 
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<<<<<<< HEAD
+{% if request.user.is_authenticated %}
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -65,76 +65,10 @@
       <div id="popup" class="modal fade" role="dialog">
 
       </div>
-
   </div>
-=======
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div style="padding-top: 30px"></div>
-                <div style="background-color: rgba(0,0,0,0.53); width: 100%; border-radius: 10px">
-                  <h1 style="color: #abebc6;"><strong>Colaboradores</strong></h1>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table table-responsive table-hover table-bordered">
-              <thead>
-                <tr class="table-success">
-                  <th class="col-md-2 text-center">Nombres</th>
-                  <th class="text-center">Cedula</th>
-                  <th class="col-md-2 text-center">Fecha de ingreso</th>
-                  <th class="col-md-2 text-center">Fecha de nacimiento</th>
-                  <th class=" text-center">Edad</th>
-                  <th class=" text-center">Cargo</th>
-                  <th class=" text-center">Telefono</th>
-                  <th class="col-md-2 text-md-center"><a onclick="return abrir_modal('{% url 'crear_trabajador' %}')" class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for trabajador in object_list %}
-                  <tr class="table-light table-striped">
-                    <td>{{ trabajador.nombres }}</td>
-                    <td>{{ trabajador.cedula }}</td>
-                    <td>{{ trabajador.fechaIngreso }}</td>
-                    <td>{{ trabajador.fechaNacimiento }}</td>
-                    <td>{{ trabajador.edad }}</td>
-                    <td>{{ trabajador.cargo}}</td>
-                    <td>{{ trabajador.telefono }}</td>
-
-                    <td class="text-xl-center">
-                      <a onclick="return abrir_modal('{% url 'detalle_trabajador' trabajador.id %}')" class="btn">
-                        <span class="fas fa-eye"></span>
-                        <span class="glyphicon glyphicon-pencil"></span>
-                      </a>
-                      <a onclick="return abrir_modal('{% url 'modificar_trabajador' trabajador.id %}')" class="btn">
-                        <span class="fas fa-edit"></span>
-                      </a>
-                      <a onclick="return abrir_modal('{% url 'eliminar_trabajador' trabajador.id %}')" class="btn">
-                        <span class="fas fa-trash"></span>
-                      </a>
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-
-
-            {% if not object_list %}
-                <div style="background-color: rgba(0,0,0,0.53); width: 100%; border-radius: 10px">
-                    <h1 style="color: #fefefe"> No existen registros </h1>
-                </div>
-            {% endif %}
-
-          </div>
-        </div>
-        <div id="popup" class="modal fade" role="dialog">
-
-    </div>
-    </div>
->>>>>>> 21789c31afb165edf15842e70d53021cef4c73cc
+{% else %}
+  <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
+    <h2>Por favor iniciar sesión</h2>
+  </div>
+{% endif %}
 {% endblock %}
