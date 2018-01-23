@@ -1,0 +1,94 @@
+<!-- Modal -->
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div style="background-color: #4eac92" class="modal-header">
+                    <div class="container" >
+                        <div class="row">
+                            <h2 style="margin-bottom: 15px" class="text-md-left "><strong>Códigos de diagnostico</strong></h2>
+                        </div>
+                        <div class="row">
+                         <form class="form-signin" method="POST">
+                              {% csrf_token %}
+                             <div class="row" >
+                                 <div class="col-md-2">
+                                      <label for="codigo" class="sr-only">Filtro de codigos</label>
+                                     <select id="codigo" style="width: 100px" class="form-control" required autofocus>
+                                        <option value="A">A</option>
+                                         <option value="B">B</option>
+                                         <option value="C">C</option>
+                                         <option value="D">D</option>
+                                         <option value="E">E</option>
+                                         <option value="F">F</option>
+                                         <option value="G">G</option>
+                                         <option value="H">H</option>
+                                         <option value="I">I</option>
+                                         <option value="J">J</option>
+                                         <option value="K">K</option>
+                                         <option value="L">L</option>
+                                         <option value="M">M</option>
+                                         <option value="N">N</option>
+                                         <option value="O">O</option>
+                                         <option value="P">P</option>
+                                         <option value="Q">Q</option>
+                                         <option value="R">R</option>
+                                         <option value="S">S</option>
+                                         <option value="T">T</option>
+                                         <option value="V">V</option>
+                                         <option value="W">W</option>
+                                         <option value="X">X</option>
+                                         <option value="Y">Y</option>
+                                         <option value="Z">Z</option>
+                                     </select>
+                                 </div>
+                                 <div class="col-md-10">
+                                    <button id="submit" class="btn  btn-secondary" style="margin-left: 5%" type="submit">Enviar</button>
+                                     <div class="" style="margin-top: 0px;float: right">
+                                        <label style="color: #fefefe" for="myInput">Código: </label>
+                                        <input id="myInput"  type="text" placeholder="Busqueda..." onkeypress="return event.keyCode!=13">
+                                    </div>
+                                 </div>
+                                <!--
+                              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                              <label for="inputPassword" class="sr-only">Password</label>
+                              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+                             </div>
+                         </form>
+
+                        <!--
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+                        </div>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times-circle"></span> </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <div id="barra_progreso" class="loading-progress">
+                              <div class="loading-progress progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                            </div>
+                            <table class="table table-hover">
+                                  <thead>
+                                    <tr class="table">
+                                      <th scope="col">Código</th>
+                                      <th scope="col">Descripción</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="myTable">
+                                    <tr style="height: 10px" class="table-mine">
+                                        <td>No hay datos</td>
+                                        <td>No hay datos</td>
+                                    </tr>
+                                  </tbody>
+                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -25,10 +25,8 @@ class Historial_IOAdmin(admin.ModelAdmin):
 	list_display=["__str__","idHistorial","accion_jornada","accion_jornada_hora","fecha" ,"hora","id_trabajadores"]
 
 
-class PermisoAusentismoAdmin(admin.ModelAdmin):
-	list_display=["__str__","idPermisoAusentismo","fechaSalida","motivo","periodoIncapacidadInicial","periodoIncapacidadFinal", "diasIncapacidad", "codigoDiagnostico", "descripcion", "idTrabajador"]
 
 
 admin.site.register(Trabajadores, TrabajadoresAdmin),
 admin.site.register(Historial_IO, Historial_IOAdmin),
-admin.site.register(PermisoAusentismo, PermisoAusentismoAdmin)
+

@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('main.urls')),
+    url(r'^permiso_ausentismo/', include('permiso_ausentismo.urls')),
 ]

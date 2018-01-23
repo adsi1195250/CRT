@@ -38,17 +38,33 @@ class ListarTrabajador(ListView):
         print(context)
         return context
     """
+"""
 class CrearTrabajador(CreateView):
     model = Trabajadores
     template_name = 'Trabajadores/trabajador_modal.html'
     form_class = trabajadoresForms
     success_url = reverse_lazy('listado_trabajadores')
+"""
+def CrearTrabajador(request):
+    form = trabajadoresForms(request.POST or None)
+    context = {
+        'form':form,
+    }
+    if form.is_valid():
+        instace = form.save(commit=False)
+        instace.save()
+        return redirect('listado_trabajadores')
+
+    return render(request,'Trabajadores/form_trabajadores.html',context)
+
+
 
 class ModificarTrabajador(UpdateView):
     model = Trabajadores
     form_class = trabajadoresForms
-    template_name = 'Trabajadores/trabajador_modal.html'
+    template_name = 'Trabajadores/form_trabajadores.html'
     success_url = reverse_lazy('listado_trabajadores')
+
 
 class DetalleTrabajador(DetailView):
     model = Trabajadores
@@ -2520,14 +2536,14 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
@@ -2579,14 +2595,14 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)        
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
@@ -2594,6 +2610,7 @@ class ReportePersonasPDF(View):
             detalles29 = [(29, veintinueve['HEN'], veintinueve['HDYI'], veintinueve['HDYF'], veintinueve['HALI'], veintinueve['HALF'], veintinueve['HPAI'], veintinueve['HPAF'], veintinueve['HDCI'], veintinueve['HDCF'], veintinueve['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles29 = [(29,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
+
 
 
         #TREINTA
@@ -2638,14 +2655,14 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
@@ -2697,15 +2714,15 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
-            
+
+
         print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        print("Resultado",totalMesMinutos, totalMes)    
+        print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
@@ -3063,16 +3080,20 @@ def buscar(request):
         q = request.GET['cb']
         #print(q)
         existe_colaborador=Trabajadores.objects.all()
-
+        existe_colaborador.values('fechaNacimiento')
         if not q:
             errors.append('Por favor introduce un termino de busqueda.')
             print(errors)
         else:
             trabajadores = Trabajadores.objects.filter(CodigoBarras=q)
+
             #modelo=Historial_IO.objects.all()
            #print(trabajadores.values()[0])
             if trabajadores.count() > 0:
-                id = trabajadores.get().id
+                try:
+                    id = trabajadores.get().id
+                except:
+                    quit()
                 #print(id)
             else:
                 if not existe_colaborador.count() != 0:
@@ -3148,6 +3169,7 @@ def buscar(request):
                     # print(form)
                 else:
                     print('no entra')
+                    print(form.errors)
                     errors.append('La acción ya se encuntra registrada en este día.')
 
             return render(request, 'registrarJornada/registrarJornada.html',context)

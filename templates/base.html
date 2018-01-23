@@ -61,8 +61,11 @@ Esta función podria servir
         inline: true
     });
 </script>
-
-
-
-
+<script>
+    $(document).ready(function(){
+        $("#myBtn").click(function(){
+            $("#myModal").modal({keyboard: true});
+        });
+    });
+</script>
 </html>

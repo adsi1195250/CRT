@@ -38,12 +38,12 @@
             {%if a.cedula and a.mes %}
                  <!--h1>{{object_list}}</h1-->
                  <div id="report">
-          				<form action="/report/" method="get">
-          					<input type="hidden" name="cedula" {%if object_list%} {%for a in object_list%} value="{{a.cedula}}"  {% endfor %}  {%endif%}>
+                          <form action="/report/" method="get">
+                              <input type="hidden" name="cedula" {%if object_list%} {%for a in object_list%} value="{{a.cedula}}"  {% endfor %}  {%endif%}>
                     <input type="hidden" name="mes" {%if object_list%} {%for a in object_list%} value="{{a.mes}}"  {% endfor %}  {%endif%}>
-          					<input type="submit" value="Imprimir" class="btn btn-secondary" style="color:#000;">
-          				</form>
-          			</div>
+                              <input type="submit" value="Imprimir" class="btn btn-secondary" style="color:#000;">
+                          </form>
+                      </div>
             {% endif %}
           {% endfor %}
         </div>
@@ -1886,7 +1886,7 @@
                        <h1 style="color: #fefefe"> No existen registros </h1>
                     </div>
                 {%endif%}
-            {% endfor %}    
+            {% endfor %}
           </div>
         </div>
       <div id="popup" class="modal fade" role="dialog">
@@ -1897,12 +1897,12 @@
     <script>
         function valida(e){
             tecla = (document.all) ? e.keyCode : e.which;
-            
+
             //Tecla de retroceso para borrar, siempre la permite
             if (tecla==8){
                 return true;
             }
-            
+
             // Patron de entrada, en este caso solo acepta numeros
             patron =/[0-9]/;
             tecla_final = String.fromCharCode(tecla);

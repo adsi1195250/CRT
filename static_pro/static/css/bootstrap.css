@@ -5520,6 +5520,7 @@ button.close {
   border-bottom: 1px solid #f7f7f9;
   border-top-left-radius: 0.6rem;
   border-top-right-radius: 0.6rem;
+
 }
 
 .modal-header .close {
@@ -5532,12 +5533,16 @@ button.close {
   line-height: 1.5;
 }
 
+
+
 .modal-body {
   position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   padding: 15px;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
 
 .modal-footer {

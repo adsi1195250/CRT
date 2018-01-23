@@ -1,0 +1,171 @@
+<html>
+ <head>
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+ <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+ </head>
+
+ <body>
+
+ <div class="container">
+
+
+ <form class="form-signin" method="POST">
+      {% csrf_token %}
+     <h2 class="form-signin-heading">Códigos de diagnostico</h2>
+     <div class="row">
+         <div class="col-md-2">
+
+              <label for="codigo" class="sr-only">Filtro de codigos</label>
+             <select id="codigo" style="width: 100px" class="form-control" required autofocus>
+                <option value="B2-C392">A</option>
+                 <option value="B393-C776">B</option>
+                 <option value="B777-C1227">C</option>
+                 <option value="B1228-C1679">D</option>
+                 <option value="B1680-C2034">E</option>
+                 <option value="B2035-C2441">F</option>
+                 <option value="B2442-C2772">G</option>
+                 <option value="B2773-C3147">H</option>
+                 <option value="B3148-C3531">I</option>
+                 <option value="B3532-C3762">J</option>
+                 <option value="B3763-C4175">K</option>
+                 <option value="B4176-C4513">L</option>
+                 <option value="B4514-C5057">M</option>
+                 <option value="B5058-C5491">N</option>
+                 <option value="B5492-C5914">O</option>
+                 <option value="B5915-C6249">P</option>
+                 <option value="B6250-C6869">Q</option>
+                 <option value="B6870-C7199">R</option>
+                 <option value="B7200-C7796">S</option>
+                 <option value="B7797-C8477">T</option>
+                 <option value="B8478-C9254">V</option>
+                 <option value="B9255-C10124">W</option>
+                 <option value="B10125-C11094">X</option>
+                 <option value="B11095-C11795">Y</option>
+                 <option value="B11796-C12422">Z</option>
+             </select>
+         </div>
+         <div class="col-md-10">
+
+            <button id="submit" class="btn  btn-primary " type="submit">Enviar</button>
+             <input id="id_codigoDiagnostico" type="text" placeholder="Codigo">
+             <div class="" style="margin-left: 23%;margin-top: 0px;float: right">
+                <label style="color: #1b1e21" for="myInput">Código: </label>
+                <input id="myInput" type="text" placeholder="Busqueda...">
+            </div>
+         </div>
+
+
+        <!--
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+
+     </div>
+
+
+
+
+
+ </form>
+
+     <table class="table table-hover">
+          <thead>
+            <tr class="table">
+              <th scope="col">Código</th>
+              <th scope="col">Descripción</th>
+
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <tr style="height: 10px" class="table-mine">
+                <td>No hay datos</td>
+                <td>No hay datos</td>
+            </tr>
+          </tbody>
+     </table>
+
+ </div>
+
+ <p style="padding-left:70px" id="demo"></p>
+
+ {% if codigos %}
+     <h1>Funcionaa!!</h1>
+ {% endif %}
+
+ <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+ <script>
+//For getting CSRF token
+    function getCookie(name) {
+           var cookieValue = null;
+           if (document.cookie && document.cookie != '') {
+             var cookies = document.cookie.split(';');
+             for (var i = 0; i < cookies.length; i++) {
+             var cookie = jQuery.trim(cookies[i]);
+             // Does this cookie string begin with the name we want?
+             if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                 break;
+              }
+         }
+     }
+     return cookieValue;
+    }
+
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+//For doing AJAX post
+ $("#submit").click(function(e) {
+
+ e.preventDefault();
+
+ var csrftoken = getCookie('csrftoken');
+
+ var codigo = $('#codigo').val();
+
+ //var password = $('#inputPassword').val();
+
+//This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
+
+ $.ajax({
+         url : window.location.href, // the endpoint,commonly same url
+         type : "POST", // http method
+         data : { csrfmiddlewaretoken : csrftoken,
+         codigo : codigo
+         //password : password
+ }, // data sent with the post request
+
+ // handle a successful response
+ success : function(json) {
+      console.log(json); // another sanity check
+      //On success show the data posted to server as a message
+     document.getElementById("myTable").innerHTML = "<tr><td>" + " " + "</td></tr>";
+        for (x in json['codigos']) {
+
+            document.getElementById("myTable").innerHTML += "<tr><td><a class='btn btn-primary'>" + x + "</a></td><td>"+json['codigos'][x]+"</td></tr>";
+            //document.getElementById("demo").innerHTML += x +' '+ json['codigos'][x] + "<br>";
+        }
+     $( "a" ).click(function() {
+        var text = $( this ).text();
+        $( "#id_codigoDiagnostico" ).val( text );
+     });
+      //alert('Hi '+json['codigo'] +'!.' + ' You have entered password:'+ json['password']+'  CODIGOS:'+json['codigos']);
+ },
+
+ // handle a non-successful response
+ error : function(xhr,errmsg,err) {
+ console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+ }
+ });
+});
+
+</script>
+
+</body>
+</html>

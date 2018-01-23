@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'permiso_ausentismo',
     #'main.apps.MainConfig',
     'crispy_forms',
     'datetimewidget',
@@ -117,16 +118,13 @@ DATABASES = {
         },
         'NAME': 'crt_db',
         'USER': 'root',
-        'PASSWORD': 'BTabares99',
         #'PASSWORD': '1234',
         #'HOST': '192.168.1.32',
         #'HOST': '192.168.0.22',
         'HOST': 'localhost',
-
         #'PASSWORD': '1234',
         #'PASSWORD': '1234',
-
-        #'PASSWORD': '1234',
+        'PASSWORD': '1234',
         #'PASSWORD': '1234',
         #'HOST': '192.168.0.22',
         #'HOST': 'localhost',
@@ -160,6 +158,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'es-mx'
 
 TIME_ZONE = 'America/Bogota'
+
 
 USE_I18N = True
 
