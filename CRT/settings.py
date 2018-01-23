@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'permiso_ausentismo',
     #'main.apps.MainConfig',
     'crispy_forms',
     'datetimewidget',
@@ -127,6 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'es-mx'
 
 TIME_ZONE = 'America/Bogota'
+
 
 USE_I18N = True
 

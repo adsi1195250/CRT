@@ -1,0 +1,45 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div style="background-color: #4eac92" class="modal-header">
+            <h3 style=""><strong>Detalle permiso ausentismo</strong></h3>
+            <button type="button" class="close" data-dismiss="modal"><a class="fa fa-times-circle"></a></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-2 col-xs-3">
+                    <p><strong>Mes:</strong></p>
+                    <p><strong>Colaborador:</strong></p>
+                    <p><strong>Tipo de evento:</strong></p>
+                    <p><strong>Código de diagnostico:</strong></p>
+                </div>
+                 <div class="col-sm-3 col-xs-5">
+                    <p style="">{{ object.get_mes_evento_display }}</p>
+                    <p style="">{{ object.idTrabajador }}</p>
+                     <p style="">{{ object.get_tipo_evento_display }}</p>
+                    <p style="padding-top: 20px">{{ object.codigoDiagnostico }}</p>
+                </div>
+                <div style="padding-left: 0px" class="col-sm-4 col-xs-1">
+                    <p><strong>Periodo inicial de incapacidad:</strong></p>
+                    <p><strong>Periodo final de incapacidad:</strong></p>
+                    <p><strong>Prorroga:</strong></p>
+                    <p><strong>Días cargados:</strong></p>
+                    <p><strong>Total días de incapacidad:</strong></p>
+                </div>
+                <div class="col-sm-3 col-xs-3">
+                    <p style="">{{ object.periodoIncapacidadInicial }}</p>
+                    <p style="">{{ object.periodoIncapacidadFinal }}</p>
+                    <p style="">{{ object.prorroga }}</p>
+                    <p style="">{{ object.diasCargados }}</p>
+                    <p style="">{{ object.totalDiasIncapacidad }}</p>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #4eac92;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px" class="modal-footer">
+            <div class="col-lg-12 text-right">
+                <button type="button" class="btn btn-secondary" onclick="return cerrar_modal()">
+                        Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

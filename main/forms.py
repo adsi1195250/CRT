@@ -41,16 +41,20 @@ class trabajadoresForms(forms.ModelForm):
         }
         """
         labels = {
-            'nombres': 'Nombre completo',
-            'cedula': 'Cedula',
-            'fechaIngreso': 'Fecha de ingreso',
-            'fechaNacimiento': 'Fecha de nacimiento',
-            'edad': 'Edad',
-            'administrador': 'Admin',
-            'telefono': 'Telefono',
-            'CodigoBarras':'Codigo de barras',
+            'nombres': 'Nombre completo ',
+            'cedula': 'Cedula ',
+            'fechaIngreso': 'Fecha de ingreso ',
+            'fechaNacimiento': 'Fecha de nacimiento ',
+            'edad': 'Edad ',
+            'administrador': ' Administrador',
+            'telefono': 'Telefono ',
+            'CodigoBarras':'Codigo de barras ',
             #'foto': 'Foto',
 
+        }
+        widgets = {
+            'fechaIngreso': forms.TextInput(attrs={'class': 'form-control', 'type': 'date', }),
+            'fechaNacimiento': forms.TextInput(attrs={'class': 'form-control', 'type': 'date', }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -61,27 +65,73 @@ class trabajadoresForms(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
 
         self.helper.layout = Layout(
-            'nombres',
-            'cedula',
+            Div(
+                Div(Field('nombres'), css_class='col-sm-3', ),
+                Div(Field('cedula'), css_class='col-sm-2', ),
+                Div(Field('telefono'), css_class='col-sm-2', ),
+                Div(
+                    Div(Field('fechaIngreso'), css_class='', ),
+                    css_class='col-sm-2'),
+                Div(
+                    Div(Field('fechaNacimiento'), css_class='', ),
+                    css_class='col-sm-2'),
+                Div(Field('edad'), css_class='col-sm-1', ),
+                # HTML('<p>Date: <input name="fechaIngreso" type="text" id="id_date"></p>'),
+                css_class='row',
+
+            ),
+            Div(
+                Div(Field('administrador',css_class=''), style='margin-top:45px;', css_class='col-sm-2', ),
+                Div(Field('CodigoBarras',css_class='col-sm-10',rows='2'),css_class='col-sm-10'),
+                css_class='row'
+            ),
 
             Div(
-                Div('fechaIngreso', css_class='col-md-6', ),
-                #HTML('<p>Date: <input name="fechaIngreso" type="text" id="id_date"></p>'),
-                Div('fechaNacimiento', css_class='col-md-6', ),
-                css_class='row',
+                FormActions(
+                    Submit('save', 'Guardar', css_class='btn-default'),
+                    HTML(
+                        '<a type="button" class="btn btn-danger" href="{% url "listado_trabajadores" %}" >Cancelar</a>'),
+                ),
+                style='text-align:right;padding-right:1%;padding-top:1%'
             ),
-            Div(
-                Div('edad', css_class='col-md-5', ),
-                Div('telefono', css_class='col-md-5',),
-                Div('administrador', css_class='col-md-2', ),
-                css_class='row',
-            ),
-            'CodigoBarras'
 
             #'foto',
 
 
         )
+    def clean_cedula(self):
+        cedula = self.cleaned_data['cedula']
+        return cedula
+
+    def clean_CodigoBarras(self):
+        CodigoBarras = self.cleaned_data['CodigoBarras']
+        return CodigoBarras
+
+    def clean_fechaIngreso(self):
+        fechaIngreso= self.cleaned_data['fechaIngreso']
+        return fechaIngreso
+
+    def clean_fechaNacimiento(self):
+        fechaNacimiento=self.cleaned_data['fechaNacimiento']
+        return fechaNacimiento
+
+    def clean(self):
+        try:
+            fechaIngreso=self.cleaned_data['fechaIngreso']
+        except KeyError:
+            raise ValidationError('Fecha de ingreso invalida!')
+
+        try:
+            fechaNacimiento=self.cleaned_data['fechaNacimiento']
+        except KeyError:
+            raise ValidationError('Fecha de nacimiento invalida!')
+
+        if fechaNacimiento != None:
+            if fechaNacimiento > date.today():
+                raise ValidationError('La fecha de nacimiento no puede ser mayor a la fecha actual.')
+        if fechaIngreso != None:
+            if fechaIngreso > date.today():
+                raise ValidationError('La fecha de ingreso no puede ser mayor a la fecha actual.')
         """
             for field in iter(self.fields):
             if field != 'estado':
@@ -89,7 +139,22 @@ class trabajadoresForms(forms.ModelForm):
                     'class': 'form-control'
                 })
         """
-
+        CodigoBarras = self.cleaned_data['CodigoBarras']
+        cedula=self.cleaned_data['cedula']
+        codigos_cedula_id = Trabajadores.objects.filter(CodigoBarras__exact=CodigoBarras,cedula__exact=cedula)
+        print(codigos_cedula_id)
+        if  codigos_cedula_id.count() > 0:
+            pass
+        else:
+            codigos = Trabajadores.objects.filter(CodigoBarras__exact=CodigoBarras)
+            cedulas = Trabajadores.objects.filter(cedula__exact=cedula)
+            print(codigos)
+            if codigos.count() > 0:
+                raise ValidationError('El código ya se encuntra registrado.')
+            else:
+                pass
+            if cedulas.count() > 0:
+                raise ValidationError('La cédula ya se encuentra registrada')
 """
 class Historial_IOForms(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -267,29 +332,3 @@ class Historial_IOForms(forms.ModelForm):
             raise ValidationError('La acción ya se encuentra registrada en este día.')
 
 
-
-class PermisoAusentismoForms(forms.ModelForm):
-    class Meta:
-        model = PermisoAusentismo
-        fields=[
-            'fechaSalida',
-            #'totalHoras',
-            'motivo',
-            'periodoIncapacidadInicial',
-            'periodoIncapacidadFinal',
-            'diasIncapacidad',
-            'codigoDiagnostico',
-            'descripcion',
-            'idTrabajador',
-        ]
-        labels = {
-            'fechaSalida': 'FECHA DE SALIDA',
-            #'totalHoras': 'TOTAL DE HORAS',
-            'motivo': 'MOTIVO',
-            'periodoIncapacidadInicial': 'PERIODO DE INCAPACIDAD INICIAL',
-            'periodoIncapacidadFinal': 'PERIODO DE INCAPACIDAD FINAL',
-            'diasIncapacidad': 'DIAS DE INCAPACIDAD',
-            'codigoDiagnostico': 'CODIGO DE DIAGNOSTICO',
-            'descripcion': 'DESCRIPCION',
-            'idTrabajador': 'ID TRABAJADOR',
-        }

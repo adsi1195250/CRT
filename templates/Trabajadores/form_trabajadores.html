@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div style="padding-top: 50px"></div>
+      <div class="container" style="background-color: #fefefe;border-radius: 10px;">
+                <!--
+                <div class="row" style="background-color:rgba(74,255,202,0.71);border-top-right-radius: 10px;border-top-left-radius: 10px">
+                    <div class="col-md-11">
+                        <h3 class="" style="color: darkcyan;padding-left: 10%"><strong>Registrar Jornada</strong></h3>
+                        <!--
+                        <p>Date: <input type="text" id="datepicker"></p>
+                    </div>
+                </div>
+                -->
+
+         <div class="row" style="background-color:#4eac92;border-top-left-radius:10px;border-top-right-radius: 10px">
+            <div class="col-md-12">
+                <h3 style="color: #fefefe" class="text-md-center"><strong> Registro de trabajadores </strong></h3>
+            </div>
+        </div>
+
+
+        <div style="height: 10px"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <form role="form" action=" " method="post">{% csrf_token %}
+
+
+                   {% crispy form %}
+
+                </form>
+            </div>
+        </div>
+  </div>
+    <script src="{% static 'js/trabajadores.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+
+    <div style="padding-top: 50px"></div>
+    <div class="container" style="background-color: #fefefe;border-radius: 10px;">
+        <div class="row" style="background-color:#4eac92;border-top-left-radius:10px;border-top-right-radius: 10px">
+            <div class="col-md-12">
+                <h3 style="color: #fefefe" class="text-md-center"><strong> Permiso de ausentismo </strong></h3>
+            </div>
+        </div>
+        <div style="height: 10px"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <form role="form" action=" " method="post">{% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'permiso_ausentismo/modal_permiso_ausentismo.html' %}
+    <script src="{% static 'js/jquery.progressTimer.js' %}"></script>
+    <script src="{% static 'js/permiso_ausentismo.js' %}"></script>
+{% endblock %}

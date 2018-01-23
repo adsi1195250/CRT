@@ -39,17 +39,34 @@ class ListarTrabajador(ListView):
         print(context)
         return context
     """
+"""
 class CrearTrabajador(CreateView):
     model = Trabajadores
     template_name = 'Trabajadores/trabajador_modal.html'
     form_class = trabajadoresForms
     success_url = reverse_lazy('listado_trabajadores')
+"""
+def CrearTrabajador(request):
+    form = trabajadoresForms(request.POST or None)
+    context = {
+        'form':form,
+    }
+    if form.is_valid():
+        instace = form.save(commit=False)
+        instace.save()
+        return redirect('listado_trabajadores')
+
+    return render(request,'Trabajadores/form_trabajadores.html',context)
+
+
 
 class ModificarTrabajador(UpdateView):
     model = Trabajadores
     form_class = trabajadoresForms
-    template_name = 'Trabajadores/trabajador_modal.html'
+    template_name = 'Trabajadores/form_trabajadores.html'
     success_url = reverse_lazy('listado_trabajadores')
+
+
 
 class DetalleTrabajador(DetailView):
     model = Trabajadores
@@ -65,7 +82,9 @@ class listarInformeIO(ListView):
     model = Historial_IO
     template_name = 'registrarJornada/listarInformeIO.html'
     def get_queryset(self):
+        print(self.request.GET)
         q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
+        cedula = self.request.GET.get('cedula')
         hoy = str(date.today().day)
         #filtro = Historial_IO.objects.filter(hora = hoy)
         #for f in q:
@@ -207,6 +226,7 @@ class listarInformeIO(ListView):
             #   j[i.accion_jornada] = i.hora
 
         #print("None",i)
+
         self.b.append(a)
         self.b.append(uno)
         self.b.append(dos)
@@ -247,245 +267,8 @@ class listarInformeIO(ListView):
         #print(self.b)
         a={}
         j={}
+        print(self.b)
         return self.b
-
-        def cabecera(self,pdf):
-            objetos = Trabajadores.objects.all()
-            #r = self.request.GET['cedula']
-            #print("R con R cigaRRO",r)
-            a = {}
-            b= []
-            #Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
-            archivo_imagen = settings.STATIC_ROOT+'/img/index.jpg'
-            #Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
-            pdf.drawImage(archivo_imagen, 40, 490, 120, 80,preserveAspectRatio=True)
-            #Establecemos el tamaño de letra en 16 y el tipo de letra Helvetica
-            pdf.setFont("Helvetica", 25)
-            #Dibujamos una cadena en la ubicación X,Y especificada
-            pdf.drawString(280, 520, u"Siete Colinas S.A.S")
-            pdf.line(280, 510, 520, 510)
-            pdf.setFont("Helvetica", 14)
-            pdf.drawString(280, 492, u"REPORTE DE REGISTRO JORNADA")
-            pdf.setFont("Helvetica", 10)
-            pdf.drawString(620, 500, u"Colaborador:")
-            pdf.setFont("Helvetica", 10)
-            for i in objetos:
-                a['nombree'] = i.nombres
-            b.append(a)
-            pdf.drawString(680,500, 'Jose Antonio Piccaso')
-            print(a)
-
-        def tabla(self,pdf,y):
-            #print("cedula del nn", f)
-            cont = 0
-            cont1 = 0
-            #Creamos una tupla de encabezados para neustra tabla
-            encabezados = ('día', 'hora Entrada', 'hora Desayuno', 'Hora Fin desayuno', 'hora Almuerzo', 'hora Fin Almuerzo', 'hora Pausas Activas', 'hora Fin pausas activas', 'hora Descanso', 'hora Fin Descanso', 'hora Salida', 'Horas Trabajadas', 'horas Descansadas')
-            #Creamos una lista de tuplas que van a contener a las personas
-            q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
-            #fq = i.fecha.day
-            #a['nombre'] = i.id_trabajadores.nombres
-            """if fq == 4:
-                a[i.accion_jornada] = i.fecha
-            elif fq==5:
-                j[i.accion_jornada] = i.fecha
-            elif fq==8:
-                ocho[i.accion_jornada] = i.fecha
-                ocho[i.accion_jornada_hora] = i.hora
-            elif fq==9:
-                nueve[i.accion_jornada] = i.fecha
-                nueve[i.accion_jornada_hora] = i.hora
-            """
-            a = {}
-            j = {}
-            uno = {}
-            dos = {}
-            tres = {}
-            cuatro={}
-            cinco={}
-            seis={}
-            siete={}
-            ocho = {}
-            nueve = {}
-            diez={}
-            once={}
-            doce = {}
-            trece = {}
-            catorce = {}
-            quince = {}
-            dieciseis = {}
-            diecisiete = {}
-            dieciocho = {}
-            diecinueve = {}
-            veinte = {}
-            veintiuno = {}
-            veintidos = {}
-            veintitres = {}
-            veinticuatro={}
-            veinticinco = {}
-            veintiseis = {}
-            veintisiete = {}
-            veintiocho = {}
-            veintinueve = {}
-            treinta = {}
-            treintauno = {}
-
-            once['HEN'] = 'NA'
-            once['HDYI'] = 'NA'
-            once['HDYF'] = 'NA'
-            once['HALI'] = 'NA'
-            once['HALF'] = 'NA'
-            once['HPAI'] = 'NA'
-            once['HPAF'] = 'NA'
-            once['HDCI'] = 'NA'
-            once['HDCF'] = 'NA'
-            once['HSA'] = 'NA'
-
-            self.b= []
-            for i in q:
-                fq = i.fecha.day
-                #print(fq)
-                a['nombre'] = i.id_trabajadores.nombres
-                if fq==8:
-                    ocho[i.accion_jornada] = i.fecha
-                    ocho[i.accion_jornada_hora] = i.hora
-                    #detalles = [(i.fecha, i.accion_jornada_hora)]
-                elif fq==9:
-                    nueve[i.accion_jornada] = i.fecha
-                    nueve[i.accion_jornada_hora] = i.hora
-                elif fq==10:
-                    diez[i.accion_jornada] = i.fecha
-                    diez[i.accion_jornada_hora] = i.hora
-                elif fq==11:
-                    once[i.accion_jornada] = i.fecha
-                    once[i.accion_jornada_hora] = i.hora
-
-
-            self.b.append(a)
-            self.b.append(ocho)
-            self.b.append(nueve)
-            self.b.append(diez)
-            self.b.append(once)
-
-
-            #print("sss", once)
-
-            #if ocho
-            #for g, u in ocho.items():
-            #    print(g,u)
-
-            if ocho['EN'].day == 8:
-                detalles = [(8, ocho['HEN'], ocho['HDYI'], 'vacio', ocho['HALI'] ) ]
-            if nueve['EN'].day == 9:
-                detalles2 = [(9, nueve['HEN'], nueve['HDYI'], nueve['HDYF'], nueve['HEN'], 'NA' )]
-            #else:
-            #    detalles2 = [(9, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
-            if diez['EN'].day == 10:
-                detalles10 = [(10, diez['HEN'], diez['HDYI'], diez['HDYF'], diez['HEN'], 'NA' )]
-
-            if once['HSA'] != 'NA':
-                horasTrabajadas = once['HSA'].hour - once['HEN'].hour
-                #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
-            else:
-                horasTrabajadas = 0
-            if once['HSA'] != 'NA':
-                minutosTrabajadas = once['HSA'].minute - once['HEN'].minute
-                #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
-            else:
-                minutosTrabajadas = 0
-
-            if once['HALI'] != 'NA':
-                horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
-            else:
-                horasAlmuerzo = 0
-            if once['HALF'] != 'NA':
-                minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
-            else:
-                minutosAlmuerzo = 0
-
-            #MINUTOS
-            if minutosAlmuerzo < 0:
-                minutosAlmuerzo = -minutosAlmuerzo
-
-            if minutosTrabajadas < 0:
-                minutosTrabajadas = -minutosTrabajadas
-
-            minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
-            if minutosTotal < 0:
-                minutosTotal = -minutosTotal
-
-            #HORAS
-
-            if horasAlmuerzo < 0:
-                horasAlmuerzo = -horasAlmuerzo
-
-            if horasTrabajadas < 0:
-                horasTrabajadas = -horasTrabajadas
-
-            horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
-            if horaTotal < 0:
-                horaTotal = -horaTotal
-
-            print(horasTrabajadas, minutosTrabajadas)
-            print(horasAlmuerzo, minutosAlmuerzo)
-            print(horaTotal, horasTrabajadas, horasAlmuerzo)
-            #minutosTrabajadas = once['HSA'].minute - once['HEN'].minute
-            #print(once['HSA'].minute, once['HEN'].minute)
-            #print(minutosTotal, minutosTrabajadas, minutosAlmuerzo)
-            #print(horaTotal)
-            #Me llene el registro cuando todos los campos ya esten llenos hasta la salida
-            if once['EN'].day == 11 :
-                detalles11 = [(11, once['HEN'], once['HDYI'], once['HDYF'], once['HALI'], once['HALF'], once['HPAI'], once['HPAF'], once['HDCI'],once['HDCF'], once['HSA'], "Horas: "+ str(horaTotal) + " Minutos "+ str(minutosTotal), 'Horas Descansadas'   )]
-            #try:
-            #    detalles11 = [(11, once['HEN'], once['HDYI'], once['HDYF'], once['HALI'], once['HALF'], once['HPAI'], once['HPAF'], once['HDCI'],once['HDCF'], once['HSA'], "Horas: "+ str(horasTrabajadas) + " Minutos "+ str(minutosTrabajadas), 'Horas Descansadas'   )]
-            #except:
-            #    detalles11 = [(11, once['HEN'], once['HDYI'], once['HDYF'], once['HALI'], once['HALF'], once['HPAI'], once['HPAF'], once['HDCI'],once['HDCF'], once['HSA'], 'NA', 'Horas Descansadas'   )]
-
-            #detalles2 = [(9 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
-            #Establecemos el tamaño de cada una de las columnas de la tabla
-            #Aplicamos estilos a las celdas de la tabla
-            detalle_orden = Table([encabezados] + detalles+ detalles2 + detalles10 + detalles11, colWidths=[ 1.5* cm, 2.15 * cm, 2.15 * cm, 2.15 * cm])
-            detalle_orden.setStyle(TableStyle(
-                [
-                    #La primera fila(encabezados) va a estar centrada
-                    ('ALIGN',(0,0),(3,0),'LEFT'),
-                    #Los bordes de todas las celdas serán de color negro y con un grosor de 1
-                    ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                    #El tamaño de las letras de cada una de las celdas será de 10
-                    ('FONTSIZE', (0, 0), (-1, -1), 5),
-                ]
-            ))
-            #Establecemos el tamaño de la hoja que ocupará la tabla
-            detalle_orden.wrapOn(pdf, 800, 600)
-            #Definimos la coordenada donde se dibujará la tabla
-            detalle_orden.drawOn(pdf, 10,250)
-
-        def get(self, request, *args, **kwargs):
-            #f = request.GET['cedula']
-            #print("F con F",value)
-            #Indicamos el tipo de contenido a devolver, en este caso un pdf
-            response = HttpResponse(content_type='application/pdf')
-            #La clase io.BytesIO permite tratar un array de bytes como un fichero binario, se utiliza como almacenamiento temporal
-            buffer = BytesIO()
-            #Canvas nos permite hacer el reporte con coordenadas X y Y
-            pdf = canvas.Canvas(buffer)
-            #Llamo al método cabecera donde están definidos los datos que aparecen en la cabecera del reporte.
-            self.cabecera(pdf)
-            y = 600
-            self.tabla(pdf, y)
-            #Con show page hacemos un corte de página para pasar a la siguiente
-            pdf.setPageSize( landscape(letter) )
-            pdf.showPage()
-            pdf.save()
-            pdf = buffer.getvalue()
-            buffer.close()
-            response.write(pdf)
-            return response
-
-
-
-
-
 
 
 class ReportePersonasPDF(View):
@@ -1015,16 +798,20 @@ def buscar(request):
         q = request.GET['cb']
         #print(q)
         existe_colaborador=Trabajadores.objects.all()
-
+        existe_colaborador.values('fechaNacimiento')
         if not q:
             errors.append('Por favor introduce un termino de busqueda.')
             print(errors)
         else:
             trabajadores = Trabajadores.objects.filter(CodigoBarras=q)
+
             #modelo=Historial_IO.objects.all()
            #print(trabajadores.values()[0])
             if trabajadores.count() > 0:
-                id = trabajadores.get().id
+                try:
+                    id = trabajadores.get().id
+                except:
+                    quit()
                 #print(id)
             else:
                 if not existe_colaborador.count() != 0:
@@ -1100,6 +887,7 @@ def buscar(request):
                     # print(form)
                 else:
                     print('no entra')
+                    print(form.errors)
                     errors.append('La acción ya se encuntra registrada en este día.')
 
             return render(request, 'registrarJornada/registrarJornada.html',context)
