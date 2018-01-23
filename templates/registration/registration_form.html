@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-sm-6 col-sm-offset-6" style="background-color: rgba(0,0,0,0.73);margin-left: 350px; margin-top: 10px;">
+  <h2 class="text-align-center"><strong>Registrate</strong></h2>
+
+  <form method="post" action="." style="width: 350px; margin-left: 150px; text-align:center;">
+    {% csrf_token %}
+    {{ form | crispy }}
+
+    <input class="btn btn-primary" type="submit" value="{% trans 'Enviar' %}" />
+  </form>
+  </div>
+{% endblock %}
