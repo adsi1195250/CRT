@@ -126,6 +126,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
   display: block;
 }
 
+.error404 {
+  background: url(../img/IMG_1020.jpeg) no-repeat center center fixed;
+}
+
 body {
   height: 100%;
   margin: 0;
@@ -300,6 +304,20 @@ img {
 svg:not(:root) {
   overflow: hidden;
 }
+
+/*
+select{
+  outline: 0;
+    overflow: hidden;
+    height: 30px;
+    background: #2c343c;
+    color: #747a80;
+    border: #2c343c;
+    padding: 5px 3px 5px 10px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 10px;
+}*/
 
 a,
 area,
@@ -665,7 +683,7 @@ pre code {
 }
 
 #prueba{
-    width: 270px;
+    width: 240px;
 }
 
 .container {
@@ -2191,7 +2209,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 .formaa{
   text-align: right;
-  margin-top: -45px;
+  margin-top: -40px;
   padding-right: 20px;
 }
 
@@ -2580,6 +2598,12 @@ fieldset[disabled] a.btn {
   border-color: #78C2AD;
 }
 
+#report{
+  text-align: center;
+  padding-top: 10px;
+
+}
+
 .btn-primary:hover {
   color: #111;
   background-color: #5eb69d;
@@ -2611,10 +2635,17 @@ fieldset[disabled] a.btn {
   border-color: #F3969A;
 }
 
+/*
 .btn-secondary:hover {
   color: #111;
   background-color: #ef7479;
   border-color: #ee686e;
+}
+*/
+.btn-secondary:hover {
+  color: #111;
+  background-color: transparent;
+  border-color: #000;
 }
 
 .btn-secondary:focus, .btn-secondary.focus {
@@ -3212,16 +3243,8 @@ tbody.collapse.show {
 }
 
 .dropup .dropdown-toggle::after {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 0.255em;
-  vertical-align: 0.255em;
-  content: "";
   border-top: 0;
-  border-right: 0.3em solid transparent;
   border-bottom: 0.3em solid;
-  border-left: 0.3em solid transparent;
 }
 
 .dropup .dropdown-toggle:empty::after {
