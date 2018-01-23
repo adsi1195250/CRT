@@ -44,7 +44,7 @@ class trabajadoresForms(forms.ModelForm):
             'nombres': 'Nombre completo ',
             'cedula': 'Cedula ',
             'fechaIngreso': 'Fecha de ingreso ',
-            'fechaNacimiento': 'Fecha de nacimiento ',
+            'fechaNacimiento': 'Fecha de nacimiento',
             'edad': 'Edad ',
             'administrador': ' Administrador',
             'telefono': 'Telefono ',
