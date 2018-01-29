@@ -122,7 +122,6 @@ DATABASES = {
         #'HOST': '192.168.1.32',
         #'HOST': '192.168.0.22',
         'HOST': 'localhost',
-        #'PASSWORD': '1234',
         'PASSWORD': 'BTabares99',
         #'HOST': '192.168.0.22',
         #'HOST': 'localhost',
