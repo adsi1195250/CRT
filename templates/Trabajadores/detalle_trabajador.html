@@ -6,30 +6,23 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <p><strong>Nombres:</strong></p>
                     <p><strong>Cedula:</strong></p>
                     <p><strong>Fecha de ingreso:</strong></p>
                     <p><strong>Fecha de nacimiento:</strong></p>
+                    <p><strong>Telefono:</strong></p>
+                    <p><strong>Código de barras:</strong></p>
                 </div>
-                 <div class="col-xs-5">
+                 <div class="col-sm-6">
                     <p>{{ object.nombres }}</p>
                     <p>{{ object.cedula }}</p>
                     <p>{{ object.fechaIngreso }}</p>
                     <p>{{ object.fechaNacimiento }}</p>
+                     <p>{{ object.telefono }}</p>
+                     <textarea disabled rows="1">{{ object.CodigoBarras }}</textarea>
                 </div>
-                <div style="padding-left: 15px" class="col-xs-3">
-                    <p><strong>Edad:</strong></p>
-                    <p><strong>Telefono:</strong></p>
-                    <p><strong>Código de barras:</strong></p>
-                    <textarea disabled rows="2">{{ object.CodigoBarras }}</textarea>
-                </div>
-                <div class="col-md-2">
-                    <p>{{ object.edad }}</p>
-                    <p>{{ object.telefono }}</p>
-                    <p></p>
 
-                </div>
             </div>
         </div>
         <div style="background-color: #4eac92;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px" class="modal-footer">

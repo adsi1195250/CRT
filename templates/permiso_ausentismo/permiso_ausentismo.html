@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <style>
+        .print {
+          position: relative;
+          color: #aaa;
+          font-size: 16px;
+        }
+
+        .print input {
+            width: 45px;
+        }
+        .print .fa-print {
+            color: #fefefe;
+          position: absolute;
+          top: 10px;
+          left: 110px;
+        }
+    </style>
 
     <div class="container">
         <div class="row" style="background-color: rgba(0,0,0,0.53);border-radius: 10px;">
@@ -42,30 +59,34 @@
             <table class="table table-responsive table-hover table-bordered">
               <thead>
                 <tr class="table-success">
-                    <th class="col-md-1 text-center">Mes</th>
+                    <th class="col-md-1 text-center"><strong>Mes</strong></th>
                     <th class="col-md-3 text-center">Colaborador</th>
                     <th class="col-md-2 text-center">Periodo inicial incapacidad</th>
                     <th class="col-md-2 text-center">Periodo final incapacidad</th>
 
                     <th class="col-md-1 text-center">Código de diagnostico</th>
-
+                {% if hay_trabajador %}
                     <th class="col-md-2 text-md-center"><a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a></th>
+
+                {% else %}
+                    <th class="col-md-2 text-md-center"><a id="crear_trabajador" href="#" class="btn btn-secondary"><span class="fas fa-plus-circle"></span> Crear</a></th>
+                {% endif %}
                 </tr>
               </thead>
               <tbody>
 
                 {% for objeto in listar_permisos %}
                   <tr class="table-light table-striped">
-                    <td>{{ objeto.get_mes_evento_display }}</td>
-                    <td>{{ objeto.idTrabajador.nombres }}</td>
+                    <td><strong> {{ objeto.get_mes_evento_display }}</strong></td>
+                      <td><a onclick="return abrir_modal('{% url 'detalle_trabajador' objeto.idTrabajador.id %}')" href="#">{{ objeto.idTrabajador.nombres }}</a></td>
                     <td>{{ objeto.periodoIncapacidadInicial }}</td>
                     <td>{{ objeto.periodoIncapacidadFinal }}</td>
 
                     <td>{{ objeto.codigoDiagnostico }}</td>
                     <td>
-                        <a style="color: rgba(0,0,0,0.89);" onclick="return abrir_modal('{% url 'detalle_permiso_ausentismo' objeto.pk %}')" class="btn"> <span class="fa fa-eye"></span></a>
+                        <a style="color: rgba(0,0,0,0.89);" href="#" onclick="return abrir_modal('{% url 'detalle_permiso_ausentismo' objeto.pk %}')" class="btn"> <span class="fa fa-eye"></span></a>
                         <a class="btn" style="color: rgba(0,0,0,0.89);" href="{% url 'editar_permiso_ausentismo' objeto.pk %}"> <span class="fa fa-edit"></span></a>
-                        <a style="color: rgba(0,0,0,0.89);"  onclick="return abrir_modal('{% url 'eliminar_permiso_ausentismo' objeto.pk %}')" class="btn"> <span class="fa fa-trash"></span></a>
+                        <a style="color: rgba(0,0,0,0.89);" href="#"  onclick="return abrir_modal('{% url 'eliminar_permiso_ausentismo' objeto.pk %}')" class="btn"> <span class="fa fa-trash"></span></a>
                     </td>
 
                   </tr>
@@ -77,17 +98,25 @@
             <table class="table table-responsive table-hover table-bordered">
               <thead>
                 <tr class="table-success">
-                    <th class=" text-center">Mes</th>
+                    <th class=" text-center"><strong>Mes</strong></th>
                     <th class="col-md-4 text-center">Periodo inicial incapacidad</th>
                     <th class="col-md-3 text-center">Periodo final incapacidad</th>
                     <th class="col-md-2 text-center">Total días de incapacidad</th>
                     <th class="col-md-1 text-center">Código de diagnostico</th>
 
                     <th class="col-md-2 text-md-center">
-                        <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
+
                         {% if listar_permisos %}
-                            <a id="btn_reporte" href="{% url 'reporte' %}"  class="btn btn-danger"><span class="fas fa-print"></span></a>
-                            {% else %}
+                            <!--<a class="btn btn-danger" onclick="AjaxFormSubmit()" href="#"><span class="fas fa-print"></span></a>-->
+                            <form method="post" action=" ">{% csrf_token %}
+                                <div class="print">
+                                    <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
+                                  <span class="fas fa-print"></span>
+                                  <input class="btn btn-danger" name="imprimir" type="submit" value=".">
+                                </div>
+                            </form>
+                            <!--<a class="btn btn-danger" href="#"><span class="fas fa-print"></span></a>-->
+                        {% else %}
 
                         {% endif %}
 
@@ -98,7 +127,7 @@
 
                 {% for objeto in listar_permisos %}
                   <tr class="table-light table-striped">
-                    <td>{{ objeto.get_mes_evento_display }}</td>
+                    <td><strong>{{ objeto.get_mes_evento_display }}</strong></td>
                     <td class="text-md-center">{{ objeto.periodoIncapacidadInicial }}</td>
                     <td class="text-md-center">{{ objeto.periodoIncapacidadFinal }}</td>
                     <td class="text-md-center">{{ objeto.totalDiasIncapacidad }}</td>
@@ -119,10 +148,75 @@
                 </div>
             {% endif %}
           </div>
+        <div>
+        {# {% for key,value in request.GET.items %}  #}
+        {#  {% if key != "csrfmiddlewaretoken" and key != "mes" %} #}
+        {#  <h1>{{ key }}={{ value }}</h1>#}
+        {#  {% endif %}#}
+        {# {% endfor %}#}
+            <div style="padding-left: 10%">
+                <ul class="pagination">
+                <li>
+                    {% if listar_permisos.has_previous %}
+                        {% if cedula or mes %}
+                            <a class="btn btn-secondary" href="?page={{ listar_permisos.previous_page_number }}&cedula={{ cedula }}&mes={{ mes }}">previa</a>
+                        {% else %}
+                            <a class="btn btn-secondary" href="?page={{ listar_permisos.previous_page_number }}">previa</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+                {% if listar_permisos.has_next %}
+                    &nbsp;
+                <li>
+                    {% if cedula or mes %}
+                        <a class="btn btn-secondary" href="?page={{ listar_permisos.next_page_number }}&cedula={{ cedula }}&mes={{ mes }}">siguiente</a>
+                    {% else %}
+                        <a class="btn btn-secondary" href="?page={{ listar_permisos.next_page_number }}">siguiente</a>
+                    {% endif %}
+                </li>
+                {% endif %}
+            </ul>
+
         </div>
         <div id="popup" class="modal fade" role="dialog">
 
         </div>
 
     </div>
+    <script>
+        $("#crear_trabajador").on("click", function () {
+           alert("Por favor ingrese un colaborador.");
+        });
+    </script>
+    <!--
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+             var cookies = document.cookie.split(';');
+             for (var i = 0; i < cookies.length; i++) {
+             var cookie = jQuery.trim(cookies[i]);
+             // Does this cookie string begin with the name we want?
+             if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                 break;
+              }
+             }
+         }
+         return cookieValue;
+        }
+
+        function AjaxFormSubmit() {
+            var csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url : window.location.href,
+                type : "POST",
+                data : {
+                    csrfmiddlewaretoken : csrftoken
+                    //reporte : 'reporte que onda'
+                }
+            })
+        }
+    </script>
+    -->
 {% endblock %}

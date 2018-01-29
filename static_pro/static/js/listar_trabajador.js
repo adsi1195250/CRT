@@ -19,9 +19,10 @@ function validate_fecha(fecha)
     return false;
 }
 
-function calcularEdad()
+function calcularEdad(fecha_rec)
 {
-    var fecha=document.getElementById("id_fechaNacimiento").value;
+    //var fecha=document.getElementById("id_fechaNacimiento").value;
+    var fecha=fecha_rec;
     if(validate_fecha(fecha)==true)
     {
         var values=fecha.split("-");
@@ -64,31 +65,13 @@ function calcularEdad()
             dias=ultimoDiaMes.getDate()-(dia-ahora_dia);
         }
 
-        document.getElementById("id_edad").innerHTML=edad;
-        $("#id_edad").val(edad);
+       return edad;
     }else{
-        document.getElementById("id_edad").innerHTML="";
+        return 'fecha no valida';
     }
 }
-$(document).ready(function(){
-    //$("#id_fechaNacimiento").value('1996-11-11');
-    $("#id_fechaNacimiento").on("focusout", function() {
-        calcularEdad();
-  });
+
+$(".fecha_nacimiento").each(function (index) {
+    //console.log( index + ": " + $( this ).text() + " Edad: "+ a );
+    $( "p" ).get(index).innerText=calcularEdad(fecha = $(this).text());
 });
-/*
-$(document).ready(function(){
-    //$("#id_fechaNacimiento").value('1996-11-11');
-    $("#id_fechaNacimiento").on("focusout", function() {
-        var fecha_nacimiento = $(this).val().split('-')[0];
-        var fecha_hoy = new Date().getFullYear();
-        var edad = fecha_hoy - fecha_nacimiento;
-        console.log(fecha_hoy);
-        console.log(fecha_nacimiento);
-        console.log('------------------------------------');
-        console.log(edad);
-
-        $( "#id_edad" ).val( Number(edad) );
-  });
-
-});*/

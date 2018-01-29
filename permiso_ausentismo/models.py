@@ -42,7 +42,7 @@ class PermisoAusentismo(models.Model):
     totalDiasIncapacidad = models.PositiveSmallIntegerField(default=0)
     diasCargados = models.PositiveSmallIntegerField(default=0)
     codigoDiagnostico = models.CharField(max_length=4)
-    observaciones = models.CharField(max_length=500,blank=True,null=True)
+    observaciones = models.CharField(max_length=500,blank=True,null=True,default='')
     idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
     def __str__(self):
         return '%s'%self.idPermisoAusentismo
