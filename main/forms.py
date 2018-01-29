@@ -19,7 +19,7 @@ class trabajadoresForms(forms.ModelForm):
             'cedula',
             'fechaIngreso',
             'fechaNacimiento',
-            'edad',
+            #'edad',
             'administrador',
             'telefono',
             'CodigoBarras'
@@ -44,7 +44,7 @@ class trabajadoresForms(forms.ModelForm):
             'nombres': 'Nombre completo ',
             'cedula': 'Cedula ',
             'fechaIngreso': 'Fecha de ingreso ',
-            'fechaNacimiento': 'Fecha de nacimiento',
+            'fechaNacimiento': 'Fecha nacimiento',
             'edad': 'Edad ',
             'administrador': ' Administrador',
             'telefono': 'Telefono ',
@@ -75,14 +75,14 @@ class trabajadoresForms(forms.ModelForm):
                 Div(
                     Div(Field('fechaNacimiento'), css_class='', ),
                     css_class='col-sm-2'),
-                Div(Field('edad'), css_class='col-sm-1', ),
+                #Div(Field('edad'), css_class='col-sm-1', ),
                 # HTML('<p>Date: <input name="fechaIngreso" type="text" id="id_date"></p>'),
                 css_class='row',
 
             ),
             Div(
-                Div(Field('administrador',css_class=''), style='margin-top:45px;', css_class='col-sm-2', ),
-                Div(Field('CodigoBarras',css_class='col-sm-10',rows='2'),css_class='col-sm-10'),
+                Div(Field('CodigoBarras',css_class='',rows='2'),css_class='col-sm-10'),
+                Div(Field('administrador', css_class=''), style='margin-top:38px;', css_class='col-sm-2', ),
                 css_class='row'
             ),
 
@@ -99,6 +99,8 @@ class trabajadoresForms(forms.ModelForm):
 
 
         )
+
+
     def clean_cedula(self):
         cedula = self.cleaned_data['cedula']
         return cedula
@@ -141,20 +143,20 @@ class trabajadoresForms(forms.ModelForm):
         """
         CodigoBarras = self.cleaned_data['CodigoBarras']
         cedula=self.cleaned_data['cedula']
-        codigos_cedula_id = Trabajadores.objects.filter(CodigoBarras__exact=CodigoBarras,cedula__exact=cedula)
-        print(codigos_cedula_id)
-        if  codigos_cedula_id.count() > 0:
+        id=self.instance.id
+
+        if Trabajadores.objects.filter(CodigoBarras__exact=CodigoBarras,pk=id).exists():
             pass
         else:
-            codigos = Trabajadores.objects.filter(CodigoBarras__exact=CodigoBarras)
-            cedulas = Trabajadores.objects.filter(cedula__exact=cedula)
-            print(codigos)
-            if codigos.count() > 0:
-                raise ValidationError('El código ya se encuntra registrado.')
-            else:
-                pass
-            if cedulas.count() > 0:
-                raise ValidationError('La cédula ya se encuentra registrada')
+            if Trabajadores.objects.filter(CodigoBarras__exact=CodigoBarras).exists():
+                raise ValidationError('El código de barras ya se encuentra registrado')
+
+        if Trabajadores.objects.filter(cedula__exact=cedula,pk=id).exists():
+            pass
+        else:
+            if Trabajadores.objects.filter(cedula__exact=cedula):
+                raise ValidationError('La cedula ya existe')
+
 """
 class Historial_IOForms(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -70,8 +70,8 @@ class PermisoAusentismoForms(forms.ModelForm):
                 css_class='row',
             ),
 
-            HTML('<label for="exampleTextarea">Observaciones:</label> '
-                 '<textarea class="form-control" id="exampleTextarea" name="observaciones" rows="3"></textarea>'),
+            Field('observaciones'),
+
             Div(
                 FormActions(
                     Submit('save', 'Guardar', css_class='btn-default'),

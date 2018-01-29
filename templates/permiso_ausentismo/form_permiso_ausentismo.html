@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% load static %}
+{% load staticfiles %}
 {% block content %}
 
 
@@ -20,9 +20,13 @@
             </div>
         </div>
     </div>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+
 
 
     {% include 'permiso_ausentismo/modal_permiso_ausentismo.html' %}
-    <script src="{% static 'js/jquery.progressTimer.js' %}"></script>
+       <script src="{% static 'js/calculo_entre_fechas.js' %}"></script>
     <script src="{% static 'js/permiso_ausentismo.js' %}"></script>
+    <script src="{% static 'js/jquery.progressTimer.js' %}"></script>
+
 {% endblock %}

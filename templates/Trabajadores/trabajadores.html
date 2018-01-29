@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 {% if request.user.is_authenticated %}
     <div style="padding-left: 5%;padding-right: 5%" class="">
@@ -30,12 +30,13 @@
               </thead>
               <tbody>
                 {% for trabajador in object_list %}
+                    <a style="display: none" class="fecha_nacimiento">{{ trabajador.fechaNacimiento | upper }}</a>
                   <tr class="table-light table-striped">
                     <td>{{ trabajador.nombres }}</td>
                     <td>{{ trabajador.cedula }}</td>
-                    <td>{{ trabajador.fechaIngreso }}</td>
-                    <td>{{ trabajador.fechaNacimiento }}</td>
-                    <td class="text-md-center">{{ trabajador.edad }}</td>
+                    <td >{{ trabajador.fechaIngreso }}</td>
+                    <td class="">{{ trabajador.fechaNacimiento }}</td>
+                    <td class="text-md-center"><p></p></td>
                       {% if trabajador.administrador == True %}
                           <td class="text-md-center"><input  disabled type="checkbox" checked  class="custom-checkbox"></td>
                       {% else %}
@@ -78,6 +79,8 @@
         <div id="popup" class="modal fade" role="dialog">
 
         </div>
+    <script src="{% static 'js/listar_trabajador.js' %}"></script>
+
     </div>
 {% else %}
   <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">

@@ -11,7 +11,7 @@ class Trabajadores(models.Model):
 	cedula = models.CharField(max_length=11)
 	fechaIngreso = models.DateField()
 	fechaNacimiento = models.DateField()
-	edad = models.SmallIntegerField()
+	#edad = models.SmallIntegerField()
 	administrador = models.BooleanField()
 	telefono = models.CharField(max_length=11, blank=True,null=True)
 	CodigoBarras = models.CharField(max_length=500)

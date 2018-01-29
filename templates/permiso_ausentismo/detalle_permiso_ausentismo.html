@@ -6,31 +6,34 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-sm-6">
                     <p><strong>Mes:</strong></p>
                     <p><strong>Colaborador:</strong></p>
                     <p><strong>Tipo de evento:</strong></p>
                     <p><strong>Código de diagnostico:</strong></p>
+                    <p><strong>Prorroga:</strong></p>
+                    <p><strong>Días cargados:</strong></p>
+                    <p><strong>Periodo inicial de incapacidad:</strong></p>
+                    <p><strong>Periodo final de incapacidad:</strong></p>
+                    <p><strong>Total días de incapacidad:</strong></p>
+                    <p><strong>Observaciones:</strong></p>
                 </div>
-                 <div class="col-sm-3 col-xs-5">
+                 <div class="col-sm-6">
                     <p style="">{{ object.get_mes_evento_display }}</p>
                     <p style="">{{ object.idTrabajador }}</p>
                      <p style="">{{ object.get_tipo_evento_display }}</p>
-                    <p style="padding-top: 20px">{{ object.codigoDiagnostico }}</p>
-                </div>
-                <div style="padding-left: 0px" class="col-sm-4 col-xs-1">
-                    <p><strong>Periodo inicial de incapacidad:</strong></p>
-                    <p><strong>Periodo final de incapacidad:</strong></p>
-                    <p><strong>Prorroga:</strong></p>
-                    <p><strong>Días cargados:</strong></p>
-                    <p><strong>Total días de incapacidad:</strong></p>
-                </div>
-                <div class="col-sm-3 col-xs-3">
-                    <p style="">{{ object.periodoIncapacidadInicial }}</p>
-                    <p style="">{{ object.periodoIncapacidadFinal }}</p>
-                    <p style="">{{ object.prorroga }}</p>
+                    <p style="">{{ object.codigoDiagnostico }}</p>
+                     <p style="">{{ object.prorroga }}</p>
                     <p style="">{{ object.diasCargados }}</p>
+                     <p style="">{{ object.periodoIncapacidadInicial }}</p>
+                    <p style="">{{ object.periodoIncapacidadFinal }}</p>
                     <p style="">{{ object.totalDiasIncapacidad }}</p>
+                     {% if object.observaciones == None %}
+                        <p style="">Sin registro</p>
+                     {% else %}
+                        <p style="">{{ object.observaciones }}</p>
+                     {% endif %}
+
                 </div>
             </div>
         </div>
