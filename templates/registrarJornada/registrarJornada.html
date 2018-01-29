@@ -46,15 +46,19 @@
                         <h4 style="color: #fefefe">Descanso</h4>
                     </div>
                 </div>
+                {% for a in errors %}
+                  {% if a == 'Usted ya registro SALIDA, no podrá ingresar mas datos.' %}
+                  <div class="errorSalida">
+                    <div class="alert alert-block alert-danger"> <ul> <li>{{ a }}</li> </ul> </div>
+                  </div>
+                  {% endif %}
+                {% endfor %}
                 <div style="height: 10px"></div>
                 <div class="row">
                    <form role="form" action=" " method="post">{% csrf_token %}
                        {% crispy form %}
-
                    </form>
-
                 </div>
-
 
                 {# {% for error in errors %} #}
                     <!--
@@ -72,10 +76,23 @@
           <label class="custom-file" >
             <form action="." method="GET" >
               {% csrf_token %}
-                <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
-
-                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
-                <input type="submit" value="Cargar" class="btn btn-secondary">
+              <form action=""  id="navbar-1" class="collapse navbar-collapse navbar-form" role="search">
+              <!--div class="input-group" style="margin-right:7px;">
+                  <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras" onkeypress="return event.keyCode!=13"/>  
+                  <button type="submit" class="btn btn-secondary" >
+                      <i class="fas fa-search" aria-hidden="true" style="width: 30px; "></i>
+                  </button>
+              </div-->
+              <div class="input-group" style="margin-right:7px; height: 40px !important;">
+                  <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras" onkeypress="return event.keyCode!=13"/>  
+                  <span class="input-group-addon" style="background-color: #F3969A; height: 40px !important; width: 58px;"><button type="submit" class="btn btn-secondary" style="width: 100%; height: 38px; width: 56px; margin-left: -11px !important; border-radius: 0.4rem;">
+                      <i class="fas fa-search" aria-hidden="true" style="width: 50px;  margin-left: -10px;"></i>
+                      </button>
+                  </span>
+              </div>
+              <!--input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>>
+                <input type="submit" value="Cargar" class="btn btn-secondary"-->
             </form>
           </label>
           {% for error in errors %}

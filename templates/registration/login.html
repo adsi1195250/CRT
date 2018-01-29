@@ -15,13 +15,25 @@
           <input id="id_password" type="password" name="password" placeholder="Contraseña">
       </div>
         {% csrf_token %}
-        <input style="margin-top: 20px;" class="btn btn-secondary" style="background-color:#000;" type="submit" value="{% trans 'Iniciar sesion' %}" />
+        <input style="margin-top: 20px;" class="btn btn-secondary" style="background-color:#000;" type="submit" value="{% trans 'Iniciar sesión' %}" />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
-    <p style="margin-top: 20px;">{% trans "Has olvidado tu contrasena" %}? <a style="color:orange;" href="{% url 'auth_password_reset' %}">{% trans "Restablecer" %}</a>!</p>
+    <p style="margin-top: 20px;">{% trans "Has olvidado tu contraseña" %}? <a style="color:orange;" href="{% url 'auth_password_reset' %}">{% trans "Restablecer" %}</a>!</p>
   </div>
 </div>
 {% if form.errors %}
-  <div class="alert btn-primary" style="margin-top: 10px;">{{form.errors}}</div>
+  {% for a in form.errors %}
+    {%if a == 'username'%}
+      <div style="text-align: center;">
+        <div class="btn btn-primary" style="margin-top: 10px; text-align: center; width: 100%;"><strong><ul><li>El campo USUARIO es obligatorio.</li></ul></strong></div>
+      </div>
+    {% elif a == 'password' %}
+      <div style="text-align: center;">
+        <div class="btn btn-primary" style="margin-top: 10px; text-align: center; width: 100%;"><strong><ul><li>El campo CONTRASEÑA es obligatorio.</li></ul></strong></div>
+      </div>
+    {% elif a == '__all__' %}
+      <div class="alert btn-primary" style="margin-top: 10px; text-align: center;"><strong><ul><li>Por favor introduza nombre de usuario y contraseña correctos. Note que puede que ambos campos sean estrictos en relación a diferencias entre mayúsculas y minúsculas.</li></ul></strong></div>
+    {% endif %}
+  {% endfor %}
 {% endif %}
 {% endblock %}

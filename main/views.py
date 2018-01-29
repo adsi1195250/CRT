@@ -118,23 +118,23 @@ class listarInformeIO(ListView):
                 if int(qames) in lis:
                     ja = True
                 else:
+                    errors['error'] = ('El Colaborador no tiene registro en este fecha.')
                     ja = False
-                    errors['error'] = ('El Colaborador no tiene registro en este fecha.')        
-
-                lis_nombres = []
-                existe = []
+                    
+                    
+                lis_cedula = []
+                for j in existe_colaborador:
+                    lis_cedula.append(j.cedula)
                 
-                for m in existe_colaborador:
-                    existe.append(m)
-                
-                for k in q:
-                    lis_nombres.append(k.id_trabajadores.nombres)
-                
-                if q.count() <=0:
-                    errors['error'] =('Colaborador no encontrado.')
-                
-                #print("no ha nada", q.count())
-                print(errors)                        
+                for k in lis_cedula:    
+                    print(lis_cedula, qa)
+                    if qa in lis_cedula and not q:
+                        errors['error'] = ('El Colaborador no tiene ningún registro.')
+                        print("Colaborar existe, pero no tiene registro")
+                    elif not qa in lis_cedula:
+                        errors['error'] =('Colaborador no encontrado, Por favor regístrelo.')
+                        print("Colaborar no existe")
+                print(errors)
 
                 """for p in Historial:
                     print("Month" ,p.fecha.month)
@@ -282,12 +282,9 @@ class listarInformeIO(ListView):
                             elif mes.fecha.day==30 and fq ==30:
                                 treinta[i.accion_jornada] = i.fecha
                                 treinta[i.accion_jornada_hora] = i.hora
-
-                #print("Here",fq)
-                #if fq == 5:
-                #   j[i.accion_jornada] = i.hora
-
-                #print("None",i)
+                            elif mes.fecha.day==31 and fq ==31:
+                                treintauno[i.accion_jornada] = i.fecha
+                                treintauno[i.accion_jornada_hora] = i.hora
                 self.b.append(a)
                 self.b.append(uno)
                 self.b.append(dos)
@@ -352,17 +349,17 @@ class ReportePersonasPDF(View):
         pdf.setFont("Helvetica", 14)
         pdf.drawString(300, 645 , u"REPORTE DE REGISTRO JORNADA")
         pdf.setFont("Helvetica", 18)
-        pdf.drawString(740, 700, u"Colaborador:")
+        pdf.drawString(720, 700, u"Colaborador:")
         pdf.setFont("Helvetica", 15)
         #print(filtroMes)
         for jh in q:
             jnombre = jh.id_trabajadores.nombres
             jcedula = jh.id_trabajadores.cedula
-        pdf.drawString(700,674, jnombre)
+        pdf.drawString(680,674, jnombre)
         pdf.setFont("Helvetica", 14)
-        pdf.drawString(760, 650, u"Cedula:")
+        pdf.drawString(740, 650, u"Cedula:")
         pdf.setFont("Helvetica", 15)
-        pdf.drawString(742,630, jcedula)
+        pdf.drawString(722,630, jcedula)
 
     def tabla(self,pdf,y):
 
@@ -949,8 +946,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -959,10 +960,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if uno['HSA'] == 'NA':
+            minutosTotal = 0        
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
         if uno['EN'].day == 1:
@@ -1000,8 +1004,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1010,10 +1018,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if dos['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -1060,8 +1071,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1070,9 +1085,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if tres['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1119,8 +1138,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1129,9 +1152,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if cuatro['HSA'] == 'NA':
+            minutosTotal = 0        
             
         restante = 0
         if totalMesMinutos >= 60:
@@ -1176,8 +1203,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1186,16 +1217,21 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if cinco['HSA'] == 'NA':
+            minutosTotal = 0
             
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-
+           
+            
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
         if cinco['EN'].day == 5:
@@ -1233,8 +1269,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1243,9 +1283,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if seis['HSA'] == 'NA':
+            minutosTotal = 0        
             
         restante = 0
         if totalMesMinutos >= 60:
@@ -1290,8 +1334,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1300,9 +1348,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if siete['HSA'] == 'NA':
+            minutosTotal = 0        
             
         restante = 0
         if totalMesMinutos >= 60:
@@ -1347,8 +1399,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1357,10 +1413,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if ocho['HSA'] == 'NA':
+            minutosTotal = 0        
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
@@ -1404,8 +1463,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1414,9 +1477,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if nueve['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1463,8 +1530,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1473,9 +1544,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if diez['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1521,8 +1596,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1531,9 +1610,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+        
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if once['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1576,8 +1659,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1586,9 +1673,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if doce['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1634,9 +1725,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
-            
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1645,9 +1739,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if trece['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1693,8 +1791,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1703,9 +1805,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if catorce['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1752,8 +1858,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1762,9 +1872,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+         
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if quince['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1811,8 +1925,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1821,10 +1939,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+         
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if dieciseis['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -1870,8 +1991,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1880,9 +2005,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+         
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if diecisiete['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1929,8 +2058,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1939,9 +2072,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if dieciocho['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -1988,8 +2125,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1998,9 +2139,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if diecinueve['HSA'] == 'NA':
+            minutosTotal = 0        
             
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
@@ -2047,8 +2192,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2057,10 +2206,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+        
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veinte['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2106,8 +2258,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2116,10 +2272,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+        
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veintiuno['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2183,6 +2342,7 @@ class ReportePersonasPDF(View):
         if horaTotal < 0:
             horaTotal = -horaTotal
         
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintidos['HSA'] == 'NA':
             minutosTotal = 0    
         #print("Antes" ,totalMesMinutos, totalMes)
@@ -2229,8 +2389,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2239,10 +2403,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veintitres['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2288,8 +2455,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2298,10 +2469,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veinticuatro['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2346,8 +2520,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2356,10 +2534,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+        
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veinticinco['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2405,8 +2586,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2415,10 +2600,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veintiseis['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2464,8 +2652,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2474,10 +2666,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
             
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veintisiete['HSA'] == 'NA':
+            minutosTotal = 0        
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2523,8 +2718,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2533,10 +2732,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veintiocho['HSA'] == 'NA':
+            minutosTotal = 0    
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2582,8 +2784,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2592,10 +2798,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if veintinueve['HSA'] == 'NA':
+            minutosTotal = 0    
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2642,8 +2851,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2652,10 +2865,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if treinta['HSA'] == 'NA':
+            minutosTotal = 0    
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2701,8 +2917,12 @@ class ReportePersonasPDF(View):
             minutosTrabajadas = -minutosTrabajadas
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
+        hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
+            minutosTotal = 60 - minutosTotal
+            hora_restante = 1
+        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2711,11 +2931,13 @@ class ReportePersonasPDF(View):
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
 
-        horaTotal =  (horasTrabajadas) - (horasAlmuerzo)
+        horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-
-
+            
+        #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
+        if treintauno['HSA'] == 'NA':
+            minutosTotal = 0    
         print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2767,22 +2989,23 @@ class ReportePersonasPDF(View):
         y = 600
         self.tabla(pdf, y)
         #Con show page hacemos un corte de página para pasar a la siguiente
-        pdf.setPageSize((950,750) )
+        pdf.setPageSize((950,750))
         pdf.showPage()
         pdf.save()
         pdf = buffer.getvalue()
         buffer.close()
         response.write(pdf)
-        if 'cedula' in request.GET and 'mes' in request.GET:
+        """if 'cedula' in request.GET and 'mes' in request.GET:
             cedula = request.GET['cedula']
             mes = request.GET['mes']
-            #print( "Mes" ,mes)
+            print( "Mes" ,mes)
             if not cedula and not mes:
                 errors.append('Colaborador no encontrado.')
             else:
                 Colaborador = Historial_IO.objects.filter(id_trabajadores__cedula=cedula)
                 Mes = Historial_IO.objects.filter(fecha__month=mes)
-                return response
+               return response
+            """
         return response
 
 
@@ -3082,7 +3305,7 @@ def buscar(request):
         existe_colaborador=Trabajadores.objects.all()
         existe_colaborador.values('fechaNacimiento')
         if not q:
-            errors.append('Por favor introduce un termino de busqueda.')
+            errors.append('Por favor introduce un termino de búsqueda.')
             print(errors)
         else:
             trabajadores = Trabajadores.objects.filter(CodigoBarras=q)
@@ -3099,7 +3322,7 @@ def buscar(request):
                 if not existe_colaborador.count() != 0:
                     errors.append('Por favor registre primero un Colaborador.')
                 else:
-                    errors.append('Colaborador no econtrado.')
+                    errors.append('Colaborador no encontrado.')
             a = {}
             b= []
             cont=0
@@ -3114,7 +3337,6 @@ def buscar(request):
             #print(b)
             #print(cont)
 
-
             form = Historial_IOForms(request.POST or None, initial={"id_trabajadores": id,"accion_jornada_hora":'HEN'})
 
             #print(form.data)
@@ -3123,8 +3345,11 @@ def buscar(request):
             cp.pop('cb')
             #print(request.GET)
 
-            #print(cp)
 
+            fecha= date.today().day
+            fecha_trabajadores = Historial_IO.objects.all()
+
+            #print(cp)
             #params = urllib.urlencode(cp)
             #print(params)
             context = {
@@ -3133,45 +3358,59 @@ def buscar(request):
                 'query': q,
                 'errors':errors,
             }
-
+            lis = []
+            for g in fecha_trabajadores:
+                for n in trabajadores:
+                    if g.fecha.day == fecha:
+                        if g.id_trabajadores.cedula == n.cedula:
+                            print(g.accion_jornada, n.cedula)
+                            lis.append(g.accion_jornada)
+            #print(lis, "Sigeee")
             if request.method == 'POST':
                 if form.is_valid():
+                    existe_sa= Historial_IO.objects.all()
                     instance = form.save(commit=False)
                     accion_jornada = instance.accion_jornada
-                    if accion_jornada == 'EN':
-                        instance.accion_jornada_hora = 'HEN'
-                    elif accion_jornada == 'SA':
-                        instance.accion_jornada_hora = 'HSA'
-                    elif accion_jornada == 'DYI':
-                        instance.accion_jornada_hora = 'HDYI'
-                    elif accion_jornada == 'DYF':
-                        instance.accion_jornada_hora = 'HDYF'
-                    elif accion_jornada == 'DCI':
-                        instance.accion_jornada_hora = 'HDCI'
-                    elif accion_jornada == 'DCF':
-                        instance.accion_jornada_hora = 'HDCF'
-                    elif accion_jornada == 'PAI':
-                        instance.accion_jornada_hora = 'HPAI'
-                    elif accion_jornada == 'PAF':
-                        instance.accion_jornada_hora = 'HPAF'
-                    elif accion_jornada == 'ALI':
-                        instance.accion_jornada_hora = 'HALI'
-                    elif accion_jornada == 'ALF':
-                        instance.accion_jornada_hora = 'HALF'
-                    #print(instance.accion_jornada_hora)
-                    instance.save()
-                    mensaje_exitoso=[]
-                    mensaje_exitoso.append('Se ha registrado con exito !')
-                    success=True
-                    #return HttpResponseRedirect('',mensaje_exitoso)
-                    return redirect('registrarJornada')
-                    #return render(request,'registrarJornada/registrarJornada.html', {'mensaje': mensaje_exitoso})
-                    # print(form)
+                                
+                    print(lis, "Despues")
+                    if 'SA' in lis:
+                        errors.append("Usted ya registro SALIDA, no podrá ingresar mas datos.")
+                        instance = form.save(commit=False)
+                    else:
+                        if accion_jornada == 'EN':
+                            instance.accion_jornada_hora = 'HEN'
+                        elif accion_jornada == 'SA':
+                            instance.accion_jornada_hora = 'HSA'
+                        elif accion_jornada == 'DYI':
+                            instance.accion_jornada_hora = 'HDYI'
+                        elif accion_jornada == 'DYF':
+                            instance.accion_jornada_hora = 'HDYF'
+                        elif accion_jornada == 'DCI':
+                            instance.accion_jornada_hora = 'HDCI'
+                        elif accion_jornada == 'DCF':
+                            instance.accion_jornada_hora = 'HDCF'
+                        elif accion_jornada == 'PAI':
+                            instance.accion_jornada_hora = 'HPAI'
+                        elif accion_jornada == 'PAF':
+                            instance.accion_jornada_hora = 'HPAF'
+                        elif accion_jornada == 'ALI':
+                            instance.accion_jornada_hora = 'HALI'
+                        elif accion_jornada == 'ALF':
+                            instance.accion_jornada_hora = 'HALF'
+                        #print(instance.accion_jornada_hora)
+                        instance.save()
+                        mensaje_exitoso=[]
+                        mensaje_exitoso.append('Se ha registrado con éxito !')
+                        success=True
+                        
+                        #return HttpResponseRedirect('',mensaje_exitoso)
+                        return redirect('registrarJornada')
+                        #return render(request,'registrarJornada/registrarJornada.html', {'mensaje': mensaje_exitoso})
+                        # print(form)
                 else:
                     print('no entra')
                     print(form.errors)
-                    errors.append('La acción ya se encuntra registrada en este día.')
-
+                    errors.append('La acción ya se encuentra registrada en este día.')
             return render(request, 'registrarJornada/registrarJornada.html',context)
 
     return render(request, 'registrarJornada/registrarJornada.html', {'errors': errors})

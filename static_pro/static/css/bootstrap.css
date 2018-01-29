@@ -147,6 +147,11 @@ body {
 
 }
 
+.errorSalida{
+  width: 100%;
+  margin-top: 10px;
+}
+
 .contenedor-modal {
   position: absolute;
   width: 100%;
@@ -353,14 +358,42 @@ label {
   margin-bottom: .5rem;
 }
 
-button {
-  border-radius: 0;
+
+.pulso:hover,
+.pulso:focus {
+  -webkit-animation: pulse 1s;
+          animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
 }
 
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
 }
+
+@keyframes pulso {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+.pulso {
+  --color: #ef6eae;
+  --hover: #ef8f6e;
+}
+
+button {
+  color: var(--color);
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+}
+button:hover, button:focus {
+  border-color: var(--hover);
+  color: #fff;
+}
+
+
+
 
 input,
 button,
@@ -3511,6 +3544,14 @@ tbody.collapse.show {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.input-group-addon:hover{
+  background-color: transparent;
+}
+
+.input-group:hover{
+  background-color: transparent; 
 }
 
 .input-group-addon:not(:first-child):not(:last-child),

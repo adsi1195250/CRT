@@ -52,7 +52,6 @@
           <a style="margin-right: 10px;" href="{% url 'auth_login' %}" class="btn btn-secondary">Iniciar sesión
           <i class="fab fa-optin-monster" aria-hidden="true"></i>
         </a>
-        </form>
     {% endif %}
     <ul class="nav navbar-nav navbar-right" style="margin-right: 35px;">
         {% if request.user.is_authenticated %}
@@ -60,7 +59,7 @@
             <i class="fab fa-earlybirds" aria-hidden="true"></i>
           </a></li>
         {% else %}
-          <li><a class="btn btn-secondary"href="{% url 'registration_register' %}">Registrate
+          <li><a class="btn btn-secondary"href="{% url 'registration_register' %}">Regístrate
           <i class="fab fa-angellist" aria-hidden="true"></i>
           </a></li>
 
