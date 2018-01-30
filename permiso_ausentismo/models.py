@@ -28,9 +28,9 @@ class PermisoAusentismo(models.Model):
         default=1,
     )
     TIPO_EVENTO = (
-        (1,'A.T'),
-        (2, 'E.L'),
-        (3, 'A.C-E.G'),
+        (1,'A.T Accidente de trabajo'),
+        (2, 'E.L Enfermedad laboral'),
+        (3, 'A.C-E.G Enfermedad general'),
     )
     tipo_evento = models.SmallIntegerField(
         choices=TIPO_EVENTO,

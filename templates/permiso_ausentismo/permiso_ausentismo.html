@@ -117,7 +117,7 @@
                             </form>
                             <!--<a class="btn btn-danger" href="#"><span class="fas fa-print"></span></a>-->
                         {% else %}
-
+                            <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
                         {% endif %}
 
                     </th>
@@ -187,6 +187,7 @@
         $("#crear_trabajador").on("click", function () {
            alert("Por favor ingrese un colaborador.");
         });
+
     </script>
     <!--
     <script>
