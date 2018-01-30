@@ -17,9 +17,9 @@ class PermisoAusentismoForms(forms.ModelForm):
             'fechaSalida': 'Fecha de salida ',
             'tipo_evento':'Tipo de evento ',
             #'totalHoras': 'TOTAL DE HORAS',
-            'periodoIncapacidadInicial': 'Periodo inicio de incapacidad',
-            'periodoIncapacidadFinal': 'Periodo final de incapacidad ',
-            'totalDiasIncapacidad': 'Días de incapacidad ',
+            'periodoIncapacidadInicial': 'Periodo inicial',
+            'periodoIncapacidadFinal': 'Periodo final',
+            'totalDiasIncapacidad': 'Total de días',
             'diasCargados':'Días cargados ',
             'prorroga':'Prorroga',
             'codigoDiagnostico': 'Código de diagnostico ',
@@ -95,7 +95,7 @@ class PermisoAusentismoForms(forms.ModelForm):
         periodoIncapacidadFinal = clean_data.get('periodoIncapacidadFinal')
 
         if periodoIncapacidadFinal != None and periodoIncapacidadInicial != None:
-            if periodoIncapacidadFinal <= periodoIncapacidadInicial:
+            if periodoIncapacidadFinal < periodoIncapacidadInicial:
                 raise ValidationError('El periodo final no puede ser menor o igual al periodo inicial')
         elif periodoIncapacidadFinal == None and periodoIncapacidadInicial == None:
             print('entro')

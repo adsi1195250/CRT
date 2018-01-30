@@ -81,7 +81,7 @@ class trabajadoresForms(forms.ModelForm):
 
             ),
             Div(
-                Div(Field('CodigoBarras',css_class='',rows='2'),css_class='col-sm-10'),
+                Div(Field('CodigoBarras',css_class='',rows='2',onkeypress='return event.keyCode!=13'),css_class='col-sm-10',),
                 Div(Field('administrador', css_class=''), style='margin-top:38px;', css_class='col-sm-2', ),
                 css_class='row'
             ),

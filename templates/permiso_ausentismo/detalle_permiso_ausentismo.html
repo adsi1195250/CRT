@@ -22,12 +22,21 @@
                     <p style="">{{ object.get_mes_evento_display }}</p>
                     <p style="">{{ object.idTrabajador }}</p>
                      <p style="">{{ object.get_tipo_evento_display }}</p>
-                    <p style="">{{ object.codigoDiagnostico }}</p>
+                    {% if object.codigoDiagnostico == '' %}
+                        <p style="">No aplica</p>
+                    {% else %}
+                        <p style="">{{ object.codigoDiagnostico }}</p>
+                    {% endif %}
+
                      <p style="">{{ object.prorroga }}</p>
                     <p style="">{{ object.diasCargados }}</p>
                      <p style="">{{ object.periodoIncapacidadInicial }}</p>
                     <p style="">{{ object.periodoIncapacidadFinal }}</p>
-                    <p style="">{{ object.totalDiasIncapacidad }}</p>
+                    {% if object.totalDiasIncapacidad  == 0%}
+                        <p style="">1</p>
+                    {% else %}
+                        <p style="">{{ object.totalDiasIncapacidad }}</p>
+                    {% endif %}
                      {% if object.observaciones == None %}
                         <p style="">Sin registro</p>
                      {% else %}
