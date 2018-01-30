@@ -108,25 +108,25 @@ class listarInformeIO(ListView):
                 #    else:
                 #        errors['error'] =('Colaborador no encontrado.')
                 #        #print(errors)
-                
+
                 lis = []
                 for p in q:
                     lis.append(p.fecha.month)
                     #print("Month" ,p.fecha.month)
-               
+
                 ja = False
                 if int(qames) in lis:
                     ja = True
                 else:
                     errors['error'] = ('El Colaborador no tiene registro en este fecha.')
                     ja = False
-                    
-                    
+
+
                 lis_cedula = []
                 for j in existe_colaborador:
                     lis_cedula.append(j.cedula)
-                
-                for k in lis_cedula:    
+
+                for k in lis_cedula:
                     print(lis_cedula, qa)
                     if qa in lis_cedula and not q:
                         errors['error'] = ('El Colaborador no tiene ningún registro.')
@@ -403,381 +403,381 @@ class ReportePersonasPDF(View):
         treintauno = {}
 
         uno['EN'] = date(12, 1, 2)
-        uno['HEN'] = 'NA'
-        uno['HDYI'] = 'NA'
-        uno['HDYF'] = 'NA'
-        uno['HALI'] = 'NA'
-        uno['HALF'] = 'NA'
-        uno['HPAI'] = 'NA'
-        uno['HPAF'] = 'NA'
-        uno['HDCI'] = 'NA'
-        uno['HDCF'] = 'NA'
-        uno['HSA'] = 'NA'
+        uno['HEN'] = time(00, 00, 00)
+        uno['HDYI'] = time(00, 00, 00)
+        uno['HDYF'] = time(00, 00, 00)
+        uno['HALI'] = time(00, 00, 00)
+        uno['HALF'] = time(00, 00, 00)
+        uno['HPAI'] = time(00, 00, 00)
+        uno['HPAF'] = time(00, 00, 00)
+        uno['HDCI'] = time(00, 00, 00)
+        uno['HDCF'] = time(00, 00, 00)
+        uno['HSA'] = time(00, 00, 00)
 
         dos['EN'] = date(12, 1, 1)
-        dos['HEN'] = 'NA'
-        dos['HDYI'] = 'NA'
-        dos['HDYF'] = 'NA'
-        dos['HALI'] = 'NA'
-        dos['HALF'] = 'NA'
-        dos['HPAI'] = 'NA'
-        dos['HPAF'] = 'NA'
-        dos['HDCI'] = 'NA'
-        dos['HDCF'] = 'NA'
-        dos['HSA'] = 'NA'
+        dos['HEN'] = time(00, 00, 00)
+        dos['HDYI'] = time(00, 00, 00)
+        dos['HDYF'] = time(00, 00, 00)
+        dos['HALI'] = time(00, 00, 00)
+        dos['HALF'] = time(00, 00, 00)
+        dos['HPAI'] = time(00, 00, 00)
+        dos['HPAF'] = time(00, 00, 00)
+        dos['HDCI'] = time(00, 00, 00)
+        dos['HDCF'] = time(00, 00, 00)
+        dos['HSA'] = time(00, 00, 00)
 
 
         tres['EN'] = date(12, 1, 1)
-        tres['HEN'] = 'NA'
-        tres['HDYI'] = 'NA'
-        tres['HDYF'] = 'NA'
-        tres['HALI'] = 'NA'
-        tres['HALF'] = 'NA'
-        tres['HPAI'] = 'NA'
-        tres['HPAF'] = 'NA'
-        tres['HDCI'] = 'NA'
-        tres['HDCF'] = 'NA'
-        tres['HSA'] = 'NA'
+        tres['HEN'] = time(00, 00, 00)
+        tres['HDYI'] = time(00, 00, 00)
+        tres['HDYF'] = time(00, 00, 00)
+        tres['HALI'] = time(00, 00, 00)
+        tres['HALF'] = time(00, 00, 00)
+        tres['HPAI'] = time(00, 00, 00)
+        tres['HPAF'] = time(00, 00, 00)
+        tres['HDCI'] = time(00, 00, 00)
+        tres['HDCF'] = time(00, 00, 00)
+        tres['HSA'] = time(00, 00, 00)
 
         cuatro['EN'] = date(12, 1, 1)
-        cuatro['HEN'] = 'NA'
-        cuatro['HDYI'] = 'NA'
-        cuatro['HDYF'] = 'NA'
-        cuatro['HALI'] = 'NA'
-        cuatro['HALF'] = 'NA'
-        cuatro['HPAI'] = 'NA'
-        cuatro['HPAF'] = 'NA'
-        cuatro['HDCI'] = 'NA'
-        cuatro['HDCF'] = 'NA'
-        cuatro['HSA'] = 'NA'
+        cuatro['HEN'] = time(00, 00, 00)
+        cuatro['HDYI'] = time(00, 00, 00)
+        cuatro['HDYF'] = time(00, 00, 00)
+        cuatro['HALI'] = time(00, 00, 00)
+        cuatro['HALF'] = time(00, 00, 00)
+        cuatro['HPAI'] = time(00, 00, 00)
+        cuatro['HPAF'] = time(00, 00, 00)
+        cuatro['HDCI'] = time(00, 00, 00)
+        cuatro['HDCF'] = time(00, 00, 00)
+        cuatro['HSA'] = time(00, 00, 00)
 
 
         cinco['EN'] = date(12, 1, 1)
-        cinco['HEN'] = 'NA'
-        cinco['HDYI'] = 'NA'
-        cinco['HDYF'] = 'NA'
-        cinco['HALI'] = 'NA'
-        cinco['HALF'] = 'NA'
-        cinco['HPAI'] = 'NA'
-        cinco['HPAF'] = 'NA'
-        cinco['HDCI'] = 'NA'
-        cinco['HDCF'] = 'NA'
-        cinco['HSA'] = 'NA'
+        cinco['HEN'] = time(00, 00, 00)
+        cinco['HDYI'] = time(00, 00, 00)
+        cinco['HDYF'] = time(00, 00, 00)
+        cinco['HALI'] = time(00, 00, 00)
+        cinco['HALF'] = time(00, 00, 00)
+        cinco['HPAI'] = time(00, 00, 00)
+        cinco['HPAF'] = time(00, 00, 00)
+        cinco['HDCI'] = time(00, 00, 00)
+        cinco['HDCF'] = time(00, 00, 00)
+        cinco['HSA'] = time(00, 00, 00)
 
         seis['EN'] = date(12, 1, 1)
-        seis['HEN'] = 'NA'
-        seis['HDYI'] = 'NA'
-        seis['HDYF'] = 'NA'
-        seis['HALI'] = 'NA'
-        seis['HALF'] = 'NA'
-        seis['HPAI'] = 'NA'
-        seis['HPAF'] = 'NA'
-        seis['HDCI'] = 'NA'
-        seis['HDCF'] = 'NA'
-        seis['HSA'] = 'NA'
+        seis['HEN'] = time(00, 00, 00)
+        seis['HDYI'] = time(00, 00, 00)
+        seis['HDYF'] = time(00, 00, 00)
+        seis['HALI'] = time(00, 00, 00)
+        seis['HALF'] = time(00, 00, 00)
+        seis['HPAI'] = time(00, 00, 00)
+        seis['HPAF'] = time(00, 00, 00)
+        seis['HDCI'] = time(00, 00, 00)
+        seis['HDCF'] = time(00, 00, 00)
+        seis['HSA'] = time(00, 00, 00)
 
         siete['EN'] = date(12, 1, 1)
-        siete['HEN'] = 'NA'
-        siete['HDYI'] = 'NA'
-        siete['HDYF'] = 'NA'
-        siete['HALI'] = 'NA'
-        siete['HALF'] = 'NA'
-        siete['HPAI'] = 'NA'
-        siete['HPAF'] = 'NA'
-        siete['HDCI'] = 'NA'
-        siete['HDCF'] = 'NA'
-        siete['HSA'] = 'NA'
+        siete['HEN'] = time(00, 00, 00)
+        siete['HDYI'] = time(00, 00, 00)
+        siete['HDYF'] = time(00, 00, 00)
+        siete['HALI'] = time(00, 00, 00)
+        siete['HALF'] = time(00, 00, 00)
+        siete['HPAI'] = time(00, 00, 00)
+        siete['HPAF'] = time(00, 00, 00)
+        siete['HDCI'] = time(00, 00, 00)
+        siete['HDCF'] = time(00, 00, 00)
+        siete['HSA'] = time(00, 00, 00)
 
         ocho['EN'] = date(12, 1, 1)
-        ocho['HEN'] = 'NA'
-        ocho['HDYI'] = 'NA'
-        ocho['HDYF'] = 'NA'
-        ocho['HALI'] = 'NA'
-        ocho['HALF'] = 'NA'
-        ocho['HPAI'] = 'NA'
-        ocho['HPAF'] = 'NA'
-        ocho['HDCI'] = 'NA'
-        ocho['HDCF'] = 'NA'
-        ocho['HSA'] = 'NA'
+        ocho['HEN'] = time(00, 00, 00)
+        ocho['HDYI'] = time(00, 00, 00)
+        ocho['HDYF'] = time(00, 00, 00)
+        ocho['HALI'] = time(00, 00, 00)
+        ocho['HALF'] = time(00, 00, 00)
+        ocho['HPAI'] = time(00, 00, 00)
+        ocho['HPAF'] = time(00, 00, 00)
+        ocho['HDCI'] = time(00, 00, 00)
+        ocho['HDCF'] = time(00, 00, 00)
+        ocho['HSA'] = time(00, 00, 00)
 
         nueve['EN'] = date(12, 1, 1)
-        nueve['HEN'] = 'NA'
-        nueve['HDYI'] = 'NA'
-        nueve['HDYF'] = 'NA'
-        nueve['HALI'] = 'NA'
-        nueve['HALF'] = 'NA'
-        nueve['HPAI'] = 'NA'
-        nueve['HPAF'] = 'NA'
-        nueve['HDCI'] = 'NA'
-        nueve['HDCF'] = 'NA'
-        nueve['HSA'] = 'NA'
+        nueve['HEN'] = time(00, 00, 00)
+        nueve['HDYI'] = time(00, 00, 00)
+        nueve['HDYF'] = time(00, 00, 00)
+        nueve['HALI'] = time(00, 00, 00)
+        nueve['HALF'] = time(00, 00, 00)
+        nueve['HPAI'] = time(00, 00, 00)
+        nueve['HPAF'] = time(00, 00, 00)
+        nueve['HDCI'] = time(00, 00, 00)
+        nueve['HDCF'] = time(00, 00, 00)
+        nueve['HSA'] = time(00, 00, 00)
 
         diez['EN'] = date(12, 1, 1)
-        diez['HEN'] = 'NA'
-        diez['HDYI'] = 'NA'
-        diez['HDYF'] = 'NA'
-        diez['HALI'] = 'NA'
-        diez['HALF'] = 'NA'
-        diez['HPAI'] = 'NA'
-        diez['HPAF'] = 'NA'
-        diez['HDCI'] = 'NA'
-        diez['HDCF'] = 'NA'
-        diez['HSA'] = 'NA'
+        diez['HEN'] = time(00, 00, 00)
+        diez['HDYI'] = time(00, 00, 00)
+        diez['HDYF'] = time(00, 00, 00)
+        diez['HALI'] = time(00, 00, 00)
+        diez['HALF'] = time(00, 00, 00)
+        diez['HPAI'] = time(00, 00, 00)
+        diez['HPAF'] = time(00, 00, 00)
+        diez['HDCI'] = time(00, 00, 00)
+        diez['HDCF'] = time(00, 00, 00)
+        diez['HSA'] = time(00, 00, 00)
 
         once['EN'] = date(12, 1, 1)
-        once['HEN'] = 'NA'
-        once['HDYI'] = 'NA'
-        once['HDYF'] = 'NA'
-        once['HALI'] = 'NA'
-        once['HALF'] = 'NA'
-        once['HPAI'] = 'NA'
-        once['HPAF'] = 'NA'
-        once['HDCI'] = 'NA'
-        once['HDCF'] = 'NA'
-        once['HSA'] = 'NA'
+        once['HEN'] = time(00, 00, 00)
+        once['HDYI'] = time(00, 00, 00)
+        once['HDYF'] = time(00, 00, 00)
+        once['HALI'] = time(00, 00, 00)
+        once['HALF'] = time(00, 00, 00)
+        once['HPAI'] = time(00, 00, 00)
+        once['HPAF'] = time(00, 00, 00)
+        once['HDCI'] = time(00, 00, 00)
+        once['HDCF'] = time(00, 00, 00)
+        once['HSA'] = time(00, 00, 00)
 
         doce['EN'] = date(12, 1, 1)
-        doce['HEN'] = 'NA'
-        doce['HDYI'] = 'NA'
-        doce['HDYF'] = 'NA'
-        doce['HALI'] = 'NA'
-        doce['HALF'] = 'NA'
-        doce['HPAI'] = 'NA'
-        doce['HPAF'] = 'NA'
-        doce['HDCI'] = 'NA'
-        doce['HDCF'] = 'NA'
-        doce['HSA'] = 'NA'
+        doce['HEN'] = time(00, 00, 00)
+        doce['HDYI'] = time(00, 00, 00)
+        doce['HDYF'] = time(00, 00, 00)
+        doce['HALI'] = time(00, 00, 00)
+        doce['HALF'] = time(00, 00, 00)
+        doce['HPAI'] = time(00, 00, 00)
+        doce['HPAF'] = time(00, 00, 00)
+        doce['HDCI'] = time(00, 00, 00)
+        doce['HDCF'] = time(00, 00, 00)
+        doce['HSA'] = time(00, 00, 00)
 
         trece['EN'] = date(12, 1, 1)
-        trece['HEN'] = 'NA'
-        trece['HDYI'] = 'NA'
-        trece['HDYF'] = 'NA'
-        trece['HALI'] = 'NA'
-        trece['HALF'] = 'NA'
-        trece['HPAI'] = 'NA'
-        trece['HPAF'] = 'NA'
-        trece['HDCI'] = 'NA'
-        trece['HDCF'] = 'NA'
-        trece['HSA'] = 'NA'
+        trece['HEN'] = time(00, 00, 00)
+        trece['HDYI'] = time(00, 00, 00)
+        trece['HDYF'] = time(00, 00, 00)
+        trece['HALI'] = time(00, 00, 00)
+        trece['HALF'] = time(00, 00, 00)
+        trece['HPAI'] = time(00, 00, 00)
+        trece['HPAF'] = time(00, 00, 00)
+        trece['HDCI'] = time(00, 00, 00)
+        trece['HDCF'] = time(00, 00, 00)
+        trece['HSA'] = time(00, 00, 00)
 
 
         catorce['EN'] = date(12, 1, 1)
-        catorce['HEN'] = 'NA'
-        catorce['HDYI'] = 'NA'
-        catorce['HDYF'] = 'NA'
-        catorce['HALI'] = 'NA'
-        catorce['HALF'] = 'NA'
-        catorce['HPAI'] = 'NA'
-        catorce['HPAF'] = 'NA'
-        catorce['HDCI'] = 'NA'
-        catorce['HDCF'] = 'NA'
-        catorce['HSA'] = 'NA'
+        catorce['HEN'] = time(00, 00, 00)
+        catorce['HDYI'] = time(00, 00, 00)
+        catorce['HDYF'] = time(00, 00, 00)
+        catorce['HALI'] = time(00, 00, 00)
+        catorce['HALF'] = time(00, 00, 00)
+        catorce['HPAI'] = time(00, 00, 00)
+        catorce['HPAF'] = time(00, 00, 00)
+        catorce['HDCI'] = time(00, 00, 00)
+        catorce['HDCF'] = time(00, 00, 00)
+        catorce['HSA'] = time(00, 00, 00)
 
         quince['EN'] = date(12, 1, 1)
         quince['HEN'] = 'NA'
-        quince['HDYI'] = 'NA'
-        quince['HDYF'] = 'NA'
-        quince['HALI'] = 'NA'
-        quince['HALF'] = 'NA'
-        quince['HPAI'] = 'NA'
-        quince['HPAF'] = 'NA'
-        quince['HDCI'] = 'NA'
-        quince['HDCF'] = 'NA'
-        quince['HSA'] = 'NA'
+        quince['HDYI'] = time(00, 00, 00)
+        quince['HDYF'] = time(00, 00, 00)
+        quince['HALI'] = time(00, 00, 00)
+        quince['HALF'] = time(00, 00, 00)
+        quince['HPAI'] = time(00, 00, 00)
+        quince['HPAF'] = time(00, 00, 00)
+        quince['HDCI'] = time(00, 00, 00)
+        quince['HDCF'] = time(00, 00, 00)
+        quince['HSA'] = time(00, 00, 00)
 
 
         dieciseis['EN'] = date(12, 1, 1)
-        dieciseis['HEN'] = 'NA'
-        dieciseis['HDYI'] = 'NA'
-        dieciseis['HDYF'] = 'NA'
-        dieciseis['HALI'] = 'NA'
-        dieciseis['HALF'] = 'NA'
-        dieciseis['HPAI'] = 'NA'
-        dieciseis['HPAF'] = 'NA'
-        dieciseis['HDCI'] = 'NA'
-        dieciseis['HDCF'] = 'NA'
-        dieciseis['HSA'] = 'NA'
+        dieciseis['HEN'] = time(00, 00, 00)
+        dieciseis['HDYI'] = time(00, 00, 00)
+        dieciseis['HDYF'] = time(00, 00, 00)
+        dieciseis['HALI'] = time(00, 00, 00)
+        dieciseis['HALF'] = time(00, 00, 00)
+        dieciseis['HPAI'] = time(00, 00, 00)
+        dieciseis['HPAF'] = time(00, 00, 00)
+        dieciseis['HDCI'] = time(00, 00, 00)
+        dieciseis['HDCF'] = time(00, 00, 00)
+        dieciseis['HSA'] = time(00, 00, 00)
 
         diecisiete['EN'] = date(12, 1, 1)
-        diecisiete['HEN'] = 'NA'
-        diecisiete['HDYI'] = 'NA'
-        diecisiete['HDYF'] = 'NA'
-        diecisiete['HALI'] = 'NA'
-        diecisiete['HALF'] = 'NA'
-        diecisiete['HPAI'] = 'NA'
-        diecisiete['HPAF'] = 'NA'
-        diecisiete['HDCI'] = 'NA'
-        diecisiete['HDCF'] = 'NA'
-        diecisiete['HSA'] = 'NA'
+        diecisiete['HEN'] = time(00, 00, 00)
+        diecisiete['HDYI'] = time(00, 00, 00)
+        diecisiete['HDYF'] = time(00, 00, 00)
+        diecisiete['HALI'] = time(00, 00, 00)
+        diecisiete['HALF'] = time(00, 00, 00)
+        diecisiete['HPAI'] = time(00, 00, 00)
+        diecisiete['HPAF'] = time(00, 00, 00)
+        diecisiete['HDCI'] = time(00, 00, 00)
+        diecisiete['HDCF'] = time(00, 00, 00)
+        diecisiete['HSA'] = time(00, 00, 00)
 
         dieciocho['EN'] = date(12, 1, 1)
-        dieciocho['HEN'] = 'NA'
-        dieciocho['HDYI'] = 'NA'
-        dieciocho['HDYF'] = 'NA'
-        dieciocho['HALI'] = 'NA'
-        dieciocho['HALF'] = 'NA'
-        dieciocho['HPAI'] = 'NA'
-        dieciocho['HPAF'] = 'NA'
-        dieciocho['HDCI'] = 'NA'
-        dieciocho['HDCF'] = 'NA'
-        dieciocho['HSA'] = 'NA'
+        dieciocho['HEN'] = time(00, 00, 00)
+        dieciocho['HDYI'] = time(00, 00, 00)
+        dieciocho['HDYF'] = time(00, 00, 00)
+        dieciocho['HALI'] = time(00, 00, 00)
+        dieciocho['HALF'] = time(00, 00, 00)
+        dieciocho['HPAI'] = time(00, 00, 00)
+        dieciocho['HPAF'] = time(00, 00, 00)
+        dieciocho['HDCI'] = time(00, 00, 00)
+        dieciocho['HDCF'] = time(00, 00, 00)
+        dieciocho['HSA'] = time(00, 00, 00)
 
         diecinueve['EN'] = date(12, 1, 1)
-        diecinueve['HEN'] = 'NA'
-        diecinueve['HDYI'] = 'NA'
-        diecinueve['HDYF'] = 'NA'
-        diecinueve['HALI'] = 'NA'
-        diecinueve['HALF'] = 'NA'
-        diecinueve['HPAI'] = 'NA'
-        diecinueve['HPAF'] = 'NA'
-        diecinueve['HDCI'] = 'NA'
-        diecinueve['HDCF'] = 'NA'
-        diecinueve['HSA'] = 'NA'
+        diecinueve['HEN'] = time(00, 00, 00)
+        diecinueve['HDYI'] =time(00, 00, 00)
+        diecinueve['HDYF'] =time(00, 00, 00)
+        diecinueve['HALI'] =time(00, 00, 00)
+        diecinueve['HALF'] =time(00, 00, 00)
+        diecinueve['HPAI'] =time(00, 00, 00)
+        diecinueve['HPAF'] =time(00, 00, 00)
+        diecinueve['HDCI'] =time(00, 00, 00)
+        diecinueve['HDCF'] =time(00, 00, 00)
+        diecinueve['HSA'] = time(00, 00, 00)
 
         veinte['EN'] = date(12, 1, 1)
-        veinte['HEN'] = 'NA'
-        veinte['HDYI'] = 'NA'
-        veinte['HDYF'] = 'NA'
-        veinte['HALI'] = 'NA'
-        veinte['HALF'] = 'NA'
-        veinte['HPAI'] = 'NA'
-        veinte['HPAF'] = 'NA'
-        veinte['HDCI'] = 'NA'
-        veinte['HDCF'] = 'NA'
-        veinte['HSA'] = 'NA'
+        veinte['HEN'] = time(00, 00, 00)
+        veinte['HDYI'] = time(00, 00, 00)
+        veinte['HDYF'] = time(00, 00, 00)
+        veinte['HALI'] = time(00, 00, 00)
+        veinte['HALF'] = time(00, 00, 00)
+        veinte['HPAI'] = time(00, 00, 00)
+        veinte['HPAF'] = time(00, 00, 00)
+        veinte['HDCI'] = time(00, 00, 00)
+        veinte['HDCF'] = time(00, 00, 00)
+        veinte['HSA'] = time(00, 00, 00)
 
         veintiuno['EN'] = date(12, 1, 1)
-        veintiuno['HEN'] = 'NA'
-        veintiuno['HDYI'] = 'NA'
-        veintiuno['HDYF'] = 'NA'
-        veintiuno['HALI'] = 'NA'
-        veintiuno['HALF'] = 'NA'
-        veintiuno['HPAI'] = 'NA'
-        veintiuno['HPAF'] = 'NA'
-        veintiuno['HDCI'] = 'NA'
-        veintiuno['HDCF'] = 'NA'
-        veintiuno['HSA'] = 'NA'
+        veintiuno['HEN'] = time(00, 00, 00)
+        veintiuno['HDYI'] = time(00, 00, 00)
+        veintiuno['HDYF'] = time(00, 00, 00)
+        veintiuno['HALI'] = time(00, 00, 00)
+        veintiuno['HALF'] = time(00, 00, 00)
+        veintiuno['HPAI'] = time(00, 00, 00)
+        veintiuno['HPAF'] = time(00, 00, 00)
+        veintiuno['HDCI'] = time(00, 00, 00)
+        veintiuno['HDCF'] = time(00, 00, 00)
+        veintiuno['HSA'] = time(00, 00, 00)
 
         veintidos['EN'] = date(12, 1, 1)
-        veintidos['HEN'] = 'NA'
-        veintidos['HDYI'] = 'NA'
-        veintidos['HDYF'] = 'NA'
-        veintidos['HALI'] = 'NA'
-        veintidos['HALF'] = 'NA'
-        veintidos['HPAI'] = 'NA'
-        veintidos['HPAF'] = 'NA'
-        veintidos['HDCI'] = 'NA'
-        veintidos['HDCF'] = 'NA'
-        veintidos['HSA'] = 'NA'
+        veintidos['HEN'] = time(00, 00, 00)
+        veintidos['HDYI'] = time(00, 00, 00)
+        veintidos['HDYF'] = time(00, 00, 00)
+        veintidos['HALI'] = time(00, 00, 00)
+        veintidos['HALF'] = time(00, 00, 00)
+        veintidos['HPAI'] = time(00, 00, 00)
+        veintidos['HPAF'] = time(00, 00, 00)
+        veintidos['HDCI'] = time(00, 00, 00)
+        veintidos['HDCF'] = time(00, 00, 00)
+        veintidos['HSA'] = time(00, 00, 00)
 
         veintitres['EN'] = date(12, 1, 1)
-        veintitres['HEN'] = 'NA'
-        veintitres['HDYI'] = 'NA'
-        veintitres['HDYF'] = 'NA'
-        veintitres['HALI'] = 'NA'
-        veintitres['HALF'] = 'NA'
-        veintitres['HPAI'] = 'NA'
-        veintitres['HPAF'] = 'NA'
-        veintitres['HDCI'] = 'NA'
-        veintitres['HDCF'] = 'NA'
-        veintitres['HSA'] = 'NA'
+        veintitres['HEN'] = time(00, 00, 00)
+        veintitres['HDYI'] = time(00, 00, 00)
+        veintitres['HDYF'] = time(00, 00, 00)
+        veintitres['HALI'] = time(00, 00, 00)
+        veintitres['HALF'] = time(00, 00, 00)
+        veintitres['HPAI'] = time(00, 00, 00)
+        veintitres['HPAF'] = time(00, 00, 00)
+        veintitres['HDCI'] = time(00, 00, 00)
+        veintitres['HDCF'] = time(00, 00, 00)
+        veintitres['HSA'] = time(00, 00, 00)
 
         veinticuatro['EN'] = date(12, 1, 1)
-        veinticuatro['HEN'] = 'NA'
-        veinticuatro['HDYI'] = 'NA'
-        veinticuatro['HDYF'] = 'NA'
-        veinticuatro['HALI'] = 'NA'
-        veinticuatro['HALF'] = 'NA'
-        veinticuatro['HPAI'] = 'NA'
-        veinticuatro['HPAF'] = 'NA'
-        veinticuatro['HDCI'] = 'NA'
-        veinticuatro['HDCF'] = 'NA'
-        veinticuatro['HSA'] = 'NA'
+        veinticuatro['HEN'] = time(00, 00, 00)
+        veinticuatro['HDYI'] = time(00, 00, 00)
+        veinticuatro['HDYF'] = time(00, 00, 00)
+        veinticuatro['HALI'] = time(00, 00, 00)
+        veinticuatro['HALF'] = time(00, 00, 00)
+        veinticuatro['HPAI'] = time(00, 00, 00)
+        veinticuatro['HPAF'] = time(00, 00, 00)
+        veinticuatro['HDCI'] = time(00, 00, 00)
+        veinticuatro['HDCF'] = time(00, 00, 00)
+        veinticuatro['HSA'] = time(00, 00, 00)
 
 
         veinticinco['EN'] = date(12, 1, 1)
-        veinticinco['HEN'] = 'NA'
-        veinticinco['HDYI'] = 'NA'
-        veinticinco['HDYF'] = 'NA'
-        veinticinco['HALI'] = 'NA'
-        veinticinco['HALF'] = 'NA'
-        veinticinco['HPAI'] = 'NA'
-        veinticinco['HPAF'] = 'NA'
-        veinticinco['HDCI'] = 'NA'
-        veinticinco['HDCF'] = 'NA'
-        veinticinco['HSA'] = 'NA'
+        veinticinco['HEN'] = time(00, 00, 00)
+        veinticinco['HDYI'] = time(00, 00, 00)
+        veinticinco['HDYF'] = time(00, 00, 00)
+        veinticinco['HALI'] = time(00, 00, 00)
+        veinticinco['HALF'] = time(00, 00, 00)
+        veinticinco['HPAI'] = time(00, 00, 00)
+        veinticinco['HPAF'] = time(00, 00, 00)
+        veinticinco['HDCI'] = time(00, 00, 00)
+        veinticinco['HDCF'] = time(00, 00, 00)
+        veinticinco['HSA'] = time(00, 00, 00)
 
         veintiseis['EN'] = date(12, 1, 1)
-        veintiseis['HEN'] = 'NA'
-        veintiseis['HDYI'] = 'NA'
-        veintiseis['HDYF'] = 'NA'
-        veintiseis['HALI'] = 'NA'
-        veintiseis['HALF'] = 'NA'
-        veintiseis['HPAI'] = 'NA'
-        veintiseis['HPAF'] = 'NA'
-        veintiseis['HDCI'] = 'NA'
-        veintiseis['HDCF'] = 'NA'
-        veintiseis['HSA'] = 'NA'
+        veintiseis['HEN'] = time(00, 00, 00)
+        veintiseis['HDYI'] = time(00, 00, 00)
+        veintiseis['HDYF'] = time(00, 00, 00)
+        veintiseis['HALI'] = time(00, 00, 00)
+        veintiseis['HALF'] = time(00, 00, 00)
+        veintiseis['HPAI'] = time(00, 00, 00)
+        veintiseis['HPAF'] = time(00, 00, 00)
+        veintiseis['HDCI'] = time(00, 00, 00)
+        veintiseis['HDCF'] = time(00, 00, 00)
+        veintiseis['HSA'] = time(00, 00, 00)
 
         veintisiete['EN'] = date(12, 1, 1)
-        veintisiete['HEN'] = 'NA'
-        veintisiete['HDYI'] = 'NA'
-        veintisiete['HDYF'] = 'NA'
-        veintisiete['HALI'] = 'NA'
-        veintisiete['HALF'] = 'NA'
-        veintisiete['HPAI'] = 'NA'
-        veintisiete['HPAF'] = 'NA'
-        veintisiete['HDCI'] = 'NA'
-        veintisiete['HDCF'] = 'NA'
-        veintisiete['HSA'] = 'NA'
+        veintisiete['HEN'] = time(00, 00, 00)
+        veintisiete['HDYI'] = time(00, 00, 00)
+        veintisiete['HDYF'] = time(00, 00, 00)
+        veintisiete['HALI'] = time(00, 00, 00)
+        veintisiete['HALF'] = time(00, 00, 00)
+        veintisiete['HPAI'] = time(00, 00, 00)
+        veintisiete['HPAF'] = time(00, 00, 00)
+        veintisiete['HDCI'] = time(00, 00, 00)
+        veintisiete['HDCF'] = time(00, 00, 00)
+        veintisiete['HSA'] = time(00, 00, 00)
 
         veintiocho['EN'] = date(12, 1, 1)
-        veintiocho['HEN'] = 'NA'
-        veintiocho['HDYI'] = 'NA'
-        veintiocho['HDYF'] = 'NA'
-        veintiocho['HALI'] = 'NA'
-        veintiocho['HALF'] = 'NA'
-        veintiocho['HPAI'] = 'NA'
-        veintiocho['HPAF'] = 'NA'
-        veintiocho['HDCI'] = 'NA'
-        veintiocho['HDCF'] = 'NA'
-        veintiocho['HSA'] = 'NA'
+        veintiocho['HEN'] = time(00, 00, 00)
+        veintiocho['HDYI'] = time(00, 00, 00)
+        veintiocho['HDYF'] = time(00, 00, 00)
+        veintiocho['HALI'] = time(00, 00, 00)
+        veintiocho['HALF'] = time(00, 00, 00)
+        veintiocho['HPAI'] = time(00, 00, 00)
+        veintiocho['HPAF'] = time(00, 00, 00)
+        veintiocho['HDCI'] = time(00, 00, 00)
+        veintiocho['HDCF'] = time(00, 00, 00)
+        veintiocho['HSA'] = time(00, 00, 00)
 
         veintinueve['EN'] = date(12, 1, 1)
-        veintinueve['HEN'] = 'NA'
-        veintinueve['HDYI'] = 'NA'
-        veintinueve['HDYF'] = 'NA'
-        veintinueve['HALI'] = 'NA'
-        veintinueve['HALF'] = 'NA'
-        veintinueve['HPAI'] = 'NA'
-        veintinueve['HPAF'] = 'NA'
-        veintinueve['HDCI'] = 'NA'
-        veintinueve['HDCF'] = 'NA'
-        veintinueve['HSA'] = 'NA'
+        veintinueve['HEN'] = time(00, 00, 00)
+        veintinueve['HDYI'] = time(00, 00, 00)
+        veintinueve['HDYF'] = time(00, 00, 00)
+        veintinueve['HALI'] = time(00, 00, 00)
+        veintinueve['HALF'] = time(00, 00, 00)
+        veintinueve['HPAI'] = time(00, 00, 00)
+        veintinueve['HPAF'] = time(00, 00, 00)
+        veintinueve['HDCI'] = time(00, 00, 00)
+        veintinueve['HDCF'] = time(00, 00, 00)
+        veintinueve['HSA'] = time(00, 00, 00)
 
         treinta['EN'] = date(12, 1, 1)
-        treinta['HEN'] = 'NA'
-        treinta['HDYI'] = 'NA'
-        treinta['HDYF'] = 'NA'
-        treinta['HALI'] = 'NA'
-        treinta['HALF'] = 'NA'
-        treinta['HPAI'] = 'NA'
-        treinta['HPAF'] = 'NA'
-        treinta['HDCI'] = 'NA'
-        treinta['HDCF'] = 'NA'
-        treinta['HSA'] = 'NA'
+        treinta['HEN'] = time(00, 00, 00)
+        treinta['HDYI'] = time(00, 00, 00)
+        treinta['HDYF'] = time(00, 00, 00)
+        treinta['HALI'] = time(00, 00, 00)
+        treinta['HALF'] = time(00, 00, 00)
+        treinta['HPAI'] = time(00, 00, 00)
+        treinta['HPAF'] = time(00, 00, 00)
+        treinta['HDCI'] = time(00, 00, 00)
+        treinta['HDCF'] = time(00, 00, 00)
+        treinta['HSA'] = time(00, 00, 00)
 
         treintauno['EN'] = date(12, 1, 1)
-        treintauno['HEN'] = 'NA'
-        treintauno['HDYI'] = 'NA'
-        treintauno['HDYF'] = 'NA'
-        treintauno['HALI'] = 'NA'
-        treintauno['HALF'] = 'NA'
-        treintauno['HPAI'] = 'NA'
-        treintauno['HPAF'] = 'NA'
-        treintauno['HDCI'] = 'NA'
-        treintauno['HDCF'] = 'NA'
-        treintauno['HSA'] = 'NA'
+        treintauno['HEN'] = time(00, 00, 00)
+        treintauno['HDYI'] = time(00, 00, 00)
+        treintauno['HDYF'] = time(00, 00, 00)
+        treintauno['HALI'] = time(00, 00, 00)
+        treintauno['HALF'] = time(00, 00, 00)
+        treintauno['HPAI'] = time(00, 00, 00)
+        treintauno['HPAF'] = time(00, 00, 00)
+        treintauno['HDCI'] = time(00, 00, 00)
+        treintauno['HDCF'] = time(00, 00, 00)
+        treintauno['HSA'] = time(00, 00, 00)
 
         self.b= []
         #print(filtroMes)
@@ -864,6 +864,7 @@ class ReportePersonasPDF(View):
                     elif mes.fecha.day == 25 and fq ==25:
                         veinticinco[i.accion_jornada] = i.fecha
                         veinticinco[i.accion_jornada_hora] = i.hora
+                        #print(veinticinco, "VEINTICIC")
                     elif mes.fecha.day==26 and fq ==26:
                         veintiseis[i.accion_jornada] = i.fecha
                         veintiseis[i.accion_jornada_hora] = i.hora
@@ -879,6 +880,7 @@ class ReportePersonasPDF(View):
                     elif mes.fecha.day==30 and fq ==30:
                         treinta[i.accion_jornada] = i.fecha
                         treinta[i.accion_jornada_hora] = i.hora
+                        print(treinta)
                     elif mes.fecha.day==31 and fq ==31:
                         treintauno[i.accion_jornada] = i.fecha
                         treintauno[i.accion_jornada_hora] = i.hora
@@ -916,24 +918,33 @@ class ReportePersonasPDF(View):
         self.b.append(treinta)
         self.b.append(treintauno)
 
+        #FORMATO HORA, MINUTOS Y SEGUNDOS
+        formato1 = "%H:%M:%S"
+        #hoy = datetime.today()  # Asigna fecha-hora
+        # Muestra fecha-hora según ISO 8601
+        #print("Fecha en formato ISO 8601:", hoy)
+        #cadena1 = hoy.strftime(formato1)
+        #print("YUJUUUU",cadena1)
+
+
         #TOTAL MES
         totalMes = 0
         totalMesMinutos = 0
 
         #UNO
-        if uno['HEN'] != 'NA' and uno['HSA'] != 'NA':
+        if uno['HEN'] != time(00, 00, 00) and uno['HSA'] != time(00, 00, 00):
             horasTrabajadas = uno['HSA'].hour - uno['HEN'].hour
         else:
             horasTrabajadas = 0
-        if uno['HEN'] != 'NA' and uno['HSA'] != 'NA':
+        if uno['HEN'] != time(00, 00, 00) and uno['HSA'] != time(00, 00, 00):
             minutosTrabajadas = uno['HSA'].minute - uno['HEN'].minute
         else:
             minutosTrabajadas = 0
-        if uno['HALI'] != 'NA' and uno['HALF'] != 'NA':
+        if uno['HALI'] != time(00, 00, 00) and uno['HALF'] != time(00, 00, 00):
             horasAlmuerzo = uno['HALF'].hour -uno['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if uno['HALI'] != 'NA' and uno['HALF'] != 'NA':
+        if uno['HALI'] != time(00, 00, 00) and uno['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = uno['HALF'].minute -uno['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -951,7 +962,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -963,35 +973,85 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if uno['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if uno['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = uno['HEN'].strftime(formato1)
+    
+        if uno['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = uno['HDYI'].strftime(formato1)
+    
+        if uno['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = uno['HDYF'].strftime(formato1)
+    
+        if uno['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = uno['HALI'].strftime(formato1)
+    
+        if uno['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = uno['HALF'].strftime(formato1)
+    
+        if uno['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = uno['HPAI'].strftime(formato1)
+    
+        if uno['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = uno['HPAF'].strftime(formato1)
+    
+        if uno['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = uno['HDCI'].strftime(formato1)
+    
+        if uno['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = uno['HDCF'].strftime(formato1)
+    
+        if uno['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = uno['HSA'].strftime(formato1)
+    
         if uno['EN'].day == 1:
-            detalles1 = [(1, uno['HEN'], uno['HDYI'], uno['HDYF'], uno['HALI'], uno['HALF'], uno['HPAI'], uno['HPAF'], uno['HDCI'],uno['HDCF'], uno['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles1 = [(1, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles1 = [(1 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #DOS
-        if dos['HEN'] != 'NA' and dos['HSA'] != 'NA':
+        if dos['HEN'] != time(00, 00, 00) and dos['HSA'] != time(00, 00, 00):
             horasTrabajadas = dos['HSA'].hour - dos['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if dos['HEN'] != 'NA' and dos['HSA'] != 'NA':
+        if dos['HEN'] != time(00, 00, 00) and dos['HSA'] != time(00, 00, 00):
             minutosTrabajadas = dos['HSA'].minute - dos['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if dos['HALI'] != 'NA' and dos['HALF'] != 'NA':
+        if dos['HALI'] != time(00, 00, 00) and dos['HALF'] != time(00, 00, 00):
             horasAlmuerzo = dos['HALF'].hour -dos['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if dos['HALI'] != 'NA' and dos['HALF'] != 'NA':
+        if dos['HALI'] != time(00, 00, 00) and dos['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = dos['HALF'].minute -dos['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1009,7 +1069,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1021,44 +1080,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if dos['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)     
-
+        #print("Resultado",totalMesMinutos, totalMes)
+        
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
 
+        if dos['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = dos['HEN'].strftime(formato1)
+    
+        if dos['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = dos['HDYI'].strftime(formato1)
+    
+        if dos['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = dos['HDYF'].strftime(formato1)
+    
+        if dos['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = dos['HALI'].strftime(formato1)
+    
+        if dos['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = dos['HALF'].strftime(formato1)
+    
+        if dos['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = dos['HPAI'].strftime(formato1)
+    
+        if dos['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = dos['HPAF'].strftime(formato1)
+    
+        if dos['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = dos['HDCI'].strftime(formato1)
+    
+        if dos['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = dos['HDCF'].strftime(formato1)
+    
+        if dos['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = dos['HSA'].strftime(formato1)
+    
         if dos['EN'].day == 2:
-            detalles2 = [(2, dos['HEN'], dos['HDYI'], dos['HDYF'], dos['HALI'], dos['HALF'], dos['HPAI'], dos['HPAF'], dos['HDCI'],dos['HDCF'], dos['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles2 = [(2, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles2 = [(2 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #TRES
-        if tres['HEN'] != 'NA' and tres['HSA'] != 'NA':
+        if tres['HEN'] != time(00, 00, 00) and tres['HSA'] != time(00, 00, 00):
             horasTrabajadas = tres['HSA'].hour - tres['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if tres['HEN'] != 'NA' and tres['HSA'] != 'NA':
+        if tres['HEN'] != time(00, 00, 00) and tres['HSA'] != time(00, 00, 00):
             minutosTrabajadas = tres['HSA'].minute - tres['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if tres['HALI'] != 'NA' and tres['HALF'] != 'NA':
+        if tres['HALI'] != time(00, 00, 00) and tres['HALF'] != time(00, 00, 00):
             horasAlmuerzo = tres['HALF'].hour -tres['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if tres['HALI'] != 'NA' and tres['HALF'] != 'NA':
+        if tres['HALI'] != time(00, 00, 00) and tres['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = tres['HALF'].minute -tres['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1076,7 +1185,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1088,44 +1196,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if tres['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)     
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if tres['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = tres['HEN'].strftime(formato1)
+    
+        if tres['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = tres['HDYI'].strftime(formato1)
+    
+        if tres['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = tres['HDYF'].strftime(formato1)
+    
+        if tres['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = tres['HALI'].strftime(formato1)
+    
+        if tres['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = tres['HALF'].strftime(formato1)
+    
+        if tres['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = tres['HPAI'].strftime(formato1)
+    
+        if tres['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = tres['HPAF'].strftime(formato1)
+    
+        if tres['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = tres['HDCI'].strftime(formato1)
+    
+        if tres['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = tres['HDCF'].strftime(formato1)
+    
+        if tres['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = tres['HSA'].strftime(formato1)
+    
         if tres['EN'].day == 3:
-            detalles3 = [(3, tres['HEN'], tres['HDYI'], tres['HDYF'], tres['HALI'], tres['HALF'], tres['HPAI'], tres['HPAF'], tres['HDCI'],tres['HDCF'], tres['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles3 = [(3, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles3 = [(3, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #CUATRO
-        if cuatro['HEN'] != 'NA' and cuatro['HSA'] != 'NA':
+        if cuatro['HEN'] != time(00, 00, 00) and cuatro['HSA'] != time(00, 00, 00):
             horasTrabajadas = cuatro['HSA'].hour - cuatro['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if cuatro['HEN'] != 'NA' and cuatro['HSA'] != 'NA':
+        if cuatro['HEN'] != time(00, 00, 00) and cuatro['HSA'] != time(00, 00, 00):
             minutosTrabajadas = cuatro['HSA'].minute - cuatro['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if cuatro['HALI'] != 'NA' and cuatro['HALF'] != 'NA':
+        if cuatro['HALI'] != time(00, 00, 00) and cuatro['HALF'] != time(00, 00, 00):
             horasAlmuerzo = cuatro['HALF'].hour -cuatro['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if cuatro['HALI'] != 'NA' and cuatro['HALF'] != 'NA':
+        if cuatro['HALI'] != time(00, 00, 00) and cuatro['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = cuatro['HALF'].minute -cuatro['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1143,7 +1301,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1155,11 +1312,11 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if cuatro['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
@@ -1168,29 +1325,79 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if cuatro['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = cuatro['HEN'].strftime(formato1)
+    
+        if cuatro['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = cuatro['HDYI'].strftime(formato1)
+    
+        if cuatro['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = cuatro['HDYF'].strftime(formato1)
+    
+        if cuatro['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = cuatro['HALI'].strftime(formato1)
+    
+        if cuatro['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = cuatro['HALF'].strftime(formato1)
+    
+        if cuatro['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = cuatro['HPAI'].strftime(formato1)
+    
+        if cuatro['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = cuatro['HPAF'].strftime(formato1)
+    
+        if cuatro['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = cuatro['HDCI'].strftime(formato1)
+    
+        if cuatro['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = cuatro['HDCF'].strftime(formato1)
+    
+        if cuatro['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = cuatro['HSA'].strftime(formato1)
+    
         if cuatro['EN'].day == 4:
-            detalles4 = [(4, cuatro['HEN'], cuatro['HDYI'], cuatro['HDYF'], cuatro['HALI'], cuatro['HALF'], cuatro['HPAI'], cuatro['HPAF'], cuatro['HDCI'], cuatro['HDCF'], cuatro['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles4 = [(4, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles4 = [(4, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #CINCO
-        if cinco['HEN'] != 'NA' and cinco['HSA'] != 'NA':
+        if cinco['HEN'] != time(00, 00, 00) and cinco['HSA'] != time(00, 00, 00):
             horasTrabajadas = cinco['HSA'].hour - cinco['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if cinco['HEN'] != 'NA' and cinco['HSA'] != 'NA':
+        if cinco['HEN'] != time(00, 00, 00) and cinco['HSA'] != time(00, 00, 00):
             minutosTrabajadas = cinco['HSA'].minute - cinco['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if cinco['HALI'] != 'NA' and cinco['HALF'] != 'NA':
+        if cinco['HALI'] != time(00, 00, 00) and cinco['HALF'] != time(00, 00, 00):
             horasAlmuerzo = cinco['HALF'].hour -cinco['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if cinco['HALI'] != 'NA' and cinco['HALF'] != 'NA':
+        if cinco['HALI'] != time(00, 00, 00) and cinco['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = cinco['HALF'].minute -cinco['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1208,7 +1415,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1220,43 +1426,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if cinco['HSA'] == 'NA':
             minutosTotal = 0
-            
+
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-           
-            
+
+
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if cinco['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = cinco['HEN'].strftime(formato1)
+    
+        if cinco['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = cinco['HDYI'].strftime(formato1)
+    
+        if cinco['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = cinco['HDYF'].strftime(formato1)
+    
+        if cinco['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = cinco['HALI'].strftime(formato1)
+    
+        if cinco['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = cinco['HALF'].strftime(formato1)
+    
+        if cinco['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = cinco['HPAI'].strftime(formato1)
+    
+        if cinco['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = cinco['HPAF'].strftime(formato1)
+    
+        if cinco['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = cinco['HDCI'].strftime(formato1)
+    
+        if cinco['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = cinco['HDCF'].strftime(formato1)
+    
+        if cinco['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = cinco['HSA'].strftime(formato1)
+    
         if cinco['EN'].day == 5:
-            detalles5 = [(5, cinco['HEN'], cinco['HDYI'], cinco['HDYF'], cinco['HALI'], cinco['HALF'], cinco['HPAI'], cinco['HPAF'], cinco['HDCI'],cinco['HDCF'], cinco['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles5 = [(5, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles5 = [(5, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #SEIS
-        if seis['HEN'] != 'NA' and seis['HSA'] != 'NA':
+        if seis['HEN'] != time(00, 00, 00) and seis['HSA'] != time(00, 00, 00):
             horasTrabajadas = seis['HSA'].hour - seis['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if seis['HEN'] != 'NA' and seis['HSA'] != 'NA':
+        if seis['HEN'] != time(00, 00, 00) and seis['HSA'] != time(00, 00, 00):
             minutosTrabajadas = seis['HSA'].minute - seis['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if seis['HALI'] != 'NA' and seis['HALF'] != 'NA':
+        if seis['HALI'] != time(00, 00, 00) and seis['HALF'] != time(00, 00, 00):
             horasAlmuerzo = seis['HALF'].hour -seis['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if seis['HALI'] != 'NA' and seis['HALF'] != 'NA':
+        if seis['HALI'] != time(00, 00, 00) and seis['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = seis['HALF'].minute -seis['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1274,7 +1530,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1286,11 +1541,11 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if seis['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
@@ -1299,29 +1554,79 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if seis['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = seis['HEN'].strftime(formato1)
+    
+        if seis['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = seis['HDYI'].strftime(formato1)
+    
+        if seis['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = seis['HDYF'].strftime(formato1)
+    
+        if seis['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = seis['HALI'].strftime(formato1)
+    
+        if seis['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = seis['HALF'].strftime(formato1)
+    
+        if seis['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = seis['HPAI'].strftime(formato1)
+    
+        if seis['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = seis['HPAF'].strftime(formato1)
+    
+        if seis['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = seis['HDCI'].strftime(formato1)
+    
+        if seis['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = seis['HDCF'].strftime(formato1)
+    
+        if seis['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = seis['HSA'].strftime(formato1)
+    
         if seis['EN'].day == 6:
-            detalles6 = [(6, seis['HEN'], seis['HDYI'], seis['HDYF'], seis['HALI'], seis['HALF'], seis['HPAI'], seis['HPAF'], seis['HDCI'],seis['HDCF'], seis['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalle6 = [(6, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles6 = [(6 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #SIETE
-        if siete['HEN'] != 'NA' and siete['HSA'] != 'NA':
+        if siete['HEN'] != time(00, 00, 00) and siete['HSA'] != time(00, 00, 00):
             horasTrabajadas = siete['HSA'].hour - siete['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if siete['HEN'] != 'NA' and siete['HSA'] != 'NA':
+        if siete['HEN'] != time(00, 00, 00) and siete['HSA'] != time(00, 00, 00):
             minutosTrabajadas = siete['HSA'].minute - siete['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if siete['HALI'] != 'NA' and siete['HALF'] != 'NA':
+        if siete['HALI'] != time(00, 00, 00) and siete['HALF'] != time(00, 00, 00):
             horasAlmuerzo = siete['HALF'].hour -siete['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if siete['HALI'] != 'NA' and siete['HALF'] != 'NA':
+        if siete['HALI'] != time(00, 00, 00) and siete['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = siete['HALF'].minute -siete['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1339,7 +1644,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1351,42 +1655,92 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if siete['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
-           totalMesMinutos = restante   
+           totalMesMinutos = restante
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if siete['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = siete['HEN'].strftime(formato1)
+    
+        if siete['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = siete['HDYI'].strftime(formato1)
+    
+        if siete['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = siete['HDYF'].strftime(formato1)
+    
+        if siete['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = siete['HALI'].strftime(formato1)
+    
+        if siete['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = siete['HALF'].strftime(formato1)
+    
+        if siete['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = siete['HPAI'].strftime(formato1)
+    
+        if siete['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = siete['HPAF'].strftime(formato1)
+    
+        if siete['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = siete['HDCI'].strftime(formato1)
+    
+        if siete['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = siete['HDCF'].strftime(formato1)
+    
+        if siete['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = siete['HSA'].strftime(formato1)
+    
         if siete['EN'].day == 7:
-            detalles7 = [(7, siete['HEN'], siete['HDYI'], siete['HDYF'], siete['HALI'], siete['HALF'], siete['HPAI'], siete['HPAF'], siete['HDCI'],siete['HDCF'], siete['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles7 = [(7 , la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles7 = [(7, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #OCHO
-        if ocho['HEN'] != 'NA' and ocho['HSA'] != 'NA':
+        if ocho['HEN'] != time(00, 00, 00) and ocho['HSA'] != time(00, 00, 00):
             horasTrabajadas = ocho['HSA'].hour - ocho['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if ocho['HEN'] != 'NA' and ocho['HSA'] != 'NA':
+        if ocho['HEN'] != time(00, 00, 00) and ocho['HSA'] != time(00, 00, 00):
             minutosTrabajadas = ocho['HSA'].minute - ocho['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if ocho['HALI'] != 'NA' and ocho['HALF'] != 'NA':
+        if ocho['HALI'] != time(00, 00, 00) and ocho['HALF'] != time(00, 00, 00):
             horasAlmuerzo = ocho['HALF'].hour -ocho['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if ocho['HALI'] != 'NA' and ocho['HALF'] != 'NA':
+        if ocho['HALI'] != time(00, 00, 00) and ocho['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = ocho['HALF'].minute -ocho['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1404,7 +1758,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1416,41 +1769,91 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if ocho['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
-           totalMesMinutos = restante    
+           totalMesMinutos = restante
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if ocho['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = ocho['HEN'].strftime(formato1)
+    
+        if ocho['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = ocho['HDYI'].strftime(formato1)
+    
+        if ocho['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = ocho['HDYF'].strftime(formato1)
+    
+        if ocho['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = ocho['HALI'].strftime(formato1)
+    
+        if ocho['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = ocho['HALF'].strftime(formato1)
+    
+        if ocho['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = ocho['HPAI'].strftime(formato1)
+    
+        if ocho['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = ocho['HPAF'].strftime(formato1)
+    
+        if ocho['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = ocho['HDCI'].strftime(formato1)
+    
+        if ocho['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = ocho['HDCF'].strftime(formato1)
+    
+        if ocho['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = ocho['HSA'].strftime(formato1)
+    
         if ocho['EN'].day == 8:
-            detalles8 = [(8, ocho['HEN'], ocho['HDYI'], ocho['HDYF'], ocho['HALI'], ocho['HALF'], ocho['HPAI'], ocho['HPAF'], ocho['HDCI'], ocho['HDCF'], ocho['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles8 = [(8 , la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles8 = [(8, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #NUEVE
-        if nueve['HEN'] != 'NA' and nueve['HSA'] != 'NA':
+        if nueve['HEN'] != time(00, 00, 00) and nueve['HSA'] != time(00, 00, 00):
             horasTrabajadas = nueve['HSA'].hour - nueve['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if nueve['HEN'] != 'NA' and nueve['HSA'] != 'NA':
+        if nueve['HEN'] != time(00, 00, 00) and nueve['HSA'] != time(00, 00, 00):
             minutosTrabajadas = nueve['HSA'].minute - nueve['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if nueve['HALI'] != 'NA' and nueve['HALF'] != 'NA':
+        if nueve['HALI'] != time(00, 00, 00) and nueve['HALF'] != time(00, 00, 00):
             horasAlmuerzo = nueve['HALF'].hour -nueve['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if nueve['HALI'] != 'NA' and nueve['HALF'] != 'NA':
+        if nueve['HALI'] != time(00, 00, 00) and nueve['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = nueve['HALF'].minute -nueve['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1468,7 +1871,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1480,44 +1882,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if nueve['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)                 
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if nueve['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = nueve['HEN'].strftime(formato1)
+    
+        if nueve['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = nueve['HDYI'].strftime(formato1)
+    
+        if nueve['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = nueve['HDYF'].strftime(formato1)
+    
+        if nueve['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = nueve['HALI'].strftime(formato1)
+    
+        if nueve['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = nueve['HALF'].strftime(formato1)
+    
+        if nueve['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = nueve['HPAI'].strftime(formato1)
+    
+        if nueve['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = nueve['HPAF'].strftime(formato1)
+    
+        if nueve['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = nueve['HDCI'].strftime(formato1)
+    
+        if nueve['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = nueve['HDCF'].strftime(formato1)
+    
+        if nueve['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = nueve['HSA'].strftime(formato1)
+            
         if nueve['EN'].day == 9:
-            detalles9 = [(9, nueve['HEN'], nueve['HDYI'], nueve['HDYF'], nueve['HALI'], nueve['HALF'], nueve['HPAI'], nueve['HPAF'], nueve['HDCI'],nueve['HDCF'], nueve['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles9 = [(9, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles9 = [(9,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #DIEZ
-        if diez['HEN'] != 'NA' and diez['HSA'] != 'NA':
+        if diez['HEN'] != time(00, 00, 00) and diez['HSA'] != time(00, 00, 00):
             horasTrabajadas = diez['HSA'].hour - diez['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if diez['HEN'] != 'NA' and diez['HSA'] != 'NA':
+        if diez['HEN'] != time(00, 00, 00) and diez['HSA'] != time(00, 00, 00):
             minutosTrabajadas = diez['HSA'].minute - diez['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if diez['HALI'] != 'NA':
+        if diez['HALI'] != time(00, 00, 00) and diez['HALF'] != time(00, 00, 00):
             horasAlmuerzo = diez['HALF'].hour -diez['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if diez['HALF'] != 'NA':
+        if diez['HALF'] != time(00, 00, 00) and diez['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = diez['HALF'].minute -diez['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1535,7 +1987,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1547,43 +1998,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if diez['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if diez['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = diez['HEN'].strftime(formato1)
+    
+        if diez['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = diez['HDYI'].strftime(formato1)
+    
+        if diez['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = diez['HDYF'].strftime(formato1)
+    
+        if diez['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = diez['HALI'].strftime(formato1)
+    
+        if diez['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = diez['HALF'].strftime(formato1)
+    
+        if diez['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = diez['HPAI'].strftime(formato1)
+    
+        if diez['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = diez['HPAF'].strftime(formato1)
+    
+        if diez['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = diez['HDCI'].strftime(formato1)
+    
+        if diez['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = diez['HDCF'].strftime(formato1)
+    
+        if diez['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = diez['HSA'].strftime(formato1)
+    
         if diez['EN'].day == 10:
-            detalles10 = [(10, diez['HEN'], diez['HDYI'], diez['HDYF'], diez['HALI'], diez['HALF'], diez['HPAI'], diez['HPAF'], diez['HDCI'], diez['HDCF'], diez['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles10 = [(10, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles10 = [(10, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #ONCE
-        if once['HEN'] != 'NA' and once['HSA'] != 'NA':
+        if once['HEN'] != time(00, 00, 00) and once['HSA'] != time(00, 00, 00):
             horasTrabajadas = once['HSA'].hour - once['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if once['HEN'] != 'NA' and once['HSA'] != 'NA':
+        if once['HEN'] != time(00, 00, 00) and once['HSA'] != time(00, 00, 00):
             minutosTrabajadas = once['HSA'].minute - once['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if once['HALI'] != 'NA' and once['HALF'] != 'NA':
+        if once['HALI'] != time(00, 00, 00) and once['HALF'] != time(00, 00, 00):
             horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if once['HALF'] != 'NA' and once['HALI'] != 'NA':
+        if once['HALF'] != time(00, 00, 00) and once['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1601,7 +2102,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1613,40 +2113,90 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-        
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if once['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if once['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = once['HEN'].strftime(formato1)
+    
+        if once['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = once['HDYI'].strftime(formato1)
+    
+        if once['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = once['HDYF'].strftime(formato1)
+    
+        if once['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = once['HALI'].strftime(formato1)
+    
+        if once['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = once['HALF'].strftime(formato1)
+    
+        if once['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = once['HPAI'].strftime(formato1)
+    
+        if once['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = once['HPAF'].strftime(formato1)
+    
+        if once['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = once['HDCI'].strftime(formato1)
+    
+        if once['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = once['HDCF'].strftime(formato1)
+    
+        if once['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = once['HSA'].strftime(formato1)
+    
         if once['EN'].day == 11:
-            detalles11 = [(11, once['HEN'], once['HDYI'], once['HDYF'], once['HALI'], once['HALF'], once['HPAI'], once['HPAF'], once['HDCI'],once['HDCF'], once['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles11 = [(11, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles11 = [(11 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #DOCE
-        if doce['HEN'] != 'NA' and doce['HSA'] != 'NA':
+        if doce['HEN'] != time(00, 00, 00) and doce['HSA'] != time(00, 00, 00):
             horasTrabajadas = doce['HSA'].hour - doce['HEN'].hour
         else:
             horasTrabajadas = 0
-        if doce['HEN'] != 'NA' and doce['HSA'] != 'NA':
+        if doce['HEN'] != time(00, 00, 00) and doce['HSA'] != time(00, 00, 00):
             minutosTrabajadas = doce['HSA'].minute - doce['HEN'].minute
         else:
             minutosTrabajadas = 0
-        if doce['HALI'] != 'NA' and doce['HALF'] != 'NA':
+        if doce['HALI'] != time(00, 00, 00) and doce['HALF'] != time(00, 00, 00):
             horasAlmuerzo = doce['HALF'].hour -doce['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if doce['HALI'] != 'NA' and doce['HALF'] != 'NA':
+        if doce['HALI'] != time(00, 00, 00) and doce['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = doce['HALF'].minute -doce['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1664,7 +2214,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1676,43 +2225,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if doce['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        
+        if doce['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = doce['HEN'].strftime(formato1)
+    
+        if doce['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = doce['HDYI'].strftime(formato1)
+    
+        if doce['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = doce['HDYF'].strftime(formato1)
+    
+        if doce['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = doce['HALI'].strftime(formato1)
+    
+        if doce['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = doce['HALF'].strftime(formato1)
+    
+        if doce['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = doce['HPAI'].strftime(formato1)
+    
+        if doce['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = doce['HPAF'].strftime(formato1)
+    
+        if doce['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = doce['HDCI'].strftime(formato1)
+    
+        if doce['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = doce['HDCF'].strftime(formato1)
+    
+        if doce['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = doce['HSA'].strftime(formato1)
+    
         if doce['EN'].day == 12:
-            detalles12 = [(12, doce['HEN'], doce['HDYI'], doce['HDYF'], doce['HALI'], doce['HALF'], doce['HPAI'], doce['HPAF'], doce['HDCI'],doce['HDCF'], doce['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles12 = [(12, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles12 = [(12, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #TRECE
-        if trece['HEN'] != 'NA' and trece['HSA'] != 'NA':
+        if trece['HEN'] != time(00, 00, 00) and trece['HSA'] != time(00, 00, 00):
             horasTrabajadas = trece['HSA'].hour - trece['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if trece['HEN'] != 'NA' and trece['HSA'] != 'NA':
+        if trece['HEN'] != time(00, 00, 00) and trece['HSA'] != time(00, 00, 00):
             minutosTrabajadas = trece['HSA'].minute - trece['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if trece['HALI'] != 'NA' and trece['HALF'] != 'NA':
+        if trece['HALI'] != time(00, 00, 00) and trece['HALF'] != time(00, 00, 00):
             horasAlmuerzo = trece['HALF'].hour -trece['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if trece['HALI'] != 'NA' and trece['HALF'] != 'NA':
+        if trece['HALI'] != time(00, 00, 00) and trece['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = trece['HALF'].minute -trece['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1730,7 +2330,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1742,43 +2341,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if trece['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)             
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if trece['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = trece['HEN'].strftime(formato1)
+    
+        if trece['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = trece['HDYI'].strftime(formato1)
+    
+        if trece['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = trece['HDYF'].strftime(formato1)
+    
+        if trece['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = trece['HALI'].strftime(formato1)
+    
+        if trece['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = trece['HALF'].strftime(formato1)
+    
+        if trece['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = trece['HPAI'].strftime(formato1)
+    
+        if trece['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = trece['HPAF'].strftime(formato1)
+    
+        if trece['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = trece['HDCI'].strftime(formato1)
+    
+        if trece['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = trece['HDCF'].strftime(formato1)
+    
+        if trece['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = trece['HSA'].strftime(formato1)
+    
         if trece['EN'].day == 13:
-            detalles13 = [(13, trece['HEN'], trece['HDYI'], trece['HDYF'], trece['HALI'], trece['HALF'], trece['HPAI'], trece['HPAF'], trece['HDCI'],trece['HDCF'], trece['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles13 = [(13, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles13 = [(13, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #CATORCE
-        if catorce['HEN'] != 'NA' and catorce['HSA'] != 'NA':
+        if catorce['HEN'] != time(00, 00, 00) and catorce['HSA'] != time(00, 00, 00):
             horasTrabajadas = catorce['HSA'].hour - catorce['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if catorce['HEN'] != 'NA' and catorce['HSA'] != 'NA':
+        if catorce['HEN'] != time(00, 00, 00) and catorce['HSA'] != time(00, 00, 00):
             minutosTrabajadas = catorce['HSA'].minute - catorce['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if catorce['HALI'] != 'NA' and catorce['HALF'] != 'NA':
+        if catorce['HALI'] != time(00, 00, 00) and catorce['HALF'] != time(00, 00, 00):
             horasAlmuerzo = catorce['HALF'].hour -catorce['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if catorce['HALI'] != 'NA' and catorce['HALF'] != 'NA':
+        if catorce['HALI'] != time(00, 00, 00) and catorce['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = catorce['HALF'].minute -catorce['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1796,7 +2445,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1808,44 +2456,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if catorce['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)     
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if catorce['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = catorce['HEN'].strftime(formato1)
+    
+        if catorce['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = catorce['HDYI'].strftime(formato1)
+    
+        if catorce['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = catorce['HDYF'].strftime(formato1)
+    
+        if catorce['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = catorce['HALI'].strftime(formato1)
+    
+        if catorce['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = catorce['HALF'].strftime(formato1)
+    
+        if catorce['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = catorce['HPAI'].strftime(formato1)
+    
+        if catorce['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = catorce['HPAF'].strftime(formato1)
+    
+        if catorce['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = catorce['HDCI'].strftime(formato1)
+    
+        if catorce['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = catorce['HDCF'].strftime(formato1)
+    
+        if catorce['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = catorce['HSA'].strftime(formato1)
+    
         if catorce['EN'].day == 14:
-            detalles14 = [(14, catorce['HEN'], catorce['HDYI'], catorce['HDYF'], catorce['HALI'], catorce['HALF'], catorce['HPAI'], catorce['HPAF'], catorce['HDCI'],catorce['HDCF'], catorce['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles14 = [(14, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles14 = [(14, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #QUINCE
-        if quince['HEN'] != 'NA' and quince['HSA'] != 'NA':
+        if quince['HEN'] != time(00, 00, 00) and quince['HSA'] != time(00, 00, 00):
             horasTrabajadas = quince['HSA'].hour - quince['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if quince['HEN'] != 'NA' and quince['HSA'] != 'NA':
+        if quince['HEN'] != time(00, 00, 00) and quince['HSA'] != time(00, 00, 00):
             minutosTrabajadas = quince['HSA'].minute - quince['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if quince['HALI'] != 'NA' and quince['HALF'] != 'NA':
+        if quince['HALI'] != time(00, 00, 00) and quince['HALF'] != time(00, 00, 00):
             horasAlmuerzo = quince['HALF'].hour -quince['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if quince['HALI'] != 'NA' and quince['HALF'] != 'NA':
+        if quince['HALI'] != time(00, 00, 00) and quince['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = quince['HALF'].minute -quince['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1863,7 +2561,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1875,44 +2572,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-         
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if quince['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)     
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if quince['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = quince['HEN'].strftime(formato1)
+    
+        if quince['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = quince['HDYI'].strftime(formato1)
+    
+        if quince['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = quince['HDYF'].strftime(formato1)
+    
+        if quince['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = quince['HALI'].strftime(formato1)
+    
+        if quince['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = quince['HALF'].strftime(formato1)
+    
+        if quince['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = quince['HPAI'].strftime(formato1)
+    
+        if quince['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = quince['HPAF'].strftime(formato1)
+    
+        if quince['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = quince['HDCI'].strftime(formato1)
+    
+        if quince['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = quince['HDCF'].strftime(formato1)
+    
+        if quince['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = quince['HSA'].strftime(formato1)
+    
         if quince['EN'].day == 15:
-            detalles15 = [(15, quince['HEN'], quince['HDYI'], quince['HDYF'], quince['HALI'], quince['HALF'], quince['HPAI'], quince['HPAF'], quince['HDCI'], quince['HDCF'], quince['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles15 = [(15, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles15 = [(15, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #DIECISEIS
-        if dieciseis['HEN'] != 'NA' and dieciseis['HSA'] != 'NA':
+        if dieciseis['HEN'] != time(00, 00, 00) and dieciseis['HSA'] != time(00, 00, 00):
             horasTrabajadas = dieciseis['HSA'].hour - dieciseis['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if dieciseis['HEN'] != 'NA' and dieciseis['HSA'] != 'NA':
+        if dieciseis['HEN'] != time(00, 00, 00) and dieciseis['HSA'] != time(00, 00, 00):
             minutosTrabajadas = dieciseis['HSA'].minute - dieciseis['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if dieciseis['HALI'] != 'NA' and dieciseis['HALF'] != 'NA':
+        if dieciseis['HALI'] != time(00, 00, 00) and dieciseis['HALF'] != time(00, 00, 00):
             horasAlmuerzo = dieciseis['HALF'].hour -dieciseis['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if dieciseis['HALI'] != 'NA' and dieciseis['HALF'] != 'NA':
+        if dieciseis['HALI'] != time(00, 00, 00) and dieciseis['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = dieciseis['HALF'].minute -dieciseis['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1930,7 +2677,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -1942,43 +2688,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-         
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if dieciseis['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if dieciseis['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = dieciseis['HEN'].strftime(formato1)
+    
+        if dieciseis['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = dieciseis['HDYI'].strftime(formato1)
+    
+        if dieciseis['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = dieciseis['HDYF'].strftime(formato1)
+    
+        if dieciseis['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = dieciseis['HALI'].strftime(formato1)
+    
+        if dieciseis['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = dieciseis['HALF'].strftime(formato1)
+    
+        if dieciseis['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = dieciseis['HPAI'].strftime(formato1)
+    
+        if dieciseis['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = dieciseis['HPAF'].strftime(formato1)
+    
+        if dieciseis['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = dieciseis['HDCI'].strftime(formato1)
+    
+        if dieciseis['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = dieciseis['HDCF'].strftime(formato1)
+    
+        if dieciseis['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = dieciseis['HSA'].strftime(formato1)
+    
         if dieciseis['EN'].day == 16:
-            detalles16 = [(16, dieciseis['HEN'], dieciseis['HDYI'], dieciseis['HDYF'], dieciseis['HALI'], dieciseis['HALF'], dieciseis['HPAI'], dieciseis['HPAF'], dieciseis['HDCI'],dieciseis['HDCF'], dieciseis['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles16 = [(16, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles16 = [(16, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #DIECISIETE
-        if diecisiete['HEN'] != 'NA' and diecisiete['HSA'] != 'NA':
+        if diecisiete['HEN'] != time(00, 00, 00) and diecisiete['HSA'] != time(00, 00, 00):
             horasTrabajadas = diecisiete['HSA'].hour - diecisiete['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if diecisiete['HEN'] != 'NA' and diecisiete['HSA'] != 'NA':
+        if diecisiete['HEN'] != time(00, 00, 00) and diecisiete['HSA'] != time(00, 00, 00):
             minutosTrabajadas = diecisiete['HSA'].minute - diecisiete['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if diecisiete['HALI'] != 'NA' and diecisiete['HALF'] != 'NA':
+        if diecisiete['HALI'] != time(00, 00, 00) and diecisiete['HALF'] != time(00, 00, 00):
             horasAlmuerzo = diecisiete['HALF'].hour -diecisiete['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if diecisiete['HALI'] != 'NA' and diecisiete['HALF'] != 'NA':
+        if diecisiete['HALI'] != time(00, 00, 00) and diecisiete['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = diecisiete['HALF'].minute -diecisiete['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -1996,7 +2792,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2008,44 +2803,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-         
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if diecisiete['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)       
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if diecisiete['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = diecisiete['HEN'].strftime(formato1)
+    
+        if diecisiete['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = diecisiete['HDYI'].strftime(formato1)
+    
+        if diecisiete['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = diecisiete['HDYF'].strftime(formato1)
+    
+        if diecisiete['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = diecisiete['HALI'].strftime(formato1)
+    
+        if diecisiete['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = diecisiete['HALF'].strftime(formato1)
+    
+        if diecisiete['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = diecisiete['HPAI'].strftime(formato1)
+    
+        if diecisiete['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = diecisiete['HPAF'].strftime(formato1)
+    
+        if diecisiete['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = diecisiete['HDCI'].strftime(formato1)
+    
+        if diecisiete['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = diecisiete['HDCF'].strftime(formato1)
+    
+        if diecisiete['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = diecisiete['HSA'].strftime(formato1)
+    
         if diecisiete['EN'].day == 17:
-            detalles17 = [(17, diecisiete['HEN'], diecisiete['HDYI'], diecisiete['HDYF'], diecisiete['HALI'], diecisiete['HALF'], diecisiete['HPAI'], diecisiete['HPAF'], diecisiete['HDCI'],diecisiete['HDCF'], diecisiete['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles17 = [(17, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles17 = [(17, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #DIECIOCHO
-        if dieciocho['HEN'] != 'NA' and dieciocho['HSA'] != 'NA':
+        if dieciocho['HEN'] != time(00, 00, 00) and dieciocho['HSA'] != time(00, 00, 00):
             horasTrabajadas = dieciocho['HSA'].hour - dieciocho['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if dieciocho['HEN'] != 'NA' and dieciocho['HSA'] != 'NA':
+        if dieciocho['HEN'] != time(00, 00, 00) and dieciocho['HSA'] != time(00, 00, 00):
             minutosTrabajadas = dieciocho['HSA'].minute - dieciocho['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if dieciocho['HALI'] != 'NA' and dieciocho['HALF'] != 'NA':
+        if dieciocho['HALI'] != time(00, 00, 00) and dieciocho['HALF'] != time(00, 00, 00):
             horasAlmuerzo = dieciocho['HALF'].hour -dieciocho['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if dieciocho['HALI'] != 'NA' and dieciocho['HALF'] != 'NA':
+        if dieciocho['HALI'] != time(00, 00, 00) and dieciocho['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = dieciocho['HALF'].minute -dieciocho['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2063,7 +2908,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2075,44 +2919,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if dieciocho['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if dieciocho['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = dieciocho['HEN'].strftime(formato1)
+    
+        if dieciocho['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = dieciocho['HDYI'].strftime(formato1)
+    
+        if dieciocho['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = dieciocho['HDYF'].strftime(formato1)
+    
+        if dieciocho['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = dieciocho['HALI'].strftime(formato1)
+    
+        if dieciocho['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = dieciocho['HALF'].strftime(formato1)
+    
+        if dieciocho['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = dieciocho['HPAI'].strftime(formato1)
+    
+        if dieciocho['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = dieciocho['HPAF'].strftime(formato1)
+    
+        if dieciocho['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = dieciocho['HDCI'].strftime(formato1)
+    
+        if dieciocho['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = dieciocho['HDCF'].strftime(formato1)
+    
+        if dieciocho['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = dieciocho['HSA'].strftime(formato1)
+    
         if dieciocho['EN'].day == 18:
-            detalles18 = [(18, dieciocho['HEN'], dieciocho['HDYI'], dieciocho['HDYF'], dieciocho['HALI'], dieciocho['HALF'], dieciocho['HPAI'], dieciocho['HPAF'], dieciocho['HDCI'],dieciocho['HDCF'], dieciocho['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles18 = [(18, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles18 = [(18,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #DIECINUEVE
-        if diecinueve['HEN'] != 'NA' and diecinueve['HSA'] != 'NA':
+        if diecinueve['HEN'] != time(00, 00, 00) and diecinueve['HSA'] != time(00, 00, 00):
             horasTrabajadas = diecinueve['HSA'].hour - diecinueve['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if diecinueve['HEN'] != 'NA' and diecinueve['HSA'] != 'NA':
+        if diecinueve['HEN'] != time(00, 00, 00) and diecinueve['HSA'] != time(00, 00, 00):
             minutosTrabajadas = diecinueve['HSA'].minute - diecinueve['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if diecinueve['HALI'] != 'NA' and diecinueve['HALF'] != 'NA':
+        if diecinueve['HALI'] != time(00, 00, 00) and diecinueve['HALF'] != time(00, 00, 00):
             horasAlmuerzo = diecinueve['HALF'].hour -diecinueve['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if diecinueve['HALI'] != 'NA' and diecinueve['HALF'] != 'NA':
+        if diecinueve['HALI'] != time(00, 00, 00) and diecinueve['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = diecinueve['HALF'].minute -diecinueve['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2130,7 +3024,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2142,44 +3035,94 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if diecinueve['HSA'] == 'NA':
-            minutosTotal = 0        
-            
+            minutosTotal = 0
+
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if diecinueve['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = diecinueve['HEN'].strftime(formato1)
+    
+        if diecinueve['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = diecinueve['HDYI'].strftime(formato1)
+    
+        if diecinueve['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = diecinueve['HDYF'].strftime(formato1)
+    
+        if diecinueve['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = diecinueve['HALI'].strftime(formato1)
+    
+        if diecinueve['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = diecinueve['HALF'].strftime(formato1)
+    
+        if diecinueve['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = diecinueve['HPAI'].strftime(formato1)
+    
+        if diecinueve['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = diecinueve['HPAF'].strftime(formato1)
+    
+        if diecinueve['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = diecinueve['HDCI'].strftime(formato1)
+    
+        if diecinueve['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = diecinueve['HDCF'].strftime(formato1)
+    
+        if diecinueve['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = diecinueve['HSA'].strftime(formato1)
+    
         if diecinueve['EN'].day == 19:
-            detalles19 = [(19, diecinueve['HEN'], diecinueve['HDYI'], diecinueve['HDYF'], diecinueve['HALI'], diecinueve['HALF'], diecinueve['HPAI'], diecinueve['HPAF'], diecinueve['HDCI'], diecinueve['HDCF'], diecinueve['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles19 = [(19, la, la1, la2, la3, la4, la5, la6, la7, la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles19 = [(19, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTE
-        if veinte['HEN'] != 'NA' and veinte['HSA'] != 'NA':
+        if veinte['HEN'] != time(00, 00, 00) and veinte['HSA'] != time(00, 00, 00):
             horasTrabajadas = veinte['HSA'].hour - veinte['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veinte['HEN'] != 'NA' and veinte['HSA'] != 'NA':
+        if veinte['HEN'] != time(00, 00, 00) and veinte['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veinte['HSA'].minute - veinte['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veinte['HALI'] != 'NA' and veinte['HALF'] != 'NA':
+        if veinte['HALI'] != time(00, 00, 00) and veinte['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veinte['HALF'].hour -veinte['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veinte['HALI'] != 'NA' and veinte['HALF'] != 'NA':
+        if veinte['HALI'] != time(00, 00, 00) and veinte['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veinte['HALF'].minute -veinte['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2197,7 +3140,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2209,43 +3151,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-        
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veinte['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veinte['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veinte['HEN'].strftime(formato1)
+    
+        if veinte['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veinte['HDYI'].strftime(formato1)
+    
+        if veinte['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veinte['HDYF'].strftime(formato1)
+    
+        if veinte['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veinte['HALI'].strftime(formato1)
+    
+        if veinte['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veinte['HALF'].strftime(formato1)
+    
+        if veinte['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veinte['HPAI'].strftime(formato1)
+    
+        if veinte['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veinte['HPAF'].strftime(formato1)
+    
+        if veinte['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veinte['HDCI'].strftime(formato1)
+    
+        if veinte['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veinte['HDCF'].strftime(formato1)
+    
+        if veinte['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veinte['HSA'].strftime(formato1)
+    
         if veinte['EN'].day == 20:
-            detalles20 = [(20, veinte['HEN'], veinte['HDYI'], veinte['HDYF'], veinte['HALI'], veinte['HALF'], veinte['HPAI'], veinte['HPAF'], veinte['HDCI'],veinte['HDCF'], veinte['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles20 = [(20, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles20 = [(20, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTIUNO
-        if veintiuno['HEN'] != 'NA' and veintiuno['HSA'] != 'NA':
+        if veintiuno['HEN'] != time(00, 00, 00) and veintiuno['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintiuno['HSA'].hour - veintiuno['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintiuno['HEN'] != 'NA' and veintiuno['HSA'] != 'NA':
+        if veintiuno['HEN'] != time(00, 00, 00) and veintiuno['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintiuno['HSA'].minute - veintiuno['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintiuno['HALI'] != 'NA' and veintiuno['HALF'] != 'NA':
+        if veintiuno['HALI'] != time(00, 00, 00) and veintiuno['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintiuno['HALF'].hour -veintiuno['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintiuno['HALF'] != 'NA' and veintiuno['HALI']:
+        if veintiuno['HALF'] != time(00, 00, 00) and veintiuno['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = veintiuno['HALF'].minute -veintiuno['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2263,7 +3255,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2275,53 +3266,103 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-        
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintiuno['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintiuno['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintiuno['HEN'].strftime(formato1)
+    
+        if veintiuno['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintiuno['HDYI'].strftime(formato1)
+    
+        if veintiuno['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintiuno['HDYF'].strftime(formato1)
+    
+        if veintiuno['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veintiuno['HALI'].strftime(formato1)
+    
+        if veintiuno['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintiuno['HALF'].strftime(formato1)
+    
+        if veintiuno['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintiuno['HPAI'].strftime(formato1)
+    
+        if veintiuno['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veintiuno['HPAF'].strftime(formato1)
+    
+        if veintiuno['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veintiuno['HDCI'].strftime(formato1)
+    
+        if veintiuno['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintiuno['HDCF'].strftime(formato1)
+    
+        if veintiuno['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintiuno['HSA'].strftime(formato1)
+    
         if veintiuno['EN'].day == 21:
-            detalles21 = [(21, veintiuno['HEN'], veintiuno['HDYI'], veintiuno['HDYF'], veintiuno['HALI'], veintiuno['HALF'], veintiuno['HPAI'], veintiuno['HPAF'], veintiuno['HDCI'], veintiuno['HDCF'], veintiuno['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles21 = [(21, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles21 = [(21, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #VEINTIDOS
-        if veintidos['HEN'] != 'NA' and veintidos['HSA'] != 'NA':
+        if veintidos['HEN'] != time(00, 00, 00) and veintidos['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintidos['HSA'].hour - veintidos['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintidos['HEN'] != 'NA' and veintidos['HSA'] != 'NA':
+        if veintidos['HEN'] != time(00, 00, 00) and veintidos['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintidos['HSA'].minute - veintidos['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintidos['HALI'] != 'NA' and veintidos['HALF'] != 'NA':
+        if veintidos['HALI'] != time(00, 00, 00) and veintidos['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintidos['HALF'].hour -veintidos['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintidos['HALF'] != 'NA' and veintidos['HALI'] != 'NA':
+        if veintidos['HALF'] != time(00, 00, 00) and veintidos['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = veintidos['HALF'].minute -veintidos['HALI'].minute
         else:
             minutosAlmuerzo = 0
-        
+
         #MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-        
+
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         print("Min total",minutosTotal, minutosTrabajadas, minutosAlmuerzo)
@@ -2329,7 +3370,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2341,42 +3381,92 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-        
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintidos['HSA'] == 'NA':
-            minutosTotal = 0    
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintidos['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintidos['HEN'].strftime(formato1)
+    
+        if veintidos['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintidos['HDYI'].strftime(formato1)
+    
+        if veintidos['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintidos['HDYF'].strftime(formato1)
+    
+        if veintidos['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veintidos['HALI'].strftime(formato1)
+    
+        if veintidos['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintidos['HALF'].strftime(formato1)
+    
+        if veintidos['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintidos['HPAI'].strftime(formato1)
+    
+        if veintidos['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veintidos['HPAF'].strftime(formato1)
+    
+        if veintidos['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veintidos['HDCI'].strftime(formato1)
+    
+        if veintidos['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintidos['HDCF'].strftime(formato1)
+    
+        if veintidos['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintidos['HSA'].strftime(formato1)
+    
         if veintidos['EN'].day == 22:
-            detalles22 = [(22, veintidos['HEN'], veintidos['HDYI'], veintidos['HDYF'], veintidos['HALI'], veintidos['HALF'], veintidos['HPAI'], veintidos['HPAF'], veintidos['HDCI'],veintidos['HDCF'], veintidos['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles22 = [(22, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles22 = [(22 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #VEINTITRES
-        if veintitres['HEN'] != 'NA' and veintitres['HSA'] != 'NA':
+        if veintitres['HEN'] != time(00, 00, 00) and veintitres['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintitres['HSA'].hour - veintitres['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintitres['HEN'] != 'NA' and veintitres['HSA'] != 'NA':
+        if veintitres['HEN'] != time(00, 00, 00) and veintitres['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintitres['HSA'].minute - veintitres['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintitres['HALI'] != 'NA' and veintitres['HALF'] != 'NA':
+        if veintitres['HALI'] != time(00, 00, 00) and veintitres['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintitres['HALF'].hour -veintitres['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintitres['HALI'] != 'NA' and veintitres['HALF'] != 'NA':
+        if veintitres['HALI'] != time(00, 00, 00) and veintitres['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veintitres['HALF'].minute -veintitres['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2394,7 +3484,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2406,43 +3495,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintitres['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintitres['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintitres['HEN'].strftime(formato1)
+    
+        if veintitres['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintitres['HDYI'].strftime(formato1)
+    
+        if veintitres['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintitres['HDYF'].strftime(formato1)
+    
+        if veintitres['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veintitres['HALI'].strftime(formato1)
+    
+        if veintitres['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintitres['HALF'].strftime(formato1)
+    
+        if veintitres['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintitres['HPAI'].strftime(formato1)
+    
+        if veintitres['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veintitres['HPAF'].strftime(formato1)
+    
+        if veintitres['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veintitres['HDCI'].strftime(formato1)
+    
+        if veintitres['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintitres['HDCF'].strftime(formato1)
+    
+        if veintitres['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintitres['HSA'].strftime(formato1)
+    
         if veintitres['EN'].day == 23:
-            detalles23 = [(23, veintitres['HEN'], veintitres['HDYI'], veintitres['HDYF'], veintitres['HALI'], veintitres['HALF'], veintitres['HPAI'], veintitres['HPAF'], veintitres['HDCI'], veintitres['HDCF'], veintitres['HSA'], "Horas: "+ str(horaTotal) + " Min "+ str(minutosTotal))]
+            detalles23 = [(23, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles23 = [(23, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTICUATRO
-        if veinticuatro['HEN'] != 'NA' and veinticuatro['HSA'] != 'NA':
+        if veinticuatro['HEN'] != time(00, 00, 00) and veinticuatro['HSA'] != time(00, 00, 00):
             horasTrabajadas = veinticuatro['HSA'].hour - veinticuatro['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veinticuatro['HEN'] != 'NA' and veinticuatro['HSA'] != 'NA':
+        if veinticuatro['HEN'] != time(00, 00, 00) and veinticuatro['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veinticuatro['HSA'].minute - veinticuatro['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veinticuatro['HALI'] != 'NA' and veinticuatro['HALF'] != 'NA':
+        if veinticuatro['HALI'] != time(00, 00, 00) and veinticuatro['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veinticuatro['HALF'].hour -veinticuatro['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veinticuatro['HALI'] != 'NA' and veinticuatro['HALF'] != 'NA':
+        if veinticuatro['HALI'] != time(00, 00, 00) and veinticuatro['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veinticuatro['HALF'].minute -veinticuatro['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2460,7 +3599,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2472,42 +3610,92 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veinticuatro['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)        
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veinticuatro['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veinticuatro['HEN'].strftime(formato1)
+    
+        if veinticuatro['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veinticuatro['HDYI'].strftime(formato1)
+    
+        if veinticuatro['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veinticuatro['HDYF'].strftime(formato1)
+    
+        if veinticuatro['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veinticuatro['HALI'].strftime(formato1)
+    
+        if veinticuatro['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veinticuatro['HALF'].strftime(formato1)
+    
+        if veinticuatro['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veinticuatro['HPAI'].strftime(formato1)
+    
+        if veinticuatro['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veinticuatro['HPAF'].strftime(formato1)
+    
+        if veinticuatro['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veinticuatro['HDCI'].strftime(formato1)
+    
+        if veinticuatro['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veinticuatro['HDCF'].strftime(formato1)
+    
+        if veinticuatro['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veinticuatro['HSA'].strftime(formato1)
+    
         if veinticuatro['EN'].day == 24:
-            detalles24 = [(24, veinticuatro['HEN'], veinticuatro['HDYI'], veinticuatro['HDYF'], veinticuatro['HALI'], veinticuatro['HALF'], veinticuatro['HPAI'], veinticuatro['HPAF'], veinticuatro['HDCI'],veinticuatro['HDCF'], veinticuatro['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles24 = [(24, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles24 = [(24,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         #VEINTICINCO
-        if veinticinco['HEN'] != 'NA' and veinticinco['HSA'] != 'NA':
+        if veinticinco['HEN'] != time(00, 00, 00) and veinticinco['HSA'] != time(00, 00, 00):
             horasTrabajadas = veinticinco['HSA'].hour - veinticinco['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veinticinco['HEN'] != 'NA' and veinticinco['HSA'] != 'NA':
+        if veinticinco['HEN'] != time(00, 00, 00) and veinticinco['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veinticinco['HSA'].minute - veinticinco['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veinticinco['HALI'] != 'NA' and veinticinco['HALF'] != 'NA':
+        if veinticinco['HALI'] != time(00, 00, 00) and veinticinco['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veinticinco['HALF'].hour -veinticinco['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veinticinco['HALI'] != 'NA' and veinticinco['HALF'] != 'NA':
+        if veinticinco['HALI'] != time(00, 00, 00) and veinticinco['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veinticinco['HALF'].minute -veinticinco['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2525,7 +3713,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2537,43 +3724,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-        
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veinticinco['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veinticinco['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veinticinco['HEN'].strftime(formato1)
+    
+        if veinticinco['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veinticinco['HDYI'].strftime(formato1)
+    
+        if veinticinco['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veinticinco['HDYF'].strftime(formato1)
+    
+        if veinticinco['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veinticinco['HALI'].strftime(formato1)
+    
+        if veinticinco['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veinticinco['HALF'].strftime(formato1)
+    
+        if veinticinco['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veinticinco['HPAI'].strftime(formato1)
+    
+        if veinticinco['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veinticinco['HPAF'].strftime(formato1)
+    
+        if veinticinco['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veinticinco['HDCI'].strftime(formato1)
+    
+        if veinticinco['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veinticinco['HDCF'].strftime(formato1)
+    
+        if veinticinco['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veinticinco['HSA'].strftime(formato1)
+    
         if veinticinco['EN'].day == 25:
-            detalles25 = [(25, veinticinco['HEN'], veinticinco['HDYI'], veinticinco['HDYF'], veinticinco['HALI'], veinticinco['HALF'], veinticinco['HPAI'], veinticinco['HPAF'], veinticinco['HDCI'],veinticinco['HDCF'], veinticinco['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles25 = [(25, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles25 = [(25, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTISEIS
-        if veintiseis['HEN'] != 'NA' and veintiseis['HSA'] != 'NA':
+        if veintiseis['HEN'] != time(00, 00, 00) and veintiseis['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintiseis['HSA'].hour - veintiseis['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintiseis['HEN'] != 'NA' and veintiseis['HSA'] != 'NA':
+        if veintiseis['HEN'] != time(00, 00, 00) and veintiseis['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintiseis['HSA'].minute - veintiseis['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintiseis['HALI'] != 'NA' and veintiseis['HALF'] != 'NA':
+        if veintiseis['HALI'] != time(00, 00, 00) and veintiseis['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintiseis['HALF'].hour -veintiseis['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintiseis['HALI'] != 'NA' and veintiseis['HALF'] != 'NA':
+        if veintiseis['HALI'] != time(00, 00, 00) and veintiseis['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veintiseis['HALF'].minute -veintiseis['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2591,7 +3828,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2603,43 +3839,92 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintiseis['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintiseis['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintiseis['HEN'].strftime(formato1)
+    
+        if veintiseis['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintiseis['HDYI'].strftime(formato1)
+    
+        if veintiseis['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintiseis['HDYF'].strftime(formato1)
+    
+        if veintiseis['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veintiseis['HALI'].strftime(formato1)
+    
+        if veintiseis['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintiseis['HALF'].strftime(formato1)
+    
+        if veintiseis['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintiseis['HPAI'].strftime(formato1)
+    
+        if veintiseis['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veintiseis['HPAF'].strftime(formato1)
+    
+        if veintiseis['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veintiseis['HDCI'].strftime(formato1)
+    
+        if veintiseis['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintiseis['HDCF'].strftime(formato1)
+    
+        if veintiseis['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintiseis['HSA'].strftime(formato1)
         if veintiseis['EN'].day == 26:
-            detalles26 = [(26, veintiseis['HEN'], veintiseis['HDYI'], veintiseis['HDYF'], veintiseis['HALI'], veintiseis['HALF'], veintiseis['HPAI'], veintiseis['HPAF'], veintiseis['HDCI'],veintiseis['HDCF'], veintiseis['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles26 = [(26, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles26 = [(26, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTISIETE
-        if veintisiete['HEN'] != 'NA' and veintisiete['HSA'] != 'NA':
+        if veintisiete['HEN'] != time(00, 00, 00) and veintisiete['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintisiete['HSA'].hour - veintisiete['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintisiete['HEN'] != 'NA' and veintisiete['HSA'] != 'NA':
+        if veintisiete['HEN'] != time(00, 00, 00) and veintisiete['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintisiete['HSA'].minute - veintisiete['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintisiete['HALI'] != 'NA' and veintisiete['HALF'] != 'NA':
+        if veintisiete['HALI'] != time(00, 00, 00) and veintisiete['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintisiete['HALF'].hour -veintisiete['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintisiete['HALI'] != 'NA' and veintisiete['HALF'] != 'NA':
+        if veintisiete['HALI'] != time(00, 00, 00) and veintisiete['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veintisiete['HALF'].minute -veintisiete['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2657,7 +3942,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2669,43 +3953,93 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintisiete['HSA'] == 'NA':
-            minutosTotal = 0        
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
            restante = totalMesMinutos - 60
            totalMes +=1
            totalMesMinutos = restante
-        #print("Resultado",totalMesMinutos, totalMes)         
+        #print("Resultado",totalMesMinutos, totalMes)
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintisiete['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintisiete['HEN'].strftime(formato1)
+
+        if veintisiete['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintisiete['HDYI'].strftime(formato1)
+
+        if veintisiete['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintisiete['HDYF'].strftime(formato1)
+
+        if veintisiete['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veintisiete['HALI'].strftime(formato1)
+
+        if veintisiete['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintisiete['HALF'].strftime(formato1)
+
+        if veintisiete['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintisiete['HPAI'].strftime(formato1)
+
+        if veintisiete['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veintisiete['HPAF'].strftime(formato1)
+
+        if veintisiete['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veintisiete['HDCI'].strftime(formato1)
+
+        if veintisiete['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintisiete['HDCF'].strftime(formato1)
+
+        if veintisiete['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintisiete['HSA'].strftime(formato1)
+
         if veintisiete['EN'].day == 27:
-            detalles27 = [(27, veintisiete['HEN'], veintisiete['HDYI'], veintisiete['HDYF'], veintisiete['HALI'], veintisiete['HALF'], veintisiete['HPAI'], veintisiete['HPAF'], veintisiete['HDCI'], veintisiete['HDCF'], veintisiete['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles27 = [(27, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles27 = [(27, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTIOCHO
-        if veintiocho['HEN'] != 'NA' and veintiocho['HSA'] != 'NA':
+        if veintiocho['HEN'] != time(00, 00, 00) and veintiocho['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintiocho['HSA'].hour - veintiocho['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintiocho['HEN'] != 'NA' and veintiocho['HSA'] != 'NA':
+        if veintiocho['HEN'] != time(00, 00, 00) and veintiocho['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintiocho['HSA'].minute - veintiocho['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintiocho['HALI'] != 'NA' and veintiocho['HALF'] != 'NA':
+        if veintiocho['HALI'] != time(00, 00, 00) and veintiocho['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintiocho['HALF'].hour -veintiocho['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintiocho['HALI'] != 'NA' and veintiocho['HALF'] != 'NA':
+        if veintiocho['HALI'] != time(00, 00, 00) and veintiocho['HALF'] != time(00, 00, 00):
             minutosAlmuerzo = veintiocho['HALF'].minute -veintiocho['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2723,7 +4057,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2735,10 +4068,10 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintiocho['HSA'] == 'NA':
-            minutosTotal = 0    
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2749,34 +4082,85 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintiocho['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintiocho['HEN'].strftime(formato1)
+
+        if veintiocho['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintiocho['HDYI'].strftime(formato1)
+
+        if veintiocho['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintiocho['HDYF'].strftime(formato1)
+
+        if veintiocho['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  =veintiocho['HALI'].strftime(formato1)
+
+        if veintiocho['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintiocho['HALF'].strftime(formato1)
+
+        if veintiocho['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintiocho['HPAI'].strftime(formato1)
+
+        if veintiocho['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  =veintiocho['HPAF'].strftime(formato1)
+
+        if veintiocho['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  =veintiocho['HDCI'].strftime(formato1)
+
+        if veintiocho['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintiocho['HDCF'].strftime(formato1)
+
+        if veintiocho['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintiocho['HSA'].strftime(formato1)
+
         if veintiocho['EN'].day == 28:
-            detalles28 = [(28, veintiocho['HEN'], veintiocho['HDYI'], veintiocho['HDYF'], veintiocho['HALI'], veintiocho['HALF'], veintiocho['HPAI'], veintiocho['HPAF'], veintiocho['HDCI'],veintiocho['HDCF'], veintiocho['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles28 = [(28, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles28 = [(28, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #VEINTINUEVE
-        if veintinueve['HEN'] != 'NA' and veintinueve['HSA'] != 'NA':
+        if veintinueve['HEN'] != time(00, 00, 00) and veintinueve['HSA'] != time(00, 00, 00):
             horasTrabajadas = veintinueve['HSA'].hour - veintinueve['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if veintinueve['HEN'] != 'NA' and veintinueve['HSA'] != 'NA':
+        if veintinueve['HEN'] != time(00, 00, 00) and veintinueve['HSA'] != time(00, 00, 00):
             minutosTrabajadas = veintinueve['HSA'].minute - veintinueve['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if veintinueve['HALI'] != 'NA' and veintinueve['HALF'] != 'NA':
+        if veintinueve['HALI'] != time(00, 00, 00) and veintinueve['HALF'] != time(00, 00, 00):
             horasAlmuerzo = veintinueve['HALF'].hour -veintinueve['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if veintinueve['HALF'] != 'NA' and veintinueve['HALI']:
+        if veintinueve['HALF'] != time(00, 00, 00) and veintinueve['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = veintinueve['HALF'].minute -veintinueve['HALI'].minute
         else:
             minutosAlmuerzo = 0
 
         #MINUTOS
+        """
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
@@ -2789,22 +4173,22 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
-
+        print(hora_restante)
+        """
         #HORAS
-        if horasAlmuerzo < 0:
-            horasAlmuerzo = -horasAlmuerzo
+        #if horasAlmuerzo < 0:
+        #    horasAlmuerzo = -horasAlmuerzo
 
-        if horasTrabajadas < 0:
-            horasTrabajadas = -horasTrabajadas
+        #if horasTrabajadas < 0:
+        #    horasTrabajadas = -horasTrabajadas
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if veintinueve['HSA'] == 'NA':
-            minutosTotal = 0    
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2815,30 +4199,85 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if veintinueve['HDYI'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintinueve['HDYI'].strftime(formato1)
+
+        if veintinueve['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = veintinueve['HEN'].strftime(formato1)
+
+        if veintinueve['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = veintinueve['HDYI'].strftime(formato1)
+
+        if veintinueve['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = veintinueve['HDYF'].strftime(formato1)
+
+        if veintinueve['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = veintinueve['HALI'].strftime(formato1)
+
+        if veintinueve['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = veintinueve['HALF'].strftime(formato1)
+
+        if veintinueve['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = veintinueve['HPAI'].strftime(formato1)
+
+        if veintinueve['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = veintinueve['HPAF'].strftime(formato1)
+
+        if veintinueve['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = veintinueve['HDCI'].strftime(formato1)
+
+        if veintinueve['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = veintinueve['HDCF'].strftime(formato1)
+
+        if veintinueve['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = veintinueve['HSA'].strftime(formato1)
+
         if veintinueve['EN'].day == 29:
-            detalles29 = [(29, veintinueve['HEN'], veintinueve['HDYI'], veintinueve['HDYF'], veintinueve['HALI'], veintinueve['HALF'], veintinueve['HPAI'], veintinueve['HPAF'], veintinueve['HDCI'], veintinueve['HDCF'], veintinueve['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles29 = [(29, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles29 = [(29,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
 
         #TREINTA
-        if treinta['HEN'] != 'NA' and treinta['HSA'] != 'NA':
+        if treinta['HEN'] != time(00, 00, 00)and treinta['HSA'] != time(00, 00, 00):
             horasTrabajadas = treinta['HSA'].hour - treinta['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if treinta['HEN'] != 'NA' and treinta['HSA'] != 'NA':
+        if treinta['HEN'] != time(00, 00, 00) and treinta['HSA'] != time(00, 00, 00):
             minutosTrabajadas = treinta['HSA'].minute - treinta['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if treinta['HALI'] != 'NA' and treinta['HALF'] != 'NA':
+        if treinta['HALI'] != time(00, 00, 00) and treinta['HALF'] != time(00, 00, 00):
             horasAlmuerzo = treinta['HALF'].hour -treinta['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if treinta['HALF'] != 'NA' and treinta['HALI'] != 'NA':
+        if treinta['HALF'] != time(00, 00, 00) and treinta['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = treinta['HALF'].minute -treinta['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2856,7 +4295,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2868,10 +4306,10 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
-        if treinta['HSA'] == 'NA':
-            minutosTotal = 0    
+        if treinta['HSA'] == time(00, 00, 00):
+            minutosTotal = 0
         #print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2882,29 +4320,79 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        if treinta['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = treinta['HEN'].strftime(formato1)
+
+        if treinta['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = treinta['HDYI'].strftime(formato1)
+
+        if treinta['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = treinta['HDYF'].strftime(formato1)
+
+        if treinta['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = treinta['HALI'].strftime(formato1)
+
+        if treinta['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = treinta['HALF'].strftime(formato1)
+
+        if treinta['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = treinta['HPAI'].strftime(formato1)
+
+        if treinta['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = treinta['HPAF'].strftime(formato1)
+
+        if treinta['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = treinta['HDCI'].strftime(formato1)
+
+        if treinta['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = treinta['HDCF'].strftime(formato1)
+
+        if treinta['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = treinta['HSA'].strftime(formato1)
+
         if treinta['EN'].day == 30:
-            detalles30 = [(30, treinta['HEN'], treinta['HDYI'], treinta['HDYF'], treinta['HALI'], treinta['HALF'], treinta['HPAI'], treinta['HPAF'], treinta['HDCI'],treinta['HDCF'], treinta['HSA'], "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            detalles30 = [(30, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles30 = [(30,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
 
         #TREINTAUNO
-        if treintauno['HEN'] != 'NA' and treintauno['HSA'] != 'NA':
+        if treintauno['HEN'] != time(00, 00, 00) and treintauno['HSA'] != time(00, 00, 00):
             horasTrabajadas = treintauno['HSA'].hour - treintauno['HEN'].hour
             #horasAlmuerzo = once['HALF'].hour -once['HALI'].hour
         else:
             horasTrabajadas = 0
-        if treintauno['HEN'] != 'NA' and treintauno['HSA'] != 'NA':
+        if treintauno['HEN'] != time(00, 00, 00) and treintauno['HSA'] != time(00, 00, 00):
             minutosTrabajadas = treintauno['HSA'].minute - treintauno['HEN'].minute
             #minutosAlmuerzo = once['HALF'].minute -once['HALI'].minute
         else:
             minutosTrabajadas = 0
 
-        if treintauno['HALI'] != 'NA' and treintauno['HALF'] != 'NA':
+        if treintauno['HALI'] != time(00, 00, 00) and treintauno['HALF'] != time(00, 00, 00):
             horasAlmuerzo = treintauno['HALF'].hour -treintauno['HALI'].hour
         else:
             horasAlmuerzo = 0
-        if treintauno['HALF'] != 'NA' and treintauno['HALI'] != 'NA':
+        if treintauno['HALF'] != time(00, 00, 00) and treintauno['HALI'] != time(00, 00, 00):
             minutosAlmuerzo = treintauno['HALF'].minute -treintauno['HALI'].minute
         else:
             minutosAlmuerzo = 0
@@ -2922,7 +4410,6 @@ class ReportePersonasPDF(View):
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)    
 
         #HORAS
         if horasAlmuerzo < 0:
@@ -2934,10 +4421,10 @@ class ReportePersonasPDF(View):
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
-            
+
         #SI la hora de salida no esta registrada, no me muestre ningun resultado, ni haga operaciones
         if treintauno['HSA'] == 'NA':
-            minutosTotal = 0    
+            minutosTotal = 0
         print("Antes" ,totalMesMinutos, totalMes)
         restante = 0
         if totalMesMinutos >= 60:
@@ -2948,13 +4435,64 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
-        print(totalMes, totalMesMinutos)
+        #print(totalMes, totalMesMinutos)
+        if treintauno['HEN'] == time(00, 00, 00):
+            la = 'NA'
+        else:
+            la = treintauno['HEN'].strftime(formato1)
+
+        if treintauno['HDYI'] == time(00, 00, 00):
+            la1 = 'NA'
+        else:
+            la1 = treintauno['HDYI'].strftime(formato1)
+
+        if treintauno['HDYF'] == time(00, 00, 00):
+            la2 = 'NA'
+        else:
+            la2 = treintauno['HDYF'].strftime(formato1)
+
+        if treintauno['HALI'] == time(00, 00, 00):
+            la3 = 'NA'
+        else:
+            la3  = treintauno['HALI'].strftime(formato1)
+
+        if treintauno['HALF'] == time(00, 00, 00):
+            la4 = 'NA'
+        else:
+            la4 = treintauno['HALF'].strftime(formato1)
+
+        if treintauno['HPAI'] == time(00, 00, 00):
+            la5 = 'NA'
+        else:
+            la5 = treintauno['HPAI'].strftime(formato1)
+
+        if treintauno['HPAF'] == time(00, 00, 00):
+            la6 = 'NA'
+        else:
+            la6  = treintauno['HPAF'].strftime(formato1)
+
+        if treintauno['HDCI'] == time(00, 00, 00):
+            la7 = 'NA'
+        else:
+            la7  = treintauno['HDCI'].strftime(formato1)
+
+        if treintauno['HDCF'] == time(00, 00, 00):
+            la8 = 'NA'
+        else:
+            la8 = treintauno['HDCF'].strftime(formato1)
+
+        if treintauno['HSA'] == time(00, 00, 00):
+            la9 = 'NA'
+        else:
+            la9 = treintauno['HSA'].strftime(formato1)
+
         if treintauno['EN'].day == 31:
-            detalles31 = [(31, treintauno['HEN'], treintauno['HDYI'], treintauno['HDYF'], treintauno['HALI'], treintauno['HALF'], treintauno['HPAI'], treintauno['HPAF'], treintauno['HDCI'],treintauno['HDCF'], treintauno['HSA'], "Horas: "+ str(horaTotal) + " Minutos "+ str(minutosTotal))]
+            detalles31 = [(31, la, la1, la2, la3, la4, la5, la6, la7, la8, la9, "Horas: "+ str(horaTotal) + " Minutos "+ str(minutosTotal))]
         else:
             detalles31 = [(31, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         totalHoras = [('Total'," ", " ", " ", " "," ", " ", " ", " ","","","Horas: "+ str(totalMes) + " Min: "+ str(totalMesMinutos))]
+
 
         #Establecemos el tamaño de cada una de las columnas de la tabla
         #Aplicamos estilos a las celdas de la tabla
@@ -3371,7 +4909,7 @@ def buscar(request):
                     existe_sa= Historial_IO.objects.all()
                     instance = form.save(commit=False)
                     accion_jornada = instance.accion_jornada
-                                
+
                     print(lis, "Despues")
                     if 'SA' in lis:
                         errors.append("Usted ya registro SALIDA, no podrá ingresar mas datos.")
@@ -3402,7 +4940,7 @@ def buscar(request):
                         mensaje_exitoso=[]
                         mensaje_exitoso.append('Se ha registrado con éxito !')
                         success=True
-                        
+
                         #return HttpResponseRedirect('',mensaje_exitoso)
                         return redirect('registrarJornada')
                         #return render(request,'registrarJornada/registrarJornada.html', {'mensaje': mensaje_exitoso})
