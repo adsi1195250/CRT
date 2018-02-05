@@ -28,20 +28,22 @@ class PermisoAusentismo(models.Model):
         default=1,
     )
     TIPO_EVENTO = (
-        (1,'A.T'),
-        (2, 'E.L'),
-        (3, 'A.C-E.G'),
+        (1,'A.T Accidente de trabajo'),
+        (2, 'E.L Enfermedad laboral'),
+        (3, 'A.C-E.G Enfermedad general'),
+        (5, 'O.E Otro tipo de evento'),
     )
     tipo_evento = models.SmallIntegerField(
         choices=TIPO_EVENTO,
         default=1,
+
     )
     periodoIncapacidadInicial = models.DateField()
     periodoIncapacidadFinal = models.DateField()
     prorroga = models.PositiveSmallIntegerField(default=0)
     totalDiasIncapacidad = models.PositiveSmallIntegerField(default=0)
     diasCargados = models.PositiveSmallIntegerField(default=0)
-    codigoDiagnostico = models.CharField(max_length=4)
+    codigoDiagnostico = models.CharField(max_length=4,null=False,blank=True)
     observaciones = models.CharField(max_length=500,blank=True,null=True,default='')
     idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
     def __str__(self):

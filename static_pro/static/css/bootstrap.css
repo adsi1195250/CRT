@@ -1786,6 +1786,7 @@ pre code {
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
+  
 }
 
 .table th,
@@ -2634,7 +2635,11 @@ fieldset[disabled] a.btn {
 #report{
   text-align: center;
   padding-top: 10px;
+}
 
+.table_festivos{
+  text-align: center !important;
+  width: 900px;
 }
 
 .btn-primary:hover {

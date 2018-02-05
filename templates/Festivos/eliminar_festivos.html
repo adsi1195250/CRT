@@ -1,0 +1,37 @@
+{% if request.user.is_authenticated %}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div style="background-color: #4eac92" class="modal-header">
+            <h3>Eliminar Festivo</h3>
+            <!--button type="button" class="close" data-dismiss="modal"><span class="fa fa-times-circle"></span></button-->
+            <a href="{% url 'listado_informe' %}" type="button" class="close"><span class="fa fa-times-circle"></span></a>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="{% url 'eliminar_festivos' object.id %}">
+                {% csrf_token %}
+                <h3 style="color: #1b1e21">¿Desea eliminar el registro <strong>{{ object.festivos }}</strong> ?</h3>
+                <div class="text-md-center">
+                    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+                    <!--button type="button" class="btn btn-info" onclick="return cerrar_modal()">Cancelar</button-->
+                    <a href="{% url 'listado_informe' %}" class="btn btn-info">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="popup" class="modal fade" role="dialog">
+    
+    </div>
+</div>
+<script>
+    function cerrar_modal()
+{
+        $('#popup').modal('hide');
+        return false;
+
+}
+</script>
+{% else %}
+    <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
+      <h2>Por favor iniciar sesión</h2>
+    </div>
+{% endif %}

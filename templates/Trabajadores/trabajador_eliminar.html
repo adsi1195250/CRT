@@ -1,3 +1,4 @@
+{% if request.user.is_authenticated %}
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div style="background-color: #4eac92" class="modal-header">
@@ -14,6 +15,10 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
+{% else %}
+      <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
+        <h2>Por favor iniciar sesión</h2>
+      </div>
+{% endif %}

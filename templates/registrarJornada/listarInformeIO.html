@@ -1,13 +1,19 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     {% if request.user.is_authenticated %}
         <div class="container">
           <div class="row" >
             <div class="col-lg-12">
               <div style="padding-top: 30px"></div>
+              <!-- Button trigger modal -->
+              <a  onclick="return abrir_modal('{% url 'festivos' %}')" class="btn btn-warning" style="color:#000;"> 
+                       <strong>Registrar Festivos</strong>
+                </a>
+              
               <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: auto; border-radius: 10px;">
-                <h3 style="color: #abebc6; text-align:left; padding-left:20px; padding-top:10px;" class="col-lg-7"><FONT FACE=times new roman size=5> Informe De Jornada: </FONT> {%if object_list%} {%for a in object_list%} <FONT size=4 FACE="courier" style="color: #abebc6; font-style: italic;">{{a.nombre}}</FONT>{% endfor %}  {%endif%}</h3>
-                  <div class="formaa" class="col-lg-5" style="padding-bottom: 10px;">
+                <h3 style="color: #abebc6; text-align:left; padding-left:20px; padding-top:10px;" class="col-md-7"><FONT FACE=times new roman size=5> Informe De Jornada: </FONT> {%if object_list%} {%for a in object_list%} <FONT size=4 FACE="courier" style="color: #abebc6; font-style: italic;">{{a.nombres}}</FONT>{% endfor %}  {%endif%}</h3>
+                  <div class="formaa" class="col-md-5" style="padding-bottom: 10px;">
                     <label class="custom-file">
                       <form action="." method="GET" >
                         {% csrf_token %}
@@ -25,21 +31,49 @@
                           <option value="11">Noviembre</option>
                           <option value="12">Diciembre</option>
                         </select>
-                        <input type="text" name="cedula" id="prueba" value="" placeholder="Ingrese la cedula del colaborador"  onkeypress="return valida(event)"/>
+                        <input type="text" name="cedula" id="prueba" value="" placeholder="Ingrese la cédula del colaborador"  onkeypress="return valida(event)"/>
                         <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
                         <input type="submit" value="Cargar" class="btn btn-primary"/>
                       </form>
                     </label>
                   </div>
               </div>
-              <!--h1>{{a}}</h1-->
+              <!--h1>{{object_list}}</h1-->
               {% for a in object_list %}
                 {%if a.cedula and a.mes %}
                      <!--h1>{{object_list}}</h1-->
                      <div id="report">
                               <form action="/report/" method="get">
                                   <input type="hidden" name="cedula" {%if object_list%} {%for a in object_list%} value="{{a.cedula}}"  {% endfor %}  {%endif%}>
-                        <input type="hidden" name="mes" {%if object_list%} {%for a in object_list%} value="{{a.mes}}"  {% endfor %}  {%endif%}>
+                                    <input type="hidden" name="mes" {%if object_list%} {%for a in object_list%} value="{{a.mes}}"  {% endfor %}  {%endif%}>
+                                    <input type="hidden" name="año" {%if object_list%} {%for a in object_list%} value="{{a.year}}"  {% endfor %}  {%endif%}>
+                                    {% for a in object_list %}
+                                        {% if a.mes == 1 %}
+                                            <input type="hidden" name="mes1"  value="ENERO">
+                                        {% elif a.mes == 2 %}
+                                            <input type="hidden" name="mes1"  value="FEBRERO">
+                                        {% elif a.mes == 3 %}
+                                            <input type="hidden" name="mes1"  value="MARZO">
+                                        {% elif a.mes == 4 %}
+                                            <input type="hidden" name="mes1"  value="ABRIL">
+                                        {% elif a.mes == 5 %}
+                                            <input type="hidden" name="mes1"  value="MAYO">
+                                        {% elif a.mes == 6 %}
+                                            <input type="hidden" name="mes1"  value="JUNIO">
+                                        {% elif a.mes == 7 %}
+                                            <input type="hidden" name="mes1"  value="JULIO">
+                                        {% elif a.mes == 8 %}
+                                            <input type="hidden" name="mes1"  value="AGOSTO">
+                                        {% elif a.mes == 9 %}
+                                            <input type="hidden" name="mes1"  value="SEPTIEMBRE">
+                                        {% elif a.mes == 10 %}
+                                            <input type="hidden" name="mes1"  value="OCTUBRE">
+                                        {% elif a.mes == 11 %}
+                                            <input type="hidden" name="mes1"  value="NOVIEMBRE">
+                                        {% elif a.mes == 12 %}
+                                            <input type="hidden" name="mes1"  value="DICIEMBRE">
+                                        {% endif %}
+                                    {% endfor %}    
                                   <button type="submit" value="Imprimir" class="btn btn-secondary pulso" >Imprimir</button>
                               </form>
                           </div>
@@ -400,12 +434,6 @@
                             {% else %}
                                 <td>No hay registro</td>
                           {% endif %}
-                          <td>
-                            Horas Trabajadas
-                          </td>
-                          <td>
-                            Horas Descansadas
-                          </td>
                         </tr>
                       {% endif %}
     
@@ -1907,6 +1935,10 @@
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }
+            
+            $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+          })
         </script>
     {% else %}
       <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">

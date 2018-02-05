@@ -1,0 +1,36 @@
+{% load crispy_forms_tags %}
+{% if request.user.is_authenticated %}
+<div class="modal-dialog modal-md" >
+    <div class="modal-content">
+        <div style="background-color: #4eac92" class="modal-header">
+            <h3 style=""><strong>Festivos</strong></h3>
+            <!--button type="button" class="close" data-dismiss="modal"><a class="icon-circle-with-cross"></a></button-->
+            <a href="{% url 'listado_informe' %}" type="button" class="close"><span class="fa fa-times-circle"></span></a>
+        </div>
+        <div class="modal-body">
+          {% if object %}
+            <form action="{% url 'modificar_festivos' object.id %}"  method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-secondary" value="Guardar" style="margin-right: 10px; color: #000;">
+                <a href="{% url 'listado_informe' %}" class="btn btn-info" style="color: #000;">Cancelar</a>
+            </form>
+          {% else %}
+           <form action="{% url 'crear_festivos' %}"  method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-secondary" value="Guardar" style="margin-right: 10px; color: #000;">
+                <a href="{% url 'listado_informe' %}" class="btn btn-info" style="color: #000;">Cancelar</a>
+            </form>
+          {% endif %}
+        </div>
+        <div style="background-color: #4eac92;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px" class="modal-footer">
+            <div class="col-lg-12 text-right">
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------------------------------------------------------------------------------------- -->
+{% else %}
+<div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
+  <h2>Por favor iniciar sesión</h2>
+</div>
+{% endif %}

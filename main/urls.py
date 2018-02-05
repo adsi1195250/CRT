@@ -25,5 +25,10 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.default.urls')),
     #url(r'^codigo_barras/(?P<CodigoBarras>\d+)/$', ConsultaCodBarras.as_view(), name='codigo_barras'),
     url(r'^listarInformeIO/$', listarInformeIO.as_view(), name="listado_informe"),
+    url(r'^listar_festivos/$', ListarFestivos.as_view(), name="festivos"),
+    url(r'^crear_festivos/$', CrearFestivos.as_view(), name="crear_festivos"),
+    url(r'^modificar_festivos/(?P<pk>.+)/$', ModificarFestivos.as_view(), name="modificar_festivos"),
+    url(r'^eliminar_festivos/(?P<pk>.+)/$', EliminarFestivos.as_view(), name="eliminar_festivos"),
+    
 
 ]

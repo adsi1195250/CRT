@@ -10,6 +10,31 @@ from crispy_forms.helper import FormHelper
 from django.contrib.admin.widgets import AdminDateWidget
 from datetime import datetime, date, time, timedelta
 
+class Dias_FestivosForms(forms.ModelForm):
+    class Meta:
+        model = dias_festivos
+        fields=[
+            'id',
+            'festivos',
+        ]
+        widgets = {
+            # Use localization and bootstrap 3
+            'festivos': forms.TextInput(attrs={'class': 'form-control', 'type': 'date', }),
+        }
+        labels={
+            'festivos': 'Dias festivos',
+        }
+        
+    """
+    def clean_festivos(self):
+        festivos=self.cleaned_data['festivos']
+        fes = dias_festivos.objects.all()
+        errors = []
+        for i in fes:
+            if i.festivos == festivos:
+               raise ValidationError("Esta fecha ya existe")
+    """
+    
 class trabajadoresForms(forms.ModelForm):
     class Meta:
         model = Trabajadores
@@ -81,7 +106,7 @@ class trabajadoresForms(forms.ModelForm):
 
             ),
             Div(
-                Div(Field('CodigoBarras',css_class='',rows='2'),css_class='col-sm-10'),
+                Div(Field('CodigoBarras',css_class='',rows='2',onkeypress='return event.keyCode!=13'),css_class='col-sm-10',),
                 Div(Field('administrador', css_class=''), style='margin-top:38px;', css_class='col-sm-2', ),
                 css_class='row'
             ),
@@ -94,10 +119,6 @@ class trabajadoresForms(forms.ModelForm):
                 ),
                 style='text-align:right;padding-right:1%;padding-top:1%'
             ),
-
-            #'foto',
-
-
         )
 
 

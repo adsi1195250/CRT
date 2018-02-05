@@ -19,6 +19,16 @@ class Trabajadores(models.Model):
 	def __str__(self):
 		return '%s'%(self.nombres)
 
+class dias_festivos(models.Model):
+	id = models.AutoField(primary_key=True)
+	festivos = models.DateField()
+
+"""class dias_festivos(models.Model):
+	id = models.AutoField(primary_key=True)
+	festivos = models.DateField()
+	def __str__(self):
+		return '%s'%(self.festivos)
+"""
 """
 class CodigoBarras(models.Model):
 	idCodigoBarras = models.AutoField(primary_key=True)

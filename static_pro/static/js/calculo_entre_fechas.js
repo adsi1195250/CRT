@@ -5,14 +5,16 @@ function calcular_dias() {
     if (periodo_inicial !== undefined && periodo_final !== undefined)
     {
         var total_dias = periodo_final.diff(periodo_inicial, 'days');
-        if(total_dias < 0){
-            $("#id_totalDiasIncapacidad").val(0);
+        if(total_dias <= 0){
+                $("#id_totalDiasIncapacidad").val(1);
         }else {
+
             $("#id_totalDiasIncapacidad").val(total_dias);
         }
         console.log(total_dias, ' dias de diferencia');
     } else {
-        $("#id_totalDiasIncapacidad").val(0);
+        $("#id_totalDiasIncapacidad").val(1);
+
     }
 }
 

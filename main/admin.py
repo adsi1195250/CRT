@@ -6,6 +6,9 @@ from .forms import *
 class TrabajadoresAdmin(admin.ModelAdmin):
 	list_display=["__str__","id","nombres","cedula", "fechaIngreso", "fechaNacimiento", "administrador", "telefono", "CodigoBarras"]
 
+class Dias_FestivosAdmin(admin.ModelAdmin):
+	list_display=['__str__','festivos',]
+
 """
 class Historial_IOAdmin(admin.ModelAdmin):
 	list_display=["__str__","idHistorial",'horaEntrada',
@@ -28,5 +31,6 @@ class Historial_IOAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Trabajadores, TrabajadoresAdmin),
+admin.site.register(dias_festivos, Dias_FestivosAdmin),
 admin.site.register(Historial_IO, Historial_IOAdmin),
 

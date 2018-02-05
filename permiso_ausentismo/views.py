@@ -91,7 +91,7 @@ def ListarPermisoAusentismo(request):
         mes = Paragraph('''Mes''',styleBH)
         periodo_inicial = Paragraph('''Periodo inicial''', styleBH)
         periodo_final = Paragraph('''Periodo final''', styleBH)
-        total_dias_incapacidad = Paragraph('''Total días de incapacidad''', styleBH)
+        total_dias_incapacidad = Paragraph('''Total días''', styleBH)
         codigo_diagnostico = Paragraph('''Código de diagnostico''',styleBH)
         tipo_evento = Paragraph('''Tipo de evento''', styleBH)
         observaciones = Paragraph('''Observaciones''',styleBH)
@@ -109,10 +109,25 @@ def ListarPermisoAusentismo(request):
         for x in listar_permisos.object_list.values():
             x['mes_evento'] = listar_permisos[cont].get_mes_evento_display()
             x['totalDiasIncapacidad'] = str(x['totalDiasIncapacidad'])
+            print(x['totalDiasIncapacidad'])
+            if x['totalDiasIncapacidad'] == '0':
+                x['totalDiasIncapacidad'] = 1
             x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
             #print(x['observaciones'])
+
             if x['observaciones'] == None:
                 x['observaciones'] = 'Sin registro'
+            if x['codigoDiagnostico'] == None or x['codigoDiagnostico'] == '':
+                x['codigoDiagnostico'] = 'No aplica'
+            if x['tipo_evento'][0:3] == 'A.C':
+                x['tipo_evento'] = 'A.C'
+            if x['tipo_evento'][0:3] == 'O.E':
+                x['tipo_evento'] = 'O.E'
+            if x['tipo_evento'][0:3] == 'A.T':
+                x['tipo_evento'] = 'A.T'
+            if x['tipo_evento'][0:3] == 'E.L':
+                x['tipo_evento'] = 'E.L'
+
             permiso=[
                 x["mes_evento"],
                 x["periodoIncapacidadInicial"],

@@ -12,11 +12,11 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4, cm
 from django.http import HttpResponse
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import Paragraph, Table, TableStyle, Image
+from reportlab.platypus import Paragraph, Table, TableStyle, Image, SimpleDocTemplate
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, landscape
-
+from reportlab.lib.styles import *
 from main.forms import *
 from main.models import *
 
@@ -38,13 +38,13 @@ class ListarTrabajador(ListView):
         print(context)
         return context
     """
-"""
-class CrearTrabajador(CreateView):
-    model = Trabajadores
-    template_name = 'Trabajadores/trabajador_modal.html'
-    form_class = trabajadoresForms
-    success_url = reverse_lazy('listado_trabajadores')
-"""
+
+class ListarFestivos(ListView):
+    model = dias_festivos
+    template_name = 'Festivos/festivos.html'
+    context_object_name = 'dias_festivos'
+    
+
 def CrearTrabajador(request):
     form = trabajadoresForms(request.POST or None)
     context = {
@@ -56,15 +56,29 @@ def CrearTrabajador(request):
         return redirect('listado_trabajadores')
 
     return render(request,'Trabajadores/form_trabajadores.html',context)
+    
+class CrearFestivos(CreateView):
+    model = dias_festivos
+    form_class = Dias_FestivosForms
+    template_name = 'Festivos/crear_festivos.html'
+    success_url = reverse_lazy('listado_informe')
+    
+class ModificarFestivos(UpdateView):
+    model = dias_festivos
+    form_class = Dias_FestivosForms
+    template_name = 'Festivos/crear_festivos.html'
+    success_url = reverse_lazy('listado_informe')    
 
-
+class EliminarFestivos(DeleteView):
+    model = dias_festivos
+    template_name = 'Festivos/eliminar_festivos.html'
+    success_url = reverse_lazy('listado_informe')    
 
 class ModificarTrabajador(UpdateView):
     model = Trabajadores
     form_class = trabajadoresForms
     template_name = 'Trabajadores/form_trabajadores.html'
     success_url = reverse_lazy('listado_trabajadores')
-
 
 class DetalleTrabajador(DetailView):
     model = Trabajadores
@@ -96,6 +110,7 @@ class listarInformeIO(ListView):
             else:
                 print(errors)
                 q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
+                jaa = Trabajadores.objects.filter(cedula=self.request.GET.get('cedula'))
                 filtroMes = Historial_IO.objects.filter(fecha__month=self.request.GET.get('mes'))
                 #modelo=Historial_IO.objects.all()
                 #print(trabajadores.values()[0])
@@ -112,7 +127,11 @@ class listarInformeIO(ListView):
                 lis = []
                 for p in q:
                     lis.append(p.fecha.month)
-                    #print("Month" ,p.fecha.month)
+                kaa = {}
+                for z in jaa:
+                    kaa['nombres'] = z
+                
+                print(kaa, "NOMBRESSS")
 
                 ja = False
                 if int(qames) in lis:
@@ -127,13 +146,13 @@ class listarInformeIO(ListView):
                     lis_cedula.append(j.cedula)
 
                 for k in lis_cedula:
-                    print(lis_cedula, qa)
+                    #print(lis_cedula, qa, "QSA")
                     if qa in lis_cedula and not q:
                         errors['error'] = ('El Colaborador no tiene ningún registro.')
-                        print("Colaborar existe, pero no tiene registro")
+                        #print("Colaborar existe, pero no tiene registro")
                     elif not qa in lis_cedula:
                         errors['error'] =('Colaborador no encontrado, Por favor regístrelo.')
-                        print("Colaborar no existe")
+                        #print("Colaborar no existe")
                 print(errors)
 
                 """for p in Historial:
@@ -181,110 +200,112 @@ class listarInformeIO(ListView):
                 treinta = {}
                 treintauno = {}
                 self.b= []
+                hoy = datetime.today()  # Asigna fecha-hora
                 for i in q:
                     mes1 = i
                     for mes in filtroMes:
                         if mes == mes1:
-                            fq = i.fecha.day
-                            #fqmes = i.fecha.month
-                            #print("Mes",mes.fecha.month)
-                            a['nombre'] = i.id_trabajadores.nombres
-                            a['cedula'] = i.id_trabajadores.cedula
-                            a['mes'] = mes.fecha.month
-                            #if fqmes == 1:
-                            if mes.fecha.day == 1 and fq == 1:
-                                uno[i.accion_jornada] = i.fecha
-                                uno[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 2 and fq ==2:
-                                dos[i.accion_jornada] = i.fecha
-                                dos[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 3 and fq ==3:
-                                tres[i.accion_jornada] = i.fecha
-                                tres[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 4 and fq ==4:
-                                cuatro[i.accion_jornada] = i.fecha
-                                cuatro[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day ==5 and fq ==5:
-                                cinco[i.accion_jornada] = i.fecha
-                                cinco[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 6 and fq ==6:
-                                seis[i.accion_jornada] = i.fecha
-                                seis[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 7 and fq ==7:
-                                siete[i.accion_jornada] = i.fecha
-                                siete[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==8 and fq ==8:
-                                ocho[i.accion_jornada] = i.fecha
-                                ocho[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==9 and fq ==9:
-                                nueve[i.accion_jornada] = i.fecha
-                                nueve[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 10 and fq==10:
-                                diez[i.accion_jornada] = i.fecha
-                                diez[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 11 and fq == 11:
-                                once[i.accion_jornada] = i.fecha
-                                once[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==12 and fq ==12:
-                                doce[i.accion_jornada] = i.fecha
-                                doce[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==13 and fq ==13:
-                                trece[i.accion_jornada] = i.fecha
-                                trece[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==14 and fq ==14:
-                                catorce[i.accion_jornada] = i.fecha
-                                catorce[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 15 and fq ==15:
-                                quince[i.accion_jornada] = i.fecha
-                                quince[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 16 and fq ==16:
-                                dieciseis[i.accion_jornada] = i.fecha
-                                dieciseis[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 17 and fq ==17:
-                                diecisiete[i.accion_jornada] = i.fecha
-                                diecisiete[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 18 and fq ==18:
-                                dieciocho[i.accion_jornada] = i.fecha
-                                dieciocho[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==19 and fq ==19:
-                                diecinueve[i.accion_jornada] = i.fecha
-                                diecinueve[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 20 and fq ==20:
-                                veinte[i.accion_jornada] = i.fecha
-                                veinte[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 21 and fq ==21:
-                                veintiuno[i.accion_jornada] = i.fecha
-                                veintiuno[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==22 and fq ==22:
-                                veintidos[i.accion_jornada] = i.fecha
-                                veintidos[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==23 and fq ==23:
-                                veintitres[i.accion_jornada] = i.fecha
-                                veintitres[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 24 and fq ==24:
-                                veinticuatro[i.accion_jornada] = i.fecha
-                                veinticuatro[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day == 25 and fq ==25:
-                                veinticinco[i.accion_jornada] = i.fecha
-                                veinticinco[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==26 and fq ==26:
-                                veintiseis[i.accion_jornada] = i.fecha
-                                veintiseis[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==27 and fq ==27:
-                                veintisiete[i.accion_jornada] = i.fecha
-                                veintisiete[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==28 and fq ==28:
-                                veintiocho[i.accion_jornada] = i.fecha
-                                veintiocho[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==29 and fq ==29:
-                                veintinueve[i.accion_jornada] = i.fecha
-                                veintinueve[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==30 and fq ==30:
-                                treinta[i.accion_jornada] = i.fecha
-                                treinta[i.accion_jornada_hora] = i.hora
-                            elif mes.fecha.day==31 and fq ==31:
-                                treintauno[i.accion_jornada] = i.fecha
-                                treintauno[i.accion_jornada_hora] = i.hora
+                            if mes.fecha.year == hoy.year:
+                                fq = i.fecha.day
+                                #fqmes = i.fecha.month
+                                a['nombre'] = i.id_trabajadores.nombres
+                                a['cedula'] = i.id_trabajadores.cedula
+                                a['mes'] = mes.fecha.month
+                                a['year'] = mes.fecha.year
+                                #if fqmes == 1:
+                                if mes.fecha.day == 1 and fq == 1:
+                                    uno[i.accion_jornada] = i.fecha
+                                    uno[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 2 and fq ==2:
+                                    dos[i.accion_jornada] = i.fecha
+                                    dos[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 3 and fq ==3:
+                                    tres[i.accion_jornada] = i.fecha
+                                    tres[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 4 and fq ==4:
+                                    cuatro[i.accion_jornada] = i.fecha
+                                    cuatro[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day ==5 and fq ==5:
+                                    cinco[i.accion_jornada] = i.fecha
+                                    cinco[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 6 and fq ==6:
+                                    seis[i.accion_jornada] = i.fecha
+                                    seis[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 7 and fq ==7:
+                                    siete[i.accion_jornada] = i.fecha
+                                    siete[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==8 and fq ==8:
+                                    ocho[i.accion_jornada] = i.fecha
+                                    ocho[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==9 and fq ==9:
+                                    nueve[i.accion_jornada] = i.fecha
+                                    nueve[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 10 and fq==10:
+                                    diez[i.accion_jornada] = i.fecha
+                                    diez[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 11 and fq == 11:
+                                    once[i.accion_jornada] = i.fecha
+                                    once[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==12 and fq ==12:
+                                    doce[i.accion_jornada] = i.fecha
+                                    doce[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==13 and fq ==13:
+                                    trece[i.accion_jornada] = i.fecha
+                                    trece[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==14 and fq ==14:
+                                    catorce[i.accion_jornada] = i.fecha
+                                    catorce[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 15 and fq ==15:
+                                    quince[i.accion_jornada] = i.fecha
+                                    quince[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 16 and fq ==16:
+                                    dieciseis[i.accion_jornada] = i.fecha
+                                    dieciseis[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 17 and fq ==17:
+                                    diecisiete[i.accion_jornada] = i.fecha
+                                    diecisiete[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 18 and fq ==18:
+                                    dieciocho[i.accion_jornada] = i.fecha
+                                    dieciocho[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==19 and fq ==19:
+                                    diecinueve[i.accion_jornada] = i.fecha
+                                    diecinueve[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 20 and fq ==20:
+                                    veinte[i.accion_jornada] = i.fecha
+                                    veinte[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 21 and fq ==21:
+                                    veintiuno[i.accion_jornada] = i.fecha
+                                    veintiuno[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==22 and fq ==22:
+                                    veintidos[i.accion_jornada] = i.fecha
+                                    veintidos[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==23 and fq ==23:
+                                    veintitres[i.accion_jornada] = i.fecha
+                                    veintitres[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 24 and fq ==24:
+                                    veinticuatro[i.accion_jornada] = i.fecha
+                                    veinticuatro[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day == 25 and fq ==25:
+                                    veinticinco[i.accion_jornada] = i.fecha
+                                    veinticinco[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==26 and fq ==26:
+                                    veintiseis[i.accion_jornada] = i.fecha
+                                    veintiseis[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==27 and fq ==27:
+                                    veintisiete[i.accion_jornada] = i.fecha
+                                    veintisiete[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==28 and fq ==28:
+                                    veintiocho[i.accion_jornada] = i.fecha
+                                    veintiocho[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==29 and fq ==29:
+                                    veintinueve[i.accion_jornada] = i.fecha
+                                    veintinueve[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==30 and fq ==30:
+                                    treinta[i.accion_jornada] = i.fecha
+                                    treinta[i.accion_jornada_hora] = i.hora
+                                elif mes.fecha.day==31 and fq ==31:
+                                    treintauno[i.accion_jornada] = i.fecha
+                                    treintauno[i.accion_jornada_hora] = i.hora
                 self.b.append(a)
                 self.b.append(uno)
                 self.b.append(dos)
@@ -318,6 +339,7 @@ class listarInformeIO(ListView):
                 self.b.append(treinta)
                 self.b.append(treintauno)
                 self.b.append(errors)
+                self.b.append(kaa)
                 # a.update(j)  //Combinar dos  diccionarios
                 #print(self.z)
                 #self.b.append(a)
@@ -337,37 +359,42 @@ class ReportePersonasPDF(View):
         b= []
         q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
         filtroMes = Historial_IO.objects.filter(fecha__month = self.request.GET.get('mes'))
+        filtroMes1 = self.request.GET['mes1']
+        año = self.request.GET['año']
         #Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
         archivo_imagen = settings.STATIC_ROOT+'/img/index.jpg'
         #Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
-        pdf.drawImage(archivo_imagen, 40, 640, 120, 80,preserveAspectRatio=True)
+        pdf.drawImage(archivo_imagen, 40, 650, 120, 80,preserveAspectRatio=True)
         #Establecemos el tamaño de letra en 16 y el tipo de letra Helvetica
         pdf.setFont("Helvetica", 25)
         #Dibujamos una cadena en la ubicación X,Y especificada
-        pdf.drawString(300, 670, u"Siete Colinas S.A.S")
-        pdf.line(300, 662, 545, 662)
+        pdf.drawString(300, 700, u"Siete Colinas S.A.S")
+        pdf.line(300, 692, 545, 692)
         pdf.setFont("Helvetica", 14)
-        pdf.drawString(300, 645 , u"REPORTE DE REGISTRO JORNADA")
+        pdf.drawString(300, 673 , u"REPORTE DE REGISTRO JORNADA")
+        pdf.setFont('Helvetica-Bold', 12)
+        pdf.drawString(355, 652 , u"MES: "+ filtroMes1 + " " + año)
         pdf.setFont("Helvetica", 18)
-        pdf.drawString(720, 700, u"Colaborador:")
+        pdf.drawString(720, 710, u"Colaborador:")
         pdf.setFont("Helvetica", 15)
         #print(filtroMes)
         for jh in q:
             jnombre = jh.id_trabajadores.nombres
             jcedula = jh.id_trabajadores.cedula
-        pdf.drawString(680,674, jnombre)
+        pdf.drawString(680,687, jnombre)
         pdf.setFont("Helvetica", 14)
-        pdf.drawString(740, 650, u"Cedula:")
+        pdf.drawString(740, 668, u"Cédula:")
         pdf.setFont("Helvetica", 15)
-        pdf.drawString(722,630, jcedula)
+        pdf.drawString(722,650, jcedula)
 
     def tabla(self,pdf,y):
 
         #Creamos una tupla de encabezados para neustra tabla
-        encabezados = ('Día', 'Entrada', 'Desayuno', 'Fin desayuno', 'Almuerzo', 'Fin Almuerzo', 'Pausas Activas', 'Fin pausas activas', 'Descanso', 'Fin Descanso', 'Salida', 'Horas Trabajadas')
+        encabezados = ('Día', 'Entrada', 'Desayuno', 'Fin desayuno', 'Almuerzo', 'Fin Almuerzo', 'Pausas Activas', 'Fin pausas activas', 'Descanso', 'Fin Descanso', 'Salida', 'Horas Trabajadas', 'Firma',)
         #Creamos una lista de tuplas que van a contener a las personas
         q = Historial_IO.objects.filter(id_trabajadores__cedula=self.request.GET.get('cedula'))
         filtroMes = Historial_IO.objects.filter(fecha__month=self.request.GET.get('mes'))
+        festivos = dias_festivos.objects.all()
         a = {}
         j = {}
         uno = {}
@@ -402,7 +429,7 @@ class ReportePersonasPDF(View):
         treinta = {}
         treintauno = {}
 
-        uno['EN'] = date(12, 1, 2)
+        uno['EN'] = date(13, 1, 2)
         uno['HEN'] = time(00, 00, 00)
         uno['HDYI'] = time(00, 00, 00)
         uno['HDYF'] = time(00, 00, 00)
@@ -414,7 +441,7 @@ class ReportePersonasPDF(View):
         uno['HDCF'] = time(00, 00, 00)
         uno['HSA'] = time(00, 00, 00)
 
-        dos['EN'] = date(12, 1, 1)
+        dos['EN'] = date(13, 1, 1)
         dos['HEN'] = time(00, 00, 00)
         dos['HDYI'] = time(00, 00, 00)
         dos['HDYF'] = time(00, 00, 00)
@@ -427,7 +454,7 @@ class ReportePersonasPDF(View):
         dos['HSA'] = time(00, 00, 00)
 
 
-        tres['EN'] = date(12, 1, 1)
+        tres['EN'] = date(13, 1, 1)
         tres['HEN'] = time(00, 00, 00)
         tres['HDYI'] = time(00, 00, 00)
         tres['HDYF'] = time(00, 00, 00)
@@ -439,7 +466,7 @@ class ReportePersonasPDF(View):
         tres['HDCF'] = time(00, 00, 00)
         tres['HSA'] = time(00, 00, 00)
 
-        cuatro['EN'] = date(12, 1, 1)
+        cuatro['EN'] = date(13, 1, 1)
         cuatro['HEN'] = time(00, 00, 00)
         cuatro['HDYI'] = time(00, 00, 00)
         cuatro['HDYF'] = time(00, 00, 00)
@@ -452,7 +479,7 @@ class ReportePersonasPDF(View):
         cuatro['HSA'] = time(00, 00, 00)
 
 
-        cinco['EN'] = date(12, 1, 1)
+        cinco['EN'] = date(13, 1, 1)
         cinco['HEN'] = time(00, 00, 00)
         cinco['HDYI'] = time(00, 00, 00)
         cinco['HDYF'] = time(00, 00, 00)
@@ -464,7 +491,7 @@ class ReportePersonasPDF(View):
         cinco['HDCF'] = time(00, 00, 00)
         cinco['HSA'] = time(00, 00, 00)
 
-        seis['EN'] = date(12, 1, 1)
+        seis['EN'] = date(13, 1, 1)
         seis['HEN'] = time(00, 00, 00)
         seis['HDYI'] = time(00, 00, 00)
         seis['HDYF'] = time(00, 00, 00)
@@ -476,7 +503,7 @@ class ReportePersonasPDF(View):
         seis['HDCF'] = time(00, 00, 00)
         seis['HSA'] = time(00, 00, 00)
 
-        siete['EN'] = date(12, 1, 1)
+        siete['EN'] = date(13, 1, 1)
         siete['HEN'] = time(00, 00, 00)
         siete['HDYI'] = time(00, 00, 00)
         siete['HDYF'] = time(00, 00, 00)
@@ -488,7 +515,7 @@ class ReportePersonasPDF(View):
         siete['HDCF'] = time(00, 00, 00)
         siete['HSA'] = time(00, 00, 00)
 
-        ocho['EN'] = date(12, 1, 1)
+        ocho['EN'] = date(13, 1, 1)
         ocho['HEN'] = time(00, 00, 00)
         ocho['HDYI'] = time(00, 00, 00)
         ocho['HDYF'] = time(00, 00, 00)
@@ -500,7 +527,7 @@ class ReportePersonasPDF(View):
         ocho['HDCF'] = time(00, 00, 00)
         ocho['HSA'] = time(00, 00, 00)
 
-        nueve['EN'] = date(12, 1, 1)
+        nueve['EN'] = date(13, 1, 1)
         nueve['HEN'] = time(00, 00, 00)
         nueve['HDYI'] = time(00, 00, 00)
         nueve['HDYF'] = time(00, 00, 00)
@@ -512,7 +539,7 @@ class ReportePersonasPDF(View):
         nueve['HDCF'] = time(00, 00, 00)
         nueve['HSA'] = time(00, 00, 00)
 
-        diez['EN'] = date(12, 1, 1)
+        diez['EN'] = date(13, 1, 1)
         diez['HEN'] = time(00, 00, 00)
         diez['HDYI'] = time(00, 00, 00)
         diez['HDYF'] = time(00, 00, 00)
@@ -524,7 +551,7 @@ class ReportePersonasPDF(View):
         diez['HDCF'] = time(00, 00, 00)
         diez['HSA'] = time(00, 00, 00)
 
-        once['EN'] = date(12, 1, 1)
+        once['EN'] = date(13, 1, 1)
         once['HEN'] = time(00, 00, 00)
         once['HDYI'] = time(00, 00, 00)
         once['HDYF'] = time(00, 00, 00)
@@ -536,7 +563,7 @@ class ReportePersonasPDF(View):
         once['HDCF'] = time(00, 00, 00)
         once['HSA'] = time(00, 00, 00)
 
-        doce['EN'] = date(12, 1, 1)
+        doce['EN'] = date(13, 1, 1)
         doce['HEN'] = time(00, 00, 00)
         doce['HDYI'] = time(00, 00, 00)
         doce['HDYF'] = time(00, 00, 00)
@@ -548,7 +575,7 @@ class ReportePersonasPDF(View):
         doce['HDCF'] = time(00, 00, 00)
         doce['HSA'] = time(00, 00, 00)
 
-        trece['EN'] = date(12, 1, 1)
+        trece['EN'] = date(13, 1, 1)
         trece['HEN'] = time(00, 00, 00)
         trece['HDYI'] = time(00, 00, 00)
         trece['HDYF'] = time(00, 00, 00)
@@ -561,7 +588,7 @@ class ReportePersonasPDF(View):
         trece['HSA'] = time(00, 00, 00)
 
 
-        catorce['EN'] = date(12, 1, 1)
+        catorce['EN'] = date(13, 1, 1)
         catorce['HEN'] = time(00, 00, 00)
         catorce['HDYI'] = time(00, 00, 00)
         catorce['HDYF'] = time(00, 00, 00)
@@ -573,8 +600,8 @@ class ReportePersonasPDF(View):
         catorce['HDCF'] = time(00, 00, 00)
         catorce['HSA'] = time(00, 00, 00)
 
-        quince['EN'] = date(12, 1, 1)
-        quince['HEN'] = 'NA'
+        quince['EN'] = date(13, 1, 1)
+        quince['HEN'] = time(00, 00, 00)
         quince['HDYI'] = time(00, 00, 00)
         quince['HDYF'] = time(00, 00, 00)
         quince['HALI'] = time(00, 00, 00)
@@ -586,7 +613,7 @@ class ReportePersonasPDF(View):
         quince['HSA'] = time(00, 00, 00)
 
 
-        dieciseis['EN'] = date(12, 1, 1)
+        dieciseis['EN'] = date(13, 1, 1)
         dieciseis['HEN'] = time(00, 00, 00)
         dieciseis['HDYI'] = time(00, 00, 00)
         dieciseis['HDYF'] = time(00, 00, 00)
@@ -598,7 +625,7 @@ class ReportePersonasPDF(View):
         dieciseis['HDCF'] = time(00, 00, 00)
         dieciseis['HSA'] = time(00, 00, 00)
 
-        diecisiete['EN'] = date(12, 1, 1)
+        diecisiete['EN'] = date(13, 1, 1)
         diecisiete['HEN'] = time(00, 00, 00)
         diecisiete['HDYI'] = time(00, 00, 00)
         diecisiete['HDYF'] = time(00, 00, 00)
@@ -610,7 +637,7 @@ class ReportePersonasPDF(View):
         diecisiete['HDCF'] = time(00, 00, 00)
         diecisiete['HSA'] = time(00, 00, 00)
 
-        dieciocho['EN'] = date(12, 1, 1)
+        dieciocho['EN'] = date(13, 1, 1)
         dieciocho['HEN'] = time(00, 00, 00)
         dieciocho['HDYI'] = time(00, 00, 00)
         dieciocho['HDYF'] = time(00, 00, 00)
@@ -622,7 +649,7 @@ class ReportePersonasPDF(View):
         dieciocho['HDCF'] = time(00, 00, 00)
         dieciocho['HSA'] = time(00, 00, 00)
 
-        diecinueve['EN'] = date(12, 1, 1)
+        diecinueve['EN'] = date(13, 1, 1)
         diecinueve['HEN'] = time(00, 00, 00)
         diecinueve['HDYI'] =time(00, 00, 00)
         diecinueve['HDYF'] =time(00, 00, 00)
@@ -634,7 +661,7 @@ class ReportePersonasPDF(View):
         diecinueve['HDCF'] =time(00, 00, 00)
         diecinueve['HSA'] = time(00, 00, 00)
 
-        veinte['EN'] = date(12, 1, 1)
+        veinte['EN'] = date(13, 1, 1)
         veinte['HEN'] = time(00, 00, 00)
         veinte['HDYI'] = time(00, 00, 00)
         veinte['HDYF'] = time(00, 00, 00)
@@ -646,7 +673,7 @@ class ReportePersonasPDF(View):
         veinte['HDCF'] = time(00, 00, 00)
         veinte['HSA'] = time(00, 00, 00)
 
-        veintiuno['EN'] = date(12, 1, 1)
+        veintiuno['EN'] = date(13, 1, 1)
         veintiuno['HEN'] = time(00, 00, 00)
         veintiuno['HDYI'] = time(00, 00, 00)
         veintiuno['HDYF'] = time(00, 00, 00)
@@ -658,7 +685,7 @@ class ReportePersonasPDF(View):
         veintiuno['HDCF'] = time(00, 00, 00)
         veintiuno['HSA'] = time(00, 00, 00)
 
-        veintidos['EN'] = date(12, 1, 1)
+        veintidos['EN'] = date(13, 1, 1)
         veintidos['HEN'] = time(00, 00, 00)
         veintidos['HDYI'] = time(00, 00, 00)
         veintidos['HDYF'] = time(00, 00, 00)
@@ -670,7 +697,7 @@ class ReportePersonasPDF(View):
         veintidos['HDCF'] = time(00, 00, 00)
         veintidos['HSA'] = time(00, 00, 00)
 
-        veintitres['EN'] = date(12, 1, 1)
+        veintitres['EN'] = date(13, 1, 1)
         veintitres['HEN'] = time(00, 00, 00)
         veintitres['HDYI'] = time(00, 00, 00)
         veintitres['HDYF'] = time(00, 00, 00)
@@ -682,7 +709,7 @@ class ReportePersonasPDF(View):
         veintitres['HDCF'] = time(00, 00, 00)
         veintitres['HSA'] = time(00, 00, 00)
 
-        veinticuatro['EN'] = date(12, 1, 1)
+        veinticuatro['EN'] = date(13, 1, 1)
         veinticuatro['HEN'] = time(00, 00, 00)
         veinticuatro['HDYI'] = time(00, 00, 00)
         veinticuatro['HDYF'] = time(00, 00, 00)
@@ -695,7 +722,7 @@ class ReportePersonasPDF(View):
         veinticuatro['HSA'] = time(00, 00, 00)
 
 
-        veinticinco['EN'] = date(12, 1, 1)
+        veinticinco['EN'] = date(13, 1, 1)
         veinticinco['HEN'] = time(00, 00, 00)
         veinticinco['HDYI'] = time(00, 00, 00)
         veinticinco['HDYF'] = time(00, 00, 00)
@@ -707,7 +734,7 @@ class ReportePersonasPDF(View):
         veinticinco['HDCF'] = time(00, 00, 00)
         veinticinco['HSA'] = time(00, 00, 00)
 
-        veintiseis['EN'] = date(12, 1, 1)
+        veintiseis['EN'] = date(13, 1, 1)
         veintiseis['HEN'] = time(00, 00, 00)
         veintiseis['HDYI'] = time(00, 00, 00)
         veintiseis['HDYF'] = time(00, 00, 00)
@@ -719,7 +746,7 @@ class ReportePersonasPDF(View):
         veintiseis['HDCF'] = time(00, 00, 00)
         veintiseis['HSA'] = time(00, 00, 00)
 
-        veintisiete['EN'] = date(12, 1, 1)
+        veintisiete['EN'] = date(13, 1, 1)
         veintisiete['HEN'] = time(00, 00, 00)
         veintisiete['HDYI'] = time(00, 00, 00)
         veintisiete['HDYF'] = time(00, 00, 00)
@@ -731,7 +758,7 @@ class ReportePersonasPDF(View):
         veintisiete['HDCF'] = time(00, 00, 00)
         veintisiete['HSA'] = time(00, 00, 00)
 
-        veintiocho['EN'] = date(12, 1, 1)
+        veintiocho['EN'] = date(13, 1, 1)
         veintiocho['HEN'] = time(00, 00, 00)
         veintiocho['HDYI'] = time(00, 00, 00)
         veintiocho['HDYF'] = time(00, 00, 00)
@@ -743,7 +770,7 @@ class ReportePersonasPDF(View):
         veintiocho['HDCF'] = time(00, 00, 00)
         veintiocho['HSA'] = time(00, 00, 00)
 
-        veintinueve['EN'] = date(12, 1, 1)
+        veintinueve['EN'] = date(13, 1, 1)
         veintinueve['HEN'] = time(00, 00, 00)
         veintinueve['HDYI'] = time(00, 00, 00)
         veintinueve['HDYF'] = time(00, 00, 00)
@@ -755,7 +782,7 @@ class ReportePersonasPDF(View):
         veintinueve['HDCF'] = time(00, 00, 00)
         veintinueve['HSA'] = time(00, 00, 00)
 
-        treinta['EN'] = date(12, 1, 1)
+        treinta['EN'] = date(13, 1, 1)
         treinta['HEN'] = time(00, 00, 00)
         treinta['HDYI'] = time(00, 00, 00)
         treinta['HDYF'] = time(00, 00, 00)
@@ -767,7 +794,7 @@ class ReportePersonasPDF(View):
         treinta['HDCF'] = time(00, 00, 00)
         treinta['HSA'] = time(00, 00, 00)
 
-        treintauno['EN'] = date(12, 1, 1)
+        treintauno['EN'] = date(13, 1, 1)
         treintauno['HEN'] = time(00, 00, 00)
         treintauno['HDYI'] = time(00, 00, 00)
         treintauno['HDYF'] = time(00, 00, 00)
@@ -780,111 +807,121 @@ class ReportePersonasPDF(View):
         treintauno['HSA'] = time(00, 00, 00)
 
         self.b= []
+        formato2 = "%a"
         #print(filtroMes)
+        hoy = datetime.today()
+        hora_domi_fes = 0
+        min_domi_fes = 0
         for i in q:
             mes1 = i
             for mes in filtroMes:
                 if mes == mes1:
-                    fq = i.fecha.day
-                    a['nombre'] = i.id_trabajadores.nombres
-                    a['cedula'] = i.id_trabajadores.cedula
-                    a['mes'] = mes.fecha.month
-                    if mes.fecha.day == 1 and fq == 1:
-                        uno[i.accion_jornada] = i.fecha
-                        uno[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 2 and fq ==2:
-                        dos[i.accion_jornada] = i.fecha
-                        dos[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 3 and fq ==3:
-                        tres[i.accion_jornada] = i.fecha
-                        tres[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 4 and fq ==4:
-                        cuatro[i.accion_jornada] = i.fecha
-                        cuatro[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day ==5 and fq ==5:
-                        cinco[i.accion_jornada] = i.fecha
-                        cinco[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 6 and fq ==6:
-                        seis[i.accion_jornada] = i.fecha
-                        seis[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 7 and fq ==7:
-                        siete[i.accion_jornada] = i.fecha
-                        siete[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==8 and fq ==8:
-                        ocho[i.accion_jornada] = i.fecha
-                        ocho[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==9 and fq ==9:
-                        nueve[i.accion_jornada] = i.fecha
-                        nueve[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 10 and fq==10:
-                        diez[i.accion_jornada] = i.fecha
-                        diez[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 11 and fq == 11:
-                        once[i.accion_jornada] = i.fecha
-                        once[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==12 and fq ==12:
-                        doce[i.accion_jornada] = i.fecha
-                        doce[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==13 and fq ==13:
-                        trece[i.accion_jornada] = i.fecha
-                        trece[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==14 and fq ==14:
-                        catorce[i.accion_jornada] = i.fecha
-                        catorce[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 15 and fq ==15:
-                        quince[i.accion_jornada] = i.fecha
-                        quince[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 16 and fq ==16:
-                        dieciseis[i.accion_jornada] = i.fecha
-                        dieciseis[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 17 and fq ==17:
-                        diecisiete[i.accion_jornada] = i.fecha
-                        diecisiete[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 18 and fq ==18:
-                        dieciocho[i.accion_jornada] = i.fecha
-                        dieciocho[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==19 and fq ==19:
-                        diecinueve[i.accion_jornada] = i.fecha
-                        diecinueve[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 20 and fq ==20:
-                        veinte[i.accion_jornada] = i.fecha
-                        veinte[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 21 and fq ==21:
-                        veintiuno[i.accion_jornada] = i.fecha
-                        veintiuno[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==22 and fq ==22:
-                        veintidos[i.accion_jornada] = i.fecha
-                        veintidos[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==23 and fq ==23:
-                        veintitres[i.accion_jornada] = i.fecha
-                        veintitres[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 24 and fq ==24:
-                        veinticuatro[i.accion_jornada] = i.fecha
-                        veinticuatro[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day == 25 and fq ==25:
-                        veinticinco[i.accion_jornada] = i.fecha
-                        veinticinco[i.accion_jornada_hora] = i.hora
-                        #print(veinticinco, "VEINTICIC")
-                    elif mes.fecha.day==26 and fq ==26:
-                        veintiseis[i.accion_jornada] = i.fecha
-                        veintiseis[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==27 and fq ==27:
-                        veintisiete[i.accion_jornada] = i.fecha
-                        veintisiete[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==28 and fq ==28:
-                        veintiocho[i.accion_jornada] = i.fecha
-                        veintiocho[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==29 and fq ==29:
-                        veintinueve[i.accion_jornada] = i.fecha
-                        veintinueve[i.accion_jornada_hora] = i.hora
-                    elif mes.fecha.day==30 and fq ==30:
-                        treinta[i.accion_jornada] = i.fecha
-                        treinta[i.accion_jornada_hora] = i.hora
-                        print(treinta)
-                    elif mes.fecha.day==31 and fq ==31:
-                        treintauno[i.accion_jornada] = i.fecha
-                        treintauno[i.accion_jornada_hora] = i.hora
-
+                    if mes.fecha.year == hoy.year:
+                        fq = i.fecha.day
+                        a['nombre'] = i.id_trabajadores.nombres
+                        a['cedula'] = i.id_trabajadores.cedula
+                        a['mes'] = mes.fecha.month
+                        if mes.fecha.day == 1 and fq == 1:
+                            uno[i.accion_jornada] = i.fecha
+                            uno[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 2 and fq ==2:
+                            dos[i.accion_jornada] = i.fecha
+                            dos[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 3 and fq ==3:
+                            tres[i.accion_jornada] = i.fecha
+                            tres[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 4 and fq ==4:
+                            cuatro[i.accion_jornada] = i.fecha
+                            cuatro[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day ==5 and fq ==5:
+                            cinco[i.accion_jornada] = i.fecha
+                            cinco[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 6 and fq ==6:
+                            seis[i.accion_jornada] = i.fecha
+                            seis[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 7 and fq ==7:
+                            siete[i.accion_jornada] = i.fecha
+                            siete[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==8 and fq ==8:
+                            ocho[i.accion_jornada] = i.fecha
+                            ocho[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==9 and fq ==9:
+                            nueve[i.accion_jornada] = i.fecha
+                            nueve[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 10 and fq==10:
+                            diez[i.accion_jornada] = i.fecha
+                            diez[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 11 and fq == 11:
+                            once[i.accion_jornada] = i.fecha
+                            once[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==12 and fq ==12:
+                            doce[i.accion_jornada] = i.fecha
+                            doce[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==13 and fq ==13:
+                            trece[i.accion_jornada] = i.fecha
+                            trece[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==14 and fq ==14:
+                            catorce[i.accion_jornada] = i.fecha
+                            catorce[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 15 and fq ==15:
+                            quince[i.accion_jornada] = i.fecha
+                            quince[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 16 and fq ==16:
+                            dieciseis[i.accion_jornada] = i.fecha
+                            dieciseis[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 17 and fq ==17:
+                            diecisiete[i.accion_jornada] = i.fecha
+                            diecisiete[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 18 and fq ==18:
+                            dieciocho[i.accion_jornada] = i.fecha
+                            dieciocho[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==19 and fq ==19:
+                            diecinueve[i.accion_jornada] = i.fecha
+                            diecinueve[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 20 and fq ==20:
+                            veinte[i.accion_jornada] = i.fecha
+                            veinte[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 21 and fq ==21:
+                            veintiuno[i.accion_jornada] = i.fecha
+                            veintiuno[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==22 and fq ==22:
+                            veintidos[i.accion_jornada] = i.fecha
+                            veintidos[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==23 and fq ==23:
+                            veintitres[i.accion_jornada] = i.fecha
+                            veintitres[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 24 and fq ==24:
+                            veinticuatro[i.accion_jornada] = i.fecha
+                            veinticuatro[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day == 25 and fq ==25:
+                            veinticinco[i.accion_jornada] = i.fecha
+                            veinticinco[i.accion_jornada_hora] = i.hora
+                            #print(veinticinco, "VEINTICIC")
+                        elif mes.fecha.day==26 and fq ==26:
+                            veintiseis[i.accion_jornada] = i.fecha
+                            veintiseis[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==27 and fq ==27:
+                            veintisiete[i.accion_jornada] = i.fecha
+                            veintisiete[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==28 and fq ==28:
+                            veintiocho[i.accion_jornada] = i.fecha
+                            veintiocho[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==29 and fq ==29:
+                            veintinueve[i.accion_jornada] = i.fecha
+                            veintinueve[i.accion_jornada_hora] = i.hora
+                        elif mes.fecha.day==30 and fq ==30:
+                            treinta[i.accion_jornada] = i.fecha
+                            treinta[i.accion_jornada_hora] = i.hora
+                            #print(treinta)
+                        elif mes.fecha.day==31 and fq ==31:
+                            treintauno[i.accion_jornada] = i.fecha
+                            treintauno[i.accion_jornada_hora] = i.hora
+        #print("Fecha en formato ISO 8601:", trece['EN'].strftime(formato2))
+        #print("Fecha en formato ISO 8601:", veintisiete['EN'].strftime(formato2))
+        #print("Fecha en formato ISO 8601:", veintisiete[i.accion_jornada])
+        #print("Fecha en formato ISO 8601:", veinte[i.accion_jornada].strftime(formato2))
+        #print("Fecha en formato ISO 8601:", veintiuno[i.accion_jornada].strftime(formato2))
+            
         self.b.append(a)
         self.b.append(uno)
         self.b.append(dos)
@@ -920,13 +957,8 @@ class ReportePersonasPDF(View):
 
         #FORMATO HORA, MINUTOS Y SEGUNDOS
         formato1 = "%H:%M:%S"
-        #hoy = datetime.today()  # Asigna fecha-hora
-        # Muestra fecha-hora según ISO 8601
-        #print("Fecha en formato ISO 8601:", hoy)
-        #cadena1 = hoy.strftime(formato1)
-        #print("YUJUUUU",cadena1)
-
-
+        # Asigna formato de ejemplo2
+        
         #TOTAL MES
         totalMes = 0
         totalMesMinutos = 0
@@ -949,27 +981,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -1028,9 +1060,26 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = uno['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if uno['EN'].month ==  d.festivos.month and uno['EN'].year == d.festivos.year:
+                if d.festivos.day ==  uno['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if uno['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal
+            min_domi_fes = minutosTotal            
     
         if uno['EN'].day == 1:
-            detalles1 = [(1, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            uno1= uno['EN'].strftime(formato2)
+            print(uno1, "UNO1111")
+            detalles1 = [('1 ' + uno1, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles1 = [(1 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1056,27 +1105,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -1144,9 +1193,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = dos['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if dos['EN'].month ==  d.festivos.month and dos['EN'].year == d.festivos.year:
+                if d.festivos.day ==  dos['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if dos['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if dos['EN'].day == 2:
-            detalles2 = [(2, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            uno2= dos['EN'].strftime(formato2)
+            detalles2 = [('2'+ uno2, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles2 = [(2 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1172,26 +1241,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -1260,9 +1330,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = tres['HSA'].strftime(formato1)
+        
+        cont = 0
+        for d in festivos:
+            if tres['EN'].month ==  d.festivos.month and tres['EN'].year == d.festivos.year:
+                if d.festivos.day ==  tres['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if tres['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if tres['EN'].day == 3:
-            detalles3 = [(3, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            tres3= tres['EN'].strftime(formato2)
+            detalles3 = [('3 '+ tres3, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles3 = [(3, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1288,27 +1378,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -1374,9 +1464,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = cuatro['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if cuatro['EN'].month ==  d.festivos.month and cuatro['EN'].year == d.festivos.year:
+                if d.festivos.day ==  cuatro['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if cuatro['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if cuatro['EN'].day == 4:
-            detalles4 = [(4, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            cuatro4= cuatro4['EN'].strftime(formato2)
+            detalles4 = [('4 '+ cuatro4, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles4 = [(4, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1402,27 +1512,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -1489,9 +1599,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = cinco['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if cinco['EN'].month ==  d.festivos.month and cinco['EN'].year == d.festivos.year:
+                if d.festivos.day ==  cinco['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if cinco['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if cinco['EN'].day == 5:
-            detalles5 = [(5, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            cinco5= cinco['EN'].strftime(formato2)
+            detalles5 = [('5 '+ cinco5, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles5 = [(5, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1517,26 +1647,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -1603,9 +1734,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = seis['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if seis['EN'].month ==  d.festivos.month and seis['EN'].year == d.festivos.year:
+                if d.festivos.day ==  seis['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if seis['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if seis['EN'].day == 6:
-            detalle6 = [(6, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            seis6= seis6['EN'].strftime(formato2)
+            detalle6 = [('6 '+ seis6, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles6 = [(6 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1631,26 +1782,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -1717,9 +1869,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = siete['HSA'].strftime(formato1)
-    
+            
+        cont = 0
+        for d in festivos:
+            if siete['EN'].month ==  d.festivos.month and siete['EN'].year == d.festivos.year:
+                if d.festivos.day ==  siete['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if siete['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+            
         if siete['EN'].day == 7:
-            detalles7 = [(7 , la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            siete7= siete['EN'].strftime(formato2)
+            detalles7 = [('7 '+ siete7, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles7 = [(7, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1745,27 +1917,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -1830,9 +2002,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = ocho['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if ocho['EN'].month ==  d.festivos.month and ocho['EN'].year == d.festivos.year:
+                if d.festivos.day ==  ocho['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if ocho['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if ocho['EN'].day == 8:
-            detalles8 = [(8 , la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            ocho8= ocho['EN'].strftime(formato2)
+            detalles8 = [('8 '+ ocho8 , la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles8 = [(8, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1858,26 +2050,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -1947,8 +2140,28 @@ class ReportePersonasPDF(View):
         else:
             la9 = nueve['HSA'].strftime(formato1)
             
+        cont = 0
+        for d in festivos:
+            if nueve['EN'].month ==  d.festivos.month and nueve['EN'].year == d.festivos.year:
+                if d.festivos.day ==  nueve['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if nueve['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+            
         if nueve['EN'].day == 9:
-            detalles9 = [(9, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            nueve9= nueve['EN'].strftime(formato2)
+            detalles9 = [('9 '+ nueve9, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles9 = [(9,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -1974,27 +2187,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -2062,9 +2275,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = diez['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if diez['EN'].month ==  d.festivos.month and diez['EN'].year == d.festivos.year:
+                if d.festivos.day ==  diez['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if diez['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if diez['EN'].day == 10:
-            detalles10 = [(10, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            diez10= diez['EN'].strftime(formato2)
+            detalles10 = [('10 '+ diez10, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles10 = [(10, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2089,27 +2322,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -2177,9 +2410,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = once['HSA'].strftime(formato1)
-    
+            
+        cont = 0
+        for d in festivos:
+            if once['EN'].month ==  d.festivos.month and once['EN'].year == d.festivos.year:
+                if d.festivos.day ==  once['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if once['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+            
         if once['EN'].day == 11:
-            detalles11 = [(11, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            once11= once['EN'].strftime(formato2)
+            detalles11 = [('11 '+once11, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles11 = [(11 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2201,26 +2454,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -2290,9 +2544,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = doce['HSA'].strftime(formato1)
+            
+        if doce['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+            
+        cont = 0
+        for d in festivos:
+            if doce['EN'].month ==  d.festivos.month and doce['EN'].year == d.festivos.year:
+                if d.festivos.day ==  doce['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
     
         if doce['EN'].day == 12:
-            detalles12 = [(12, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            doce12= doce['EN'].strftime(formato2)
+            detalles12 = [('12 '+doce12, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles12 = [(12, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2317,26 +2591,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -2405,9 +2680,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = trece['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if trece['EN'].month ==  d.festivos.month and trece['EN'].year == d.festivos.year:
+                if d.festivos.day ==  trece['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if trece['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if trece['EN'].day == 13:
-            detalles13 = [(13, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            trece13= trece['EN'].strftime(formato2)
+            detalles13 = [('13 '+ trece13, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles13 = [(13, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2432,27 +2727,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -2520,9 +2815,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = catorce['HSA'].strftime(formato1)
+            
+        if catorce['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+            
+        cont = 0
+        for d in festivos:
+            if catorce['EN'].month ==  d.festivos.month and catorce['EN'].year == d.festivos.year:
+                if d.festivos.day ==  catorce['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
     
         if catorce['EN'].day == 14:
-            detalles14 = [(14, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            catorce14= catorce['EN'].strftime(formato2)
+            detalles14 = [('14 '+ catorce14, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles14 = [(14, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2548,26 +2863,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -2636,9 +2952,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = quince['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if quince['EN'].month ==  d.festivos.month and quince['EN'].year == d.festivos.year:
+                if d.festivos.day ==  quince['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if quince['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if quince['EN'].day == 15:
-            detalles15 = [(15, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            quince15= quince['EN'].strftime(formato2)
+            detalles15 = [('15 '+quince15, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles15 = [(15, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2664,27 +3000,28 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
+        
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -2751,9 +3088,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = dieciseis['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if dieciseis['EN'].month ==  d.festivos.month and dieciseis['EN'].year == d.festivos.year:
+                if d.festivos.day ==  dieciseis['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if dieciseis['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if dieciseis['EN'].day == 16:
-            detalles16 = [(16, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            dieciseis16 = dieciseis['EN'].strftime(formato2)
+            detalles16 = [('16 '+ dieciseis16, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles16 = [(16, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2779,26 +3136,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -2867,9 +3225,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = diecisiete['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if diecisiete['EN'].month ==  d.festivos.month and diecisiete['EN'].year == d.festivos.year:
+                if d.festivos.day ==  diecisiete['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if diecisiete['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if diecisiete['EN'].day == 17:
-            detalles17 = [(17, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            diecisiete17 = diecisiete['EN'].strftime(formato2)
+            detalles17 = [('17 '+ diecisiete17, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles17 = [(17, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -2895,26 +3273,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -2983,9 +3362,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = dieciocho['HSA'].strftime(formato1)
+            
+        cont =0
+        for d in festivos:
+            if dieciocho['EN'].month ==  d.festivos.month and dieciocho['EN'].year == d.festivos.year:
+                if d.festivos.day ==  dieciocho['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if dieciocho['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if dieciocho['EN'].day == 18:
-            detalles18 = [(18, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            dieciocho18= dieciocho['EN'].strftime(formato2)
+            detalles18 = [('18 '+ dieciocho18, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles18 = [(18,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3011,26 +3410,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3099,9 +3499,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = diecinueve['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if diecinueve['EN'].month ==  d.festivos.month and diecinueve['EN'].year == d.festivos.year:
+                if d.festivos.day ==  diecinueve['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if diecinueve['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if diecinueve['EN'].day == 19:
-            detalles19 = [(19, la, la1, la2, la3, la4, la5, la6, la7, la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            diecinueve19 = diecinueve19['EN'].strftime(formato2)
+            detalles19 = [('19 '+diecinueve19, la, la1, la2, la3, la4, la5, la6, la7, la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles19 = [(19, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3127,26 +3547,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3214,9 +3635,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veinte['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veinte['EN'].month ==  d.festivos.month and veinte['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veinte['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veinte['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if veinte['EN'].day == 20:
-            detalles20 = [(20, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veinte20= veinte['EN'].strftime(formato2)
+            detalles20 = [('20 '+ veinte20, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles20 = [(20, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3242,26 +3683,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3329,9 +3771,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintiuno['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veintiuno['EN'].month ==  d.festivos.month and veintiuno['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintiuno['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veintiuno['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if veintiuno['EN'].day == 21:
-            detalles21 = [(21, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintiuno21= veintiuno['EN'].strftime(formato2)
+            detalles21 = [('21 '+ veintiuno21, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles21 = [(21, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3356,27 +3818,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
-        print("Min total",minutosTotal, minutosTrabajadas, minutosAlmuerzo)
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3444,9 +3906,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintidos['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veintidos['EN'].month ==  d.festivos.month and veintidos['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintidos['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+        
+        if veintidos['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if veintidos['EN'].day == 22:
-            detalles22 = [(22, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintidos22= veintidos['EN'].strftime(formato2)
+            detalles22 = [('22 '+veintidos22, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles22 = [(22 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3471,26 +3953,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3558,9 +4041,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintitres['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veintitres['EN'].month ==  d.festivos.month and veintitres['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintitres['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veintitres['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if veintitres['EN'].day == 23:
-            detalles23 = [(23, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintitres23= veintitres['EN'].strftime(formato2)
+            detalles23 = [('23 '+veintitres23, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles23 = [(23, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3586,26 +4089,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3673,9 +4177,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veinticuatro['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veinticuatro['EN'].month ==  d.festivos.month and veinticuatro['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veinticuatro['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veinticuatro['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if veinticuatro['EN'].day == 24:
-            detalles24 = [(24, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veinticuatro24= veinticuatro['EN'].strftime(formato2)
+            detalles24 = [('24 '+veinticuatro24, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles24 = [(24,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3700,26 +4224,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3787,9 +4312,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veinticinco['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veinticinco['EN'].month ==  d.festivos.month and veinticinco['EN'].year == d.festivos.year:
+                if d.festivos.day == veinticinco['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veinticinco['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
     
         if veinticinco['EN'].day == 25:
-            detalles25 = [(25, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veinticinco25= veinticinco['EN'].strftime(formato2)
+            detalles25 = [('25 '+veinticinco25, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles25 = [(25, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3815,26 +4360,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -3902,8 +4448,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintiseis['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veintiseis['EN'].month ==  d.festivos.month and veintiseis['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintiseis['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veintiseis['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+        
         if veintiseis['EN'].day == 26:
-            detalles26 = [(26, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintiseis26= veintiseis['EN'].strftime(formato2)
+            detalles26 = [('26 '+veintiseis26, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles26 = [(26, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -3929,26 +4496,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -4016,9 +4584,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintisiete['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if veintisiete['EN'].month ==  d.festivos.month and veintisiete['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintisiete['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veintisiete['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60  
 
         if veintisiete['EN'].day == 27:
-            detalles27 = [(27, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintisiete27= veintisiete['EN'].strftime(formato2)
+            detalles27 = [('27 '+veintisiete27, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles27 = [(27, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -4044,26 +4632,27 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-
+        """
         #HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -4082,6 +4671,7 @@ class ReportePersonasPDF(View):
 
         totalMes = horaTotal + totalMes
         totalMesMinutos = minutosTotal + totalMesMinutos
+        
         if veintiocho['HEN'] == time(00, 00, 00):
             la = 'NA'
         else:
@@ -4131,9 +4721,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintiocho['HSA'].strftime(formato1)
+             
+        cont = 0
+        for d in festivos:
+            if veintiocho['EN'].month ==  d.festivos.month and veintiocho['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintiocho['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veintiocho['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
 
         if veintiocho['EN'].day == 28:
-            detalles28 = [(28, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintiocho28= veintiocho['EN'].strftime(formato2)
+            detalles28 = [('28 '+veintiocho28, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles28 = [(28, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -4166,14 +4776,13 @@ class ReportePersonasPDF(View):
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
             minutosTotal = -minutosTotal
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
-        print(hora_restante)
         """
         #HORAS
         #if horasAlmuerzo < 0:
@@ -4181,7 +4790,7 @@ class ReportePersonasPDF(View):
 
         #if horasTrabajadas < 0:
         #    horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -4253,9 +4862,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = veintinueve['HSA'].strftime(formato1)
+        
+        cont = 0
+        for d in festivos:
+            if veintinueve['EN'].month ==  d.festivos.month and veintinueve['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veintinueve['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+            
+        if veintinueve['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60    
 
         if veintinueve['EN'].day == 29:
-            detalles29 = [(29, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            veintinueve29= veintinueve['EN'].strftime(formato2)
+            detalles29 = [('29 '+veintinueve29, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles29 = [(29,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -4282,12 +4911,12 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
-            minutosTrabajadas = -minutosTrabajadas
+            minutosTrabajadas = -minutosTrabajadas"""
 
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
@@ -4296,13 +4925,13 @@ class ReportePersonasPDF(View):
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
 
-        #HORAS
+        """#HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
-
+        """
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
             horaTotal = -horaTotal
@@ -4369,9 +4998,29 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = treinta['HSA'].strftime(formato1)
+            
+        cont = 0
+        for d in festivos:
+            if treinta['EN'].month ==  d.festivos.month and treinta['EN'].year == d.festivos.year:
+                if d.festivos.day ==  treinta['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+                        
+        if treinta['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60    
 
         if treinta['EN'].day == 30:
-            detalles30 = [(30, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            treinta30 = treinta['EN'].strftime(formato2)
+            detalles30 = [('30 '+treinta30, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles30 = [(30,'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
@@ -4397,13 +5046,13 @@ class ReportePersonasPDF(View):
         else:
             minutosAlmuerzo = 0
 
-        #MINUTOS
+        """#MINUTOS
         if minutosAlmuerzo < 0:
             minutosAlmuerzo = -minutosAlmuerzo
 
         if minutosTrabajadas < 0:
             minutosTrabajadas = -minutosTrabajadas
-
+        """
         minutosTotal =  (minutosTrabajadas) - (minutosAlmuerzo)
         hora_restante = 0
         if minutosTotal < 0:
@@ -4411,12 +5060,13 @@ class ReportePersonasPDF(View):
             minutosTotal = 60 - minutosTotal
             hora_restante = 1
 
-        #HORAS
+        """#HORAS
         if horasAlmuerzo < 0:
             horasAlmuerzo = -horasAlmuerzo
 
         if horasTrabajadas < 0:
             horasTrabajadas = -horasTrabajadas
+        """
 
         horaTotal =  (horasTrabajadas) - (horasAlmuerzo) - (hora_restante)
         if horaTotal < 0:
@@ -4485,32 +5135,215 @@ class ReportePersonasPDF(View):
             la9 = 'NA'
         else:
             la9 = treintauno['HSA'].strftime(formato1)
-
+        
+        cont = 0
+        for d in festivos:
+            if treintauno['EN'].month ==  d.festivos.month and treintauno['EN'].year == d.festivos.year:
+                if d.festivos.day ==  treintauno['EN'].day:
+                    cont +=1
+                    if cont != 1:
+                        pass
+                    else:
+                        hora_domi_fes = horaTotal + hora_domi_fes
+                        min_domi_fes = minutosTotal + min_domi_fes
+        
+        if treintauno['EN'].strftime(formato2) == 'Sun':
+            hora_domi_fes = horaTotal + hora_domi_fes
+            min_domi_fes = minutosTotal + min_domi_fes
+            
+        if min_domi_fes >= 60:
+            hora_domi_fes += 1
+            min_domi_fes -=60
+            
         if treintauno['EN'].day == 31:
-            detalles31 = [(31, la, la1, la2, la3, la4, la5, la6, la7, la8, la9, "Horas: "+ str(horaTotal) + " Minutos "+ str(minutosTotal))]
+            treintauno31= treintauno['EN'].strftime(formato2)
+            detalles31 = [('31 '+treintauno31, la, la1, la2, la3, la4, la5, la6, la7, la8, la9, "Horas: "+ str(horaTotal) + " Minutos "+ str(minutosTotal))]
         else:
             detalles31 = [(31, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 
         totalHoras = [('Total'," ", " ", " ", " "," ", " ", " ", " ","","","Horas: "+ str(totalMes) + " Min: "+ str(totalMesMinutos))]
-
+        total_dominicales_festivos = [('Dominicales y festivos'," ", " ", " ", " "," ", " ", " ", " ","","", "Horas: "+ str(hora_domi_fes) + " Min: "+ str(min_domi_fes))]
 
         #Establecemos el tamaño de cada una de las columnas de la tabla
         #Aplicamos estilos a las celdas de la tabla
-        detalle_orden = Table([encabezados] + detalles1 + detalles2 + detalles3 + detalles4 + detalles5 + detalles6 +  detalles7 + detalles8 + detalles9 + detalles10 + detalles11 + detalles12 + detalles13 +  detalles14 + detalles15 + detalles16 + detalles17 + detalles18 + detalles19 + detalles20 + detalles21 + detalles22 + detalles23 + detalles24 + detalles25 + detalles26 + detalles27 + detalles28 + detalles29 + detalles30 + detalles31+ totalHoras, colWidths=[ 1.5* cm, 2.15 * cm, 2.15 * cm, 2.6 * cm, 2.15* cm, 2.6 * cm, 2.8 * cm, 3.4 * cm,2.15* cm, 2.4 * cm, 2.15 * cm, 3.5 * cm,])
+        detalle_orden = Table([encabezados] + detalles1 + detalles2 + detalles3 + detalles4 + detalles5 + detalles6 +  detalles7 + detalles8 + detalles9 + detalles10 + detalles11 + detalles12 + detalles13 +  detalles14 + detalles15 + detalles16 + detalles17 + detalles18 + detalles19 + detalles20 + detalles21 + detalles22 + detalles23 + detalles24 + detalles25 + detalles26 + detalles27 + detalles28 + detalles29 + detalles30 + detalles31+ totalHoras + total_dominicales_festivos, colWidths=[ 1.5* cm, 2.15 * cm, 2.15 * cm, 2.6 * cm, 2.15* cm, 2.6 * cm, 2.8 * cm, 3.4 * cm,2.15* cm, 2.4 * cm, 2.15 * cm, 3.3 * cm, 2.5 * cm])
+        #detalle_orden.setStyle([('TEXTCOLOR',(0,1),(0,-1), colors.blue), ('TEXTCOLOR', (1,1), (2,-1),colors.green)])
         detalle_orden.setStyle(TableStyle(
             [
                 #La primera fila(encabezados) va a estar centrada
                 ('ALIGN',(0,0),(0,0),'LEFT'),
                 #Los bordes de todas las celdas serán de color negro y con un grosor de 1
-                ('GRID', (0, 0), (-1, -2), 0, colors.black),
+                ('GRID', (0, 0), (-1, -3), 0, colors.black),
                 #El tamaño de las letras de cada una de las celdas será de 10
                 ('FONTSIZE', (0, 0), (0, -38), 4.5)
             ]
         ))
+        #print("FORMATO2", catorce[i.accion_jornada].strftime(formato2), veinte[i.accion_jornada].strftime(formato2), veintiuno[i.accion_jornada].strftime(formato2), uno[i.accion_jornada].strftime(formato2))
+        
+        for d in festivos:
+            if uno['EN'].month ==  d.festivos.month and uno['EN'].year == d.festivos.year:
+                #print("FESTIVOS",d.festivos.day, treintauno['EN'].day)
+                #print("MES", d.festivos.month, treintauno['EN'].month)
+                #print("AÑO", d.festivos.year, treintauno['EN'].year)
+                if d.festivos.day ==  uno['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,1),(11,1),colors.gray)])
+            if dos['EN'].month ==  d.festivos.month and dos['EN'].year == d.festivos.year:
+                if d.festivos.day ==  dos['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,2),(11,2),colors.gray)])
+            if tres['EN'].month ==  d.festivos.month and tres['EN'].year == d.festivos.year:
+                if d.festivos.day == tres['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,3),(11,3),colors.gray)])
+            if cuatro['EN'].month ==  d.festivos.month and cuatro['EN'].year == d.festivos.year:
+                if d.festivos.day == cuatro['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,4),(11,4),colors.gray)])
+            if cinco['EN'].month ==  d.festivos.month and cinco['EN'].year == d.festivos.year:
+                if d.festivos.day ==  cinco['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,5),(11,5),colors.gray)])
+            if seis['EN'].month ==  d.festivos.month and seis['EN'].year == d.festivos.year:
+                if d.festivos.day ==  seis['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,6),(11,6),colors.gray)])        
+            if siete['EN'].month ==  d.festivos.month and siete['EN'].year == d.festivos.year:
+                if d.festivos.day ==  siete['EN'].day:
+                     detalle_orden.setStyle([('BACKGROUND',(0,7),(11,7),colors.gray)])
+            if ocho['EN'].month ==  d.festivos.month and ocho['EN'].year == d.festivos.year:
+                if d.festivos.day == ocho['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,8),(11,8),colors.gray)])
+            if nueve['EN'].month ==  d.festivos.month and nueve['EN'].year == d.festivos.year:
+                if d.festivos.day == nueve['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,9),(11,9),colors.gray)])
+            if diez['EN'].month ==  d.festivos.month and diez['EN'].year == d.festivos.year:
+                if d.festivos.day == diez['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,10),(11,10),colors.gray)])
+            if once['EN'].month ==  d.festivos.month and once['EN'].year == d.festivos.year:
+                if d.festivos.day == once['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,11),(11,11),colors.gray)])
+            if doce['EN'].month ==  d.festivos.month and doce['EN'].year == d.festivos.year:
+                if d.festivos.day == doce['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,12),(11,12),colors.gray)])
+            if trece['EN'].month ==  d.festivos.month and trece['EN'].year == d.festivos.year:
+                if d.festivos.day == trece['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,13),(11,13),colors.gray)])
+            if catorce['EN'].month ==  d.festivos.month and catorce['EN'].year == d.festivos.year:
+                if d.festivos.day == catorce['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,14),(11,14),colors.gray)])        
+            if quince['EN'].month ==  d.festivos.month and quince['EN'].year == d.festivos.year:
+                if d.festivos.day ==  quince['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,15),(11,15),colors.gray)])
+            if dieciseis['EN'].month ==  d.festivos.month and dieciseis['EN'].year == d.festivos.year:
+                if d.festivos.day == dieciseis['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,16),(11,16),colors.gray)])
+            if diecisiete['EN'].month ==  d.festivos.month and diecisiete['EN'].year == d.festivos.year:
+                if d.festivos.day == diecisiete['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,17),(11,17),colors.gray)])
+            if dieciocho['EN'].month ==  d.festivos.month and dieciocho['EN'].year == d.festivos.year:
+                if d.festivos.day ==  dieciocho['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,18),(11,18),colors.gray)])
+            if diecinueve['EN'].month ==  d.festivos.month and diecinueve['EN'].year == d.festivos.year:
+                if d.festivos.day ==  diecinueve['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,19),(11,19),colors.gray)])        
+            if veinte['EN'].month ==  d.festivos.month and veinte['EN'].year == d.festivos.year:
+                if d.festivos.day ==  veinte['EN'].day:
+                     detalle_orden.setStyle([('BACKGROUND',(0,20),(11,20),colors.gray)])
+            if veintiuno['EN'].month ==  d.festivos.month and veintiuno['EN'].year == d.festivos.year:
+                if d.festivos.day == veintiuno['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,21),(11,21),colors.gray)])
+            if veintidos['EN'].month ==  d.festivos.month and veintidos['EN'].year == d.festivos.year:
+                if d.festivos.day == veintidos['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,22),(11,22),colors.gray)])
+            if veintitres['EN'].month ==  d.festivos.month and veintitres['EN'].year == d.festivos.year:
+                if d.festivos.day == veintitres['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,23),(11,23),colors.gray)])
+            if veinticuatro['EN'].month ==  d.festivos.month and veinticuatro['EN'].year == d.festivos.year:
+                if d.festivos.day == veinticuatro['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,24),(11,24),colors.gray)])
+            if veinticinco['EN'].month ==  d.festivos.month and veinticinco['EN'].year == d.festivos.year:
+                if d.festivos.day == veinticinco['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,25),(11,25),colors.gray)])
+            if veintiseis['EN'].month ==  d.festivos.month and veintiseis['EN'].year == d.festivos.year:
+                if d.festivos.day == veintiseis['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,26),(11,26),colors.gray)])
+            if veintisiete['EN'].month ==  d.festivos.month and veintisiete['EN'].year == d.festivos.year:
+                if d.festivos.day == veintisiete['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,27),(11,27),colors.gray)])        
+            if veintiocho['EN'].month ==  d.festivos.month and veintiocho['EN'].year == d.festivos.year:
+                if d.festivos.day == veintiocho['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,28),(11,28),colors.gray)])
+            if veintinueve['EN'].month ==  d.festivos.month and veintinueve['EN'].year == d.festivos.year:
+                if d.festivos.day == veintinueve['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,29),(11,29),colors.gray)])
+            if treinta['EN'].month ==  d.festivos.month and treinta['EN'].year == d.festivos.year:
+                if d.festivos.day == treinta['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,30),(11,30),colors.gray)])
+            if treintauno['EN'].month ==  d.festivos.month and treintauno['EN'].year == d.festivos.year:
+                if d.festivos.day == treintauno['EN'].day:
+                    detalle_orden.setStyle([('BACKGROUND',(0,31),(11,31),colors.gray)])
+        
+        if uno['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,1),(11,1),colors.gray)])
+        if dos['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,2),(11,2),colors.gray)])
+        if tres['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,3),(11,3),colors.gray)])
+        if cuatro['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,4),(11,4),colors.gray)])
+        if cinco['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,5),(11,5),colors.gray)])
+        if seis['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,6),(11,6),colors.gray)])
+        if siete['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,7),(11,7),colors.gray)])
+        if ocho['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,8),(11,8),colors.gray)])    
+        if nueve['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,9),(11,9),colors.gray)])    
+        if diez['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,10),(11,10),colors.gray)])    
+        if once['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,11),(11,11),colors.gray)])    
+        if doce['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,12),(11,12),colors.gray)])    
+        if trece['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,13),(11,13),colors.gray)])      
+        if catorce['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,14),(11,14),colors.gray)])
+        if quince['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,15),(11,15),colors.gray)])    
+        if dieciseis['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,16),(11,16),colors.gray)])    
+        if diecisiete['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,17),(11,17),colors.gray)])    
+        if dieciocho['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,18),(11,18),colors.gray)])      
+        if diecinueve['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,19),(11,19),colors.gray)])    
+        if veinte['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,20),(11,20),colors.gray)])    
+        if veintiuno['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,21),(11,21),colors.gray)])    
+        if veintidos['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,22),(11,22),colors.gray)])
+        if veintitres['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,23),(11,23),colors.gray)])    
+        if veinticuatro['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,24),(11,24),colors.gray)])      
+        if veinticinco['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,25),(11,25),colors.gray)])    
+        if veintiseis['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,26),(11,26),colors.gray)])    
+        if veintisiete['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,27),(11,27),colors.gray)])    
+        if veintiocho['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,28),(11,28),colors.gray)])
+        if veintinueve['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,29),(11,29),colors.gray)])
+        if treinta['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,30),(11,30),colors.gray)])
+        if treintauno['EN'].strftime(formato2) == 'Sun':
+            detalle_orden.setStyle([('BACKGROUND',(0,31),(11,31),colors.gray)])    
         #Establecemos el tamaño de la hoja que ocupará la tabla
         detalle_orden.wrapOn(pdf, 800, 600)
         #Definimos la coordenada donde se dibujará la tabla
-        detalle_orden.drawOn(pdf, 60,30)
+        detalle_orden.drawOn(pdf, 23,25)
 
     def get(self, request, *args, **kwargs):
         #f = request.GET['cedula']

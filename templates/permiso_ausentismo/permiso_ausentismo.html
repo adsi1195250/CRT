@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
 {% block content %}
+{% if request.user.is_authenticated %}
     <style>
         .print {
           position: relative;
@@ -61,8 +61,8 @@
                 <tr class="table-success">
                     <th class="col-md-1 text-center"><strong>Mes</strong></th>
                     <th class="col-md-3 text-center">Colaborador</th>
-                    <th class="col-md-2 text-center">Periodo inicial incapacidad</th>
-                    <th class="col-md-2 text-center">Periodo final incapacidad</th>
+                    <th class="col-md-2 text-center">Periodo inicial </th>
+                    <th class="col-md-2 text-center">Periodo final </th>
 
                     <th class="col-md-1 text-center">Código de diagnostico</th>
                 {% if hay_trabajador %}
@@ -81,8 +81,11 @@
                       <td><a onclick="return abrir_modal('{% url 'detalle_trabajador' objeto.idTrabajador.id %}')" href="#">{{ objeto.idTrabajador.nombres }}</a></td>
                     <td>{{ objeto.periodoIncapacidadInicial }}</td>
                     <td>{{ objeto.periodoIncapacidadFinal }}</td>
-
-                    <td>{{ objeto.codigoDiagnostico }}</td>
+                    {% if objeto.codigoDiagnostico == '' %}
+                        <td>No aplica</td>
+                    {% else %}
+                        <td>{{ objeto.codigoDiagnostico }}</td>
+                    {% endif %}
                     <td>
                         <a style="color: rgba(0,0,0,0.89);" href="#" onclick="return abrir_modal('{% url 'detalle_permiso_ausentismo' objeto.pk %}')" class="btn"> <span class="fa fa-eye"></span></a>
                         <a class="btn" style="color: rgba(0,0,0,0.89);" href="{% url 'editar_permiso_ausentismo' objeto.pk %}"> <span class="fa fa-edit"></span></a>
@@ -99,9 +102,9 @@
               <thead>
                 <tr class="table-success">
                     <th class=" text-center"><strong>Mes</strong></th>
-                    <th class="col-md-4 text-center">Periodo inicial incapacidad</th>
-                    <th class="col-md-3 text-center">Periodo final incapacidad</th>
-                    <th class="col-md-2 text-center">Total días de incapacidad</th>
+                    <th class="col-md-4 text-center">Periodo inicial </th>
+                    <th class="col-md-3 text-center">Periodo final </th>
+                    <th class="col-md-2 text-center">Total de días </th>
                     <th class="col-md-1 text-center">Código de diagnostico</th>
 
                     <th class="col-md-2 text-md-center">
@@ -117,7 +120,7 @@
                             </form>
                             <!--<a class="btn btn-danger" href="#"><span class="fas fa-print"></span></a>-->
                         {% else %}
-
+                            <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
                         {% endif %}
 
                     </th>
@@ -130,8 +133,17 @@
                     <td><strong>{{ objeto.get_mes_evento_display }}</strong></td>
                     <td class="text-md-center">{{ objeto.periodoIncapacidadInicial }}</td>
                     <td class="text-md-center">{{ objeto.periodoIncapacidadFinal }}</td>
-                    <td class="text-md-center">{{ objeto.totalDiasIncapacidad }}</td>
-                    <td class="text-md-center">{{ objeto.codigoDiagnostico }}</td>
+                    {% if objeto.totalDiasIncapacidad == 0 %}
+                        <td class="text-md-center">1</td>
+                        {% else %}
+                        <td class="text-md-center">{{ objeto.totalDiasIncapacidad }}</td>
+                    {% endif %}
+
+                    {% if objeto.codigoDiagnostico == '' %}
+                        <td>No aplica</td>
+                    {% else %}
+                        <td>{{ objeto.codigoDiagnostico }}</td>
+                    {% endif %}
                     <td class="col-md-6">
                         <a onclick="return abrir_modal('{% url 'detalle_permiso_ausentismo' objeto.pk %}')" class="btn"> <span class="fa fa-eye"></span></a>
                         <a class="btn" style="color: rgba(0,0,0,0.89);" href="{% url 'editar_permiso_ausentismo' objeto.pk %}"> <span class="fa fa-edit"></span></a>
@@ -187,6 +199,7 @@
         $("#crear_trabajador").on("click", function () {
            alert("Por favor ingrese un colaborador.");
         });
+
     </script>
     <!--
     <script>
@@ -219,4 +232,10 @@
         }
     </script>
     -->
+  </div>
+{% else %}
+    <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
+        <h2>Por favor iniciar sesión</h2>
+    </div>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,95 @@
+{% load crispy_forms_tags %}
+{% if request.user.is_authenticated %}
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div style="background-color: #4eac92" class="modal-header">
+            <h3 style=""><strong>Festivos</strong></h3>
+            <button type="button" class="close" data-dismiss="modal"><a class="icon-circle-with-cross"></a></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'festivos' %}"  method="POST">{% csrf_token %}
+            <table class="table table-responsive table-hover table-bordered" >
+              <thead>
+                <tr class="table-success">
+                  <th class="col-md-5 ">Días Festivos</th>
+                  <th class="col-md-3 ">
+                    <a  onclick="return abrir_modal('{% url 'crear_festivos' %}')" class="btn btn-secondary"> 
+                      Registrar Festivos
+                    </a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for festivos in object_list %}
+                <h1>{{festivos.day}}</h1>
+                <tr class="table-light table-striped">
+                  <td>{{ festivos.festivos }}</td>
+
+                  <td class="text-xl-center">
+                    <a onclick="return abrir_modal('{% url 'modificar_festivos' festivos.id %}')" class="btn">
+                      <span style="color: rgba(0,0,0,0.8)"  class="icon-edit"></span>
+                    </a>
+                    <a onclick="return abrir_modal('{% url 'eliminar_festivos' festivos.id %}')" class="btn">
+                      <span style="color: rgba(0,0,0,0.8)" class="icon-trash"></span>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+              <!--input type="submit" class="btn btn-secondary" value="Guardar" style="margin-right: 10px;"-->
+          </form>
+           {% if not object_list %}
+            <div style="background-color: rgba(0,0,0,0.53); width: 100%; border-radius: 10px">
+                <h1 style="color: #fefefe"> No existen registros </h1>
+            </div>
+          {% endif %}
+        </div>
+    </div>
+    <div id="popup" class="modal fade" role="dialog">
+
+    </div>
+</div>
+<script>
+    function abrir_modal(url)
+{
+        $('#popup').load(url, function()
+        {
+                $(this).modal('show');
+        });
+        return false;
+
+}
+
+function cerrar_modal()
+{
+        $('#popup').modal('hide');
+        return false;
+
+}
+
+$(document).ready(function()
+{
+    var table = $('#tabla').dataTable( {
+        "language": {
+                url: "/static/localizacion/es_ES.json"
+        }
+    } );
+});
+
+    $( "#datepicker" ).datepicker({
+        inline: true
+    });
+
+    $(document).ready(function(){
+        $("#myBtn").click(function(){
+            $("#myModal").modal({keyboard: true});
+        });
+    });
+</script>
+<!-------------------------------------------------------------------------------------------- -->
+{% else %}
+<div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
+  <h2>Por favor iniciar sesión</h2>
+</div>
+{% endif %}
