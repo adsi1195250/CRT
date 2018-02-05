@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse, response
@@ -9,10 +10,10 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, DeleteView
 from io import BytesIO
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.units import cm
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import cm, inch
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Table, TableStyle
 
@@ -20,6 +21,7 @@ from CRT import settings
 from main.models import Trabajadores
 from permiso_ausentismo.forms import PermisoAusentismoForms
 from permiso_ausentismo.models import PermisoAusentismo
+from excel_response import ExcelResponse
 
 
 def ListarPermisoAusentismo(request):
@@ -35,8 +37,10 @@ def ListarPermisoAusentismo(request):
     # print(mes)
 
     if cedula:
-        listar_permisos = PermisoAusentismo.objects.filter(idTrabajador__cedula=cedula).order_by('mes_evento')
+        listar_permisos = PermisoAusentismo.objects.filter(idTrabajador__cedula=cedula).order_by('-idPermisoAusentismo')
         trabajador = Trabajadores.objects.filter(cedula=cedula)
+    else:
+        listar_permisos = PermisoAusentismo.objects.filter().order_by('-idPermisoAusentismo')
 
 
     if mes and mes != '--':
@@ -51,14 +55,78 @@ def ListarPermisoAusentismo(request):
 
     #print(listar_permisos.values())
     #print(listar_permisos[1].get_mes_evento_display())
-    paginator = Paginator(listar_permisos, 5)
+    paginator = Paginator(listar_permisos, 10)
 
     page = request.GET.get('page')
     listar_permisos = paginator.get_page(page)
 
+    if request.POST.get('excel'):
+        mes = 'Mes'
+        periodo_inicial = 'Periodo inicial'
+        periodo_final = 'Periodo final'
+        total_dias_incapacidad = 'Total días'
+        total_horas = 'Tiempo total'
+        codigo_diagnostico = 'Código de diagnostico'
+        tipo_evento = 'Tipo de evento'
+        observaciones = 'Observaciones'
+        data = []
+        data.append(
+            [mes, periodo_inicial, periodo_final, total_dias_incapacidad, total_horas, tipo_evento, codigo_diagnostico,
+             observaciones])
+        cont = 0
+        for x in listar_permisos.object_list.values():
+            x['mes_evento'] = listar_permisos[cont].get_mes_evento_display()
+            x['totalDiasIncapacidad'] = str(x['totalDiasIncapacidad'])
+            #print(x['totalDiasIncapacidad'])
+            x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
+            #print(x['observaciones'])
+            if x['horaInicial'] != None and x['horaFinal'] != None:
+                print(str(x['horaInicial'])+'   '+str(x['horaFinal']))
+                FMT = '%H:%M:%S'
+                tdelta =datetime.strptime(str(x['horaFinal']),FMT) - datetime.strptime(str(x['horaInicial']),FMT)
+
+            else:
+                tdelta = 'No aplica'
+
+            if x['observaciones'] == None:
+                x['observaciones'] = 'Sin registro'
+            if x['codigoDiagnostico'] == None or x['codigoDiagnostico'] == '':
+                x['codigoDiagnostico'] = 'No aplica'
+            if x['tipo_evento'][0:3] == 'A.C':
+                x['tipo_evento'] = 'A.C'
+            if x['tipo_evento'][0:3] == 'O.E':
+                x['tipo_evento'] = 'O.E'
+            if x['tipo_evento'][0:3] == 'A.T':
+                x['tipo_evento'] = 'A.T'
+            if x['tipo_evento'][0:3] == 'E.L':
+                x['tipo_evento'] = 'E.L'
+
+            permiso=[
+                x["mes_evento"],
+                x["periodoIncapacidadInicial"],
+                x["periodoIncapacidadFinal"],
+                x["totalDiasIncapacidad"],
+                tdelta,
+                x["tipo_evento"],
+                x["codigoDiagnostico"],
+                x["observaciones"].lower(),
+            ]
+
+            nombre_mes = listar_permisos[cont].get_mes_evento_display()
+            cont = cont + 1
+
+            data.append(permiso)
+
+        nombre = str(trabajador.first().nombres)
+        nombre_documento = 'Reporte_de_ausentismo_'+nombre.replace(' ', '_')
+
+        if mes:
+            nombre_documento = 'Reporte_de_ausentismo_' + nombre.replace(' ', '_') + '_del_mes_' + nombre_mes
+
+        return ExcelResponse(data, nombre_documento, nombre)
 
     if request.POST.get('imprimir'):
-        reponse = HttpResponse(content_type='applicacion/pdf')
+        reponse = HttpResponse(content_type='application/pdf')
         # print(request.GET)
         reponse['Content-Disposition'] = 'filename=reporte.pdf'
         buffer = BytesIO()
@@ -92,28 +160,38 @@ def ListarPermisoAusentismo(request):
         periodo_inicial = Paragraph('''Periodo inicial''', styleBH)
         periodo_final = Paragraph('''Periodo final''', styleBH)
         total_dias_incapacidad = Paragraph('''Total días''', styleBH)
+        total_horas = Paragraph('''Tiempo total''', styleBH)
         codigo_diagnostico = Paragraph('''Código de diagnostico''',styleBH)
         tipo_evento = Paragraph('''Tipo de evento''', styleBH)
         observaciones = Paragraph('''Observaciones''',styleBH)
-
         data = []
-        data.append([mes,periodo_inicial,periodo_final,total_dias_incapacidad,tipo_evento,codigo_diagnostico,observaciones])
+        data.append([mes,periodo_inicial,periodo_final,total_dias_incapacidad,total_horas,tipo_evento,codigo_diagnostico,observaciones])
 
         #TABLA
         styleN = styles['BodyText']
         styleN.aligment= TA_CENTER
         styleN.fontSize = 7
 
-        high = 700
+        high = 1000
+
+        p = ParagraphStyle('parrafos',
+                           alignment=TA_LEFT,
+                           fontSize=9,
+                           fontName="Helvetica")
         cont = 0
         for x in listar_permisos.object_list.values():
             x['mes_evento'] = listar_permisos[cont].get_mes_evento_display()
             x['totalDiasIncapacidad'] = str(x['totalDiasIncapacidad'])
-            print(x['totalDiasIncapacidad'])
-            if x['totalDiasIncapacidad'] == '0':
-                x['totalDiasIncapacidad'] = 1
+            #print(x['totalDiasIncapacidad'])
             x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
             #print(x['observaciones'])
+            if x['horaInicial'] != None and x['horaFinal'] != None:
+                print(str(x['horaInicial'])+'   '+str(x['horaFinal']))
+                FMT = '%H:%M:%S'
+                tdelta =datetime.strptime(str(x['horaFinal']),FMT) - datetime.strptime(str(x['horaInicial']),FMT)
+
+            else:
+                tdelta = 'No aplica'
 
             if x['observaciones'] == None:
                 x['observaciones'] = 'Sin registro'
@@ -133,27 +211,155 @@ def ListarPermisoAusentismo(request):
                 x["periodoIncapacidadInicial"],
                 x["periodoIncapacidadFinal"],
                 x["totalDiasIncapacidad"],
+                tdelta,
                 x["tipo_evento"],
                 x["codigoDiagnostico"],
-                Paragraph(x["observaciones"],styles['Normal']),
+                Paragraph(x["observaciones"].lower(),p),
             ]
+            high = high - len(x['observaciones'])
+
             cont = cont + 1
+
             data.append(permiso)
-            high = high - 18
+
+
 
         #TABLA
         width, height =A4
-        table = Table(data,colWidths=[2.1 * cm,2.7 * cm,2.7 * cm,2.9 * cm,1.8 * cm,2.9 * cm,4.8 * cm,4.0 * cm,])
+
+        table = Table(data,colWidths=[2.1 * cm,2.7 * cm,2.7 * cm,1.9 * cm,1.8 * cm,1.8 * cm,2.9 * cm,4.8 * cm,4.0 * cm,])
+
         table.setStyle(TableStyle([#Estilos de la tabla
             ('INNERGRID',(0,0),(-1,-1),0.25,colors.black),
             ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
             #('GRID',(6,1),(6,-1),2,colors.orange),
             ('ALIGN', (3, 0), (5, -1), 'CENTER'),
+
         ]))
 
         table.wrapOn(c,width,height)
-        table.drawOn(c,20,high)
+        if high < 0:
+            high = high * (-1)
 
+
+        if high <= 34 and high >=0:
+            high = 140
+
+        if high <= 150 and high >=35:
+            if high <= 100 and high >=35:
+                high=100
+            else:
+                high = 70
+
+        if high <=350 and high >=151:
+            if high <= 290 and high >= 129:
+                if high <= 220 and high>= 129:
+                    high = 40
+                else:
+                    high = 5
+            else:
+                if high <= 330 and high >= 129:
+                    high = 250
+                else:
+                    high = -40
+
+
+        if high <= 480 and high >= 351:
+            if high <= 380 and high > 351:
+                high = 280
+            else:
+                if high <= 400 and high > 351:
+                    high = 310
+                else:
+                    if high <= 415 and high >= 351:
+                        high = 300
+                    else:
+                        if high <= 430 and high > 351:
+
+                            high = 300
+                        else:
+                            if high <= 457 and high > 351:
+                                high = 310
+                            else:
+                                if high <= 480 and high > 351:
+                                    high = 320
+                                else:
+                                    high = 400
+
+        if high <= 560 and high >= 481:
+            if high <= 500 and high >= 481:
+                high = 360
+            else:
+                if high <= 540 and high > 481:
+                    high = 360
+                else:
+                    if high <= 550 and high > 481:
+                        high = 370
+                    else:
+                        high = 350
+
+        if high <= 634 and high >= 561:
+            if high <= 570 and high >=561:
+                high = 430
+            else:
+                if high <= 630 and high >=561:
+                    if high <= 610 and high >=561:
+                        high = 380
+                    else:
+                        high = 420
+                else:
+
+                    high = 450
+
+        if high <= 771 and high >= 635:
+            if high <= 680 and high >= 635:
+                if high <= 640 and high >=635:
+                    high = 430
+                else:
+                    if high <= 660 and high >= 635:
+                        high = 420
+                    else:
+                        high = 400
+            else:
+                if high <= 672 and high >= 635:
+                    high = 480
+                else:
+                    if high <= 770 and high >= 635:
+                        if high <= 690 and high >= 635:
+                            high = 440
+                        else:
+                            if high <= 730 and high >= 635:
+                                high = 440
+                            else:
+                                high = 430
+                    else:
+                        high = 540
+
+        if high <= 860 and high >= 772:
+            if high <= 810 and high >=722:
+
+                if high <= 790 and high >= 722:
+                    high = 500
+                else:
+                    high = 540
+            else:
+                if high <= 840 and high >= 722:
+                    high = 480
+                else:
+                    high = 580
+
+        if high <= 950 and high >=831:
+            if high <= 880 and high >831:
+                high  = 480
+            else:
+                high = 650
+
+        if high <= 1000 and high >=951:
+            high = 680
+
+        table.drawOn(c,5,high)
+        print('-----')
+        print(high)
         c.showPage()
         c.save()
         pdf = buffer.getvalue()
@@ -223,7 +429,7 @@ def CrearPermisoAusentismo(request):
         if form.is_valid():
 
             if form.cleaned_data['observaciones'] == None:
-                print('awdad')
+                #print('awdad')
                 form.initial={'observaciones':'Sin observaciones.'}
             instance = form.save(commit=False)
             instance.save()

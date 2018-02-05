@@ -33,11 +33,8 @@
                     <p style="">{{ object.diasCargados }}</p>
                      <p style="">{{ object.periodoIncapacidadInicial }}</p>
                     <p style="">{{ object.periodoIncapacidadFinal }}</p>
-                    {% if object.totalDiasIncapacidad  == 0%}
-                        <p style="">1</p>
-                    {% else %}
-                        <p style="">{{ object.totalDiasIncapacidad }}</p>
-                    {% endif %}
+                     <p style="">{{ object.totalDiasIncapacidad }}</p>
+
                      {% if object.observaciones == None %}
                         <p style="">Sin registro</p>
                      {% else %}
