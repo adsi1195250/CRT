@@ -19,8 +19,10 @@ class PermisoAusentismoForms(forms.ModelForm):
             #'totalHoras': 'TOTAL DE HORAS',
             'periodoIncapacidadInicial': 'Periodo inicial',
             'periodoIncapacidadFinal': 'Periodo final',
-            'totalDiasIncapacidad': 'Total de días',
-            'diasCargados':'Días cargados ',
+            'totalDiasIncapacidad': 'Total días',
+            'diasCargados':'Días cargados',
+            'horaInicial': 'Hora inicial',
+            'horaFinal':'Hora final',
             'prorroga':'Prorroga',
             'codigoDiagnostico': 'Código de diagnostico ',
             'observaciones': 'Observaciones ',
@@ -30,6 +32,8 @@ class PermisoAusentismoForms(forms.ModelForm):
         widgets = {
             'periodoIncapacidadInicial': forms.TextInput(attrs={'class': 'form-control', 'type': 'date', }),
             'periodoIncapacidadFinal': forms.TextInput(attrs={'class': 'form-control', 'type': 'date', }),
+            'horaInicial': forms.TextInput(attrs={'class': 'form-control', 'type': 'time', }),
+            'horaFinal': forms.TextInput(attrs={'class': 'form-control', 'type': 'time', }),
         }
 
 
@@ -41,6 +45,7 @@ class PermisoAusentismoForms(forms.ModelForm):
         # self.helper.form_class = 'form-inline'
         self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.form_class = 'form-horizontal'
+
         self.helper.layout = Layout(
             Div(
                 Div(Field('mes_evento'),css_class='col-md-2'),
@@ -53,16 +58,19 @@ class PermisoAusentismoForms(forms.ModelForm):
                 #Div(Field('periodoIncapacidadInicial'), css_class='col-md-3', ),
                 Div(
                     Div(Field('periodoIncapacidadInicial'), css_class='', ),
-                css_class='col-md-3'),
+                css_class='col-sm-2'),
                 Div(
                     Div(Field('periodoIncapacidadFinal'), css_class='', ),
-                css_class='col-md-3'),
+                css_class='col-sm-2'),
                 # HTML('<p>Date: <input name="fechaIngreso" type="text" id="id_date"></p>'),
                 #Div(Field('periodoIncapacidadFinal'), css_class='col-md-3', ),
 
-                Div(Field('prorroga'), css_class='col-md-1', ),
-                Div(Field('totalDiasIncapacidad'), css_class='col-md-3', ),
-                Div(Field('diasCargados'), css_class='col-md-2', ),
+                Div(Field('prorroga'), css_class='col-sm-1', ),
+                Div(Field('totalDiasIncapacidad',type="hidden"), css_class='col-sm-1', ),
+
+                Div(Field('diasCargados'), css_class='col-sm-2', ),
+                Div(Field('horaInicial'), css_class='col-sm-2', ),
+                Div(Field('horaFinal'), css_class='col-sm-2', ),
                 css_class='row',style='',
             ),
             Div(
@@ -89,6 +97,14 @@ class PermisoAusentismoForms(forms.ModelForm):
         periodoIncapacidadFinal=self.cleaned_data['periodoIncapacidadFinal']
         return periodoIncapacidadFinal
 
+    def clean_horaInicial(self):
+        horaInicial = self.cleaned_data['horaInicial']
+        return horaInicial
+
+    def clean_horaFinal(self):
+        horaFinal = self.cleaned_data['horaFinal']
+        return horaFinal
+
     def clean(self):
         clean_data= super().clean()
         periodoIncapacidadInicial = clean_data.get('periodoIncapacidadInicial')
@@ -98,7 +114,7 @@ class PermisoAusentismoForms(forms.ModelForm):
             if periodoIncapacidadFinal < periodoIncapacidadInicial:
                 raise ValidationError('El periodo final no puede ser menor o igual al periodo inicial')
         elif periodoIncapacidadFinal == None and periodoIncapacidadInicial == None:
-            print('entro')
+
             raise ValidationError('Ingrese el periodo inicial y el periodo final')
         else:
             if periodoIncapacidadInicial == None:
@@ -107,6 +123,12 @@ class PermisoAusentismoForms(forms.ModelForm):
             if periodoIncapacidadFinal == None:
                 raise ValidationError('Ingrese el periodo Final')
 
-
+        horaInicial = clean_data.get('horaInicial')
+        horaFinal = clean_data.get('horaFinal')
+        try:
+            if horaInicial >= horaFinal:
+                raise ValidationError('La hora inicial debe ser mayor a la hora final.')
+        except TypeError:
+            pass
 
 

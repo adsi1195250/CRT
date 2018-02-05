@@ -1,23 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <style>
-        .print {
-          position: relative;
-          color: #aaa;
-          font-size: 16px;
-        }
 
-        .print input {
-            width: 45px;
-        }
-        .print .fa-print {
-            color: #fefefe;
-          position: absolute;
-          top: 10px;
-          left: 110px;
-        }
-    </style>
 
     <div class="container">
         <div class="row" style="background-color: rgba(0,0,0,0.53);border-radius: 10px;">
@@ -25,6 +9,7 @@
                 <div>
                   <h1 style="color: #abebc6; text-align:left; padding:10px;">Permiso ausentismo  {%if trabajador%} de <strong>  {% for x in trabajador %} {{ x.nombres }}{% endfor %}  {%endif%} </strong></h1>
                 </div>
+
             </div>
             <div class="col-md-7">
                 <form action="." method="GET" style="text-align:right; padding:20px;">
@@ -49,6 +34,15 @@
                     <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
                     <input type="submit" style="height: 33px" value="Cargar" class="btn btn-primary"/>
                 </form>
+                {% if  trabajador %}
+                    <div style="float: right;margin-top: 10px">
+                        <form method="post" action=" ">{% csrf_token %}
+                            <input class="btn btn-danger" name="excel" type="submit" value="excel">
+                            <input class="btn btn-danger" name="imprimir" type="submit" value="pdf">
+                        </form>
+                    </div>
+
+                {% endif %}
             </div>
         </div>
 
@@ -63,7 +57,6 @@
                     <th class="col-md-3 text-center">Colaborador</th>
                     <th class="col-md-2 text-center">Periodo inicial </th>
                     <th class="col-md-2 text-center">Periodo final </th>
-
                     <th class="col-md-1 text-center">Código de diagnostico</th>
                 {% if hay_trabajador %}
                     <th class="col-md-2 text-md-center"><a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a></th>
@@ -111,13 +104,7 @@
 
                         {% if listar_permisos %}
                             <!--<a class="btn btn-danger" onclick="AjaxFormSubmit()" href="#"><span class="fas fa-print"></span></a>-->
-                            <form method="post" action=" ">{% csrf_token %}
-                                <div class="print">
-                                    <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
-                                  <span class="fas fa-print"></span>
-                                  <input class="btn btn-danger" name="imprimir" type="submit" value=".">
-                                </div>
-                            </form>
+                            <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
                             <!--<a class="btn btn-danger" href="#"><span class="fas fa-print"></span></a>-->
                         {% else %}
                             <a href="{% url 'crear_permiso_ausentismo' %}"  class="btn btn-secondary "><span class="fas fa-plus-circle"></span> Crear</a>
@@ -133,12 +120,7 @@
                     <td><strong>{{ objeto.get_mes_evento_display }}</strong></td>
                     <td class="text-md-center">{{ objeto.periodoIncapacidadInicial }}</td>
                     <td class="text-md-center">{{ objeto.periodoIncapacidadFinal }}</td>
-                    {% if objeto.totalDiasIncapacidad == 0 %}
-                        <td class="text-md-center">1</td>
-                        {% else %}
                         <td class="text-md-center">{{ objeto.totalDiasIncapacidad }}</td>
-                    {% endif %}
-
                     {% if objeto.codigoDiagnostico == '' %}
                         <td>No aplica</td>
                     {% else %}

@@ -157,9 +157,9 @@ LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Bogota'
 
 
-USE_I18N = True
+USE_I18N = False
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

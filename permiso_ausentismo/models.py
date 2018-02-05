@@ -43,8 +43,10 @@ class PermisoAusentismo(models.Model):
     prorroga = models.PositiveSmallIntegerField(default=0)
     totalDiasIncapacidad = models.PositiveSmallIntegerField(default=0)
     diasCargados = models.PositiveSmallIntegerField(default=0)
+    horaInicial = models.TimeField(null=True,blank=True,)
+    horaFinal = models.TimeField(null=True, blank=True,)
     codigoDiagnostico = models.CharField(max_length=4,null=False,blank=True)
-    observaciones = models.CharField(max_length=500,blank=True,null=True,default='')
+    observaciones = models.CharField(max_length=150,blank=True,null=True,default='')
     idTrabajador = models.ForeignKey(Trabajadores, on_delete= models.CASCADE)
     def __str__(self):
         return '%s'%self.idPermisoAusentismo

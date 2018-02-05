@@ -74,8 +74,9 @@ function getCookie(name) {
                 }
                 $( "a" ).click(function() {
                     var text = $( this ).text();
+                    console.log(json['codigos'][text]);
                     $( "#id_codigoDiagnostico" ).val( text );
-
+                    $( "#id_observaciones" ).val(json['codigos'][text]);
                 });
 
             },
