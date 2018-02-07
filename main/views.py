@@ -201,6 +201,7 @@ class listarInformeIO(ListView):
                 treintauno = {}
                 self.b= []
                 hoy = datetime.today()  # Asigna fecha-hora
+                formato3 = "%H:%M"
                 for i in q:
                     mes1 = i
                     for mes in filtroMes:
@@ -1755,8 +1756,8 @@ class ReportePersonasPDF(View):
             min_domi_fes -=60
     
         if seis['EN'].day == 6:
-            seis6= seis6['EN'].strftime(formato2)
-            detalle6 = [('6 '+ seis6, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
+            seis6= seis['EN'].strftime(formato2)
+            detalles6 = [('6 '+ seis6, la, la1, la2, la3, la4, la5, la6, la7,la8, la9, "Horas: "+ str(horaTotal) + " Min: "+ str(minutosTotal))]
         else:
             detalles6 = [(6 , 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA')]
 

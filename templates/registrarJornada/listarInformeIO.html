@@ -18,20 +18,20 @@
                       <form action="." method="GET" >
                         {% csrf_token %}
                         <select name="mes" required="" id="">
-                          <option value="1" select="">Enero</option>
-                          <option value="2">Febrero</option>
-                          <option value="3">Marzo</option>
-                          <option value="4">Abril</option>
-                          <option value="5">Mayo</option>
-                          <option value="6">Junio</option>
-                          <option value="7">Julio</option>
-                          <option value="8">Agosto</option>
-                          <option value="9">Septiembre</option>
-                          <option value="10">Octubre</option>
-                          <option value="11">Noviembre</option>
-                          <option value="12">Diciembre</option>
+                          <option value="1" {% if request.GET.mes == '1' %} selected {% endif %}>Enero</option>
+                          <option value="2" {% if request.GET.mes == '2' %} selected {% endif %}>Febrero</option>
+                          <option value="3" {% if request.GET.mes == '3' %} selected {% endif %}>Marzo</option>
+                          <option value="4" {% if request.GET.mes == '4' %} selected {% endif %}>Abril</option>
+                          <option value="5" {% if request.GET.mes == '5' %} selected {% endif %}>Mayo</option>
+                          <option value="6" {% if request.GET.mes == '6' %} selected {% endif %}>Junio</option>
+                          <option value="7" {% if request.GET.mes == '7' %} selected {% endif %}>Julio</option>
+                          <option value="8" {% if request.GET.mes == '8' %} selected {% endif %}>Agosto</option>
+                          <option value="9" {% if request.GET.mes == '9' %} selected {% endif %}>Septiembre</option>
+                          <option value="10" {% if request.GET.mes == '10' %} selected {% endif %}>Octubre</option>
+                          <option value="11" {% if request.GET.mes == '11' %} selected {% endif %}>Noviembre</option>
+                          <option value="12" {% if request.GET.mes == '12' %} selected {% endif %}>Diciembre</option>
                         </select>
-                        <input type="text" name="cedula" id="prueba" value="" placeholder="Ingrese la cédula del colaborador"  onkeypress="return valida(event)"/>
+                        <input type="text" name="cedula" id="prueba" value="{{request.GET.cedula}}" placeholder="Ingrese la cédula del colaborador"  onkeypress="return valida(event)"/>
                         <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
                         <input type="submit" value="Cargar" class="btn btn-primary"/>
                       </form>
@@ -43,40 +43,40 @@
                 {%if a.cedula and a.mes %}
                      <!--h1>{{object_list}}</h1-->
                      <div id="report">
-                              <form action="/report/" method="get">
-                                  <input type="hidden" name="cedula" {%if object_list%} {%for a in object_list%} value="{{a.cedula}}"  {% endfor %}  {%endif%}>
-                                    <input type="hidden" name="mes" {%if object_list%} {%for a in object_list%} value="{{a.mes}}"  {% endfor %}  {%endif%}>
-                                    <input type="hidden" name="año" {%if object_list%} {%for a in object_list%} value="{{a.year}}"  {% endfor %}  {%endif%}>
-                                    {% for a in object_list %}
-                                        {% if a.mes == 1 %}
-                                            <input type="hidden" name="mes1"  value="ENERO">
-                                        {% elif a.mes == 2 %}
-                                            <input type="hidden" name="mes1"  value="FEBRERO">
-                                        {% elif a.mes == 3 %}
-                                            <input type="hidden" name="mes1"  value="MARZO">
-                                        {% elif a.mes == 4 %}
-                                            <input type="hidden" name="mes1"  value="ABRIL">
-                                        {% elif a.mes == 5 %}
-                                            <input type="hidden" name="mes1"  value="MAYO">
-                                        {% elif a.mes == 6 %}
-                                            <input type="hidden" name="mes1"  value="JUNIO">
-                                        {% elif a.mes == 7 %}
-                                            <input type="hidden" name="mes1"  value="JULIO">
-                                        {% elif a.mes == 8 %}
-                                            <input type="hidden" name="mes1"  value="AGOSTO">
-                                        {% elif a.mes == 9 %}
-                                            <input type="hidden" name="mes1"  value="SEPTIEMBRE">
-                                        {% elif a.mes == 10 %}
-                                            <input type="hidden" name="mes1"  value="OCTUBRE">
-                                        {% elif a.mes == 11 %}
-                                            <input type="hidden" name="mes1"  value="NOVIEMBRE">
-                                        {% elif a.mes == 12 %}
-                                            <input type="hidden" name="mes1"  value="DICIEMBRE">
-                                        {% endif %}
-                                    {% endfor %}    
-                                  <button type="submit" value="Imprimir" class="btn btn-secondary pulso" >Imprimir</button>
-                              </form>
-                          </div>
+                        <form action="/report/" method="get">
+                            <input type="hidden" name="cedula" {%if object_list%} {%for a in object_list%} value="{{a.cedula}}"  {% endfor %}  {%endif%}>
+                              <input type="hidden" name="mes" {%if object_list%} {%for a in object_list%} value="{{a.mes}}"  {% endfor %}  {%endif%}>
+                              <input type="hidden" name="año" {%if object_list%} {%for a in object_list%} value="{{a.year}}"  {% endfor %}  {%endif%}>
+                              {% for a in object_list %}
+                                  {% if a.mes == 1 %}
+                                      <input type="hidden" name="mes1"  value="ENERO">
+                                  {% elif a.mes == 2 %}
+                                      <input type="hidden" name="mes1"  value="FEBRERO">
+                                  {% elif a.mes == 3 %}
+                                      <input type="hidden" name="mes1"  value="MARZO">
+                                  {% elif a.mes == 4 %}
+                                      <input type="hidden" name="mes1"  value="ABRIL">
+                                  {% elif a.mes == 5 %}
+                                      <input type="hidden" name="mes1"  value="MAYO">
+                                  {% elif a.mes == 6 %}
+                                      <input type="hidden" name="mes1"  value="JUNIO">
+                                  {% elif a.mes == 7 %}
+                                      <input type="hidden" name="mes1"  value="JULIO">
+                                  {% elif a.mes == 8 %}
+                                      <input type="hidden" name="mes1"  value="AGOSTO">
+                                  {% elif a.mes == 9 %}
+                                      <input type="hidden" name="mes1"  value="SEPTIEMBRE">
+                                  {% elif a.mes == 10 %}
+                                      <input type="hidden" name="mes1"  value="OCTUBRE">
+                                  {% elif a.mes == 11 %}
+                                      <input type="hidden" name="mes1"  value="NOVIEMBRE">
+                                  {% elif a.mes == 12 %}
+                                      <input type="hidden" name="mes1"  value="DICIEMBRE">
+                                  {% endif %}
+                              {% endfor %}    
+                            <button type="submit" value="Imprimir" class="btn btn-secondary pulso" >Imprimir</button>
+                        </form>
+                    </div>
                 {% endif %}
               {% endfor %}
             </div>
@@ -105,48 +105,48 @@
                            <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Enero</FONT>
                         </div>
                     {% elif a.mes == 2 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Febrero</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Febrero</FONT>
                         </div>
                     {% elif a.mes == 3 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Marzo</h2>
+                         <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Marzo</FONT>
                         </div>
                     {% elif a.mes == 4 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Abril</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Abril</FONT>
                         </div>
                     {% elif a.mes == 5 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Mayo</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Mayo</FONT>
                         </div>
                     {% elif a.mes == 6 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                           <h2 style="color: #abebc6;">Búsqueda mes de: Junio</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Junio</FONT>
                         </div>
                     {% elif a.mes == 7 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Julio</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Julio</FONT>
                         </div>
                     {% elif a.mes == 8 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Agosto</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Agosto</FONT>
                         </div>
                     {% elif a.mes == 9 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Septiembre</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Septiembre</FONT>
                         </div>
                     {% elif a.mes == 10 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Octubre</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Octubre</FONT>
                         </div>
                     {% elif a.mes == 11 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Noviembre</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Noviembre</FONT>
                         </div>
                     {% elif a.mes == 12 %}
-                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 40px; border-radius: 10px;">
-                          <h2 style="color: #abebc6;">Búsqueda mes de: Diciembre</h2>
+                        <div style="background-color: rgba(0,0,0,0.53); margin-bottom: 10px; width: 100%; height: 50px; border-radius: 10px; margin-top: 10px;text-align: center;">
+                          <FONT size=6 FACE="times new roman" style="color: #abebc6; font-style: italic;">Búsqueda mes de: Diciembre</FONT>
                         </div>
                     {% endif %}
                   {% endfor %}
@@ -490,12 +490,6 @@
                             {% else %}
                                 <td>No hay registro</td>
                           {% endif %}
-                          <td>
-                            Horas Trabajadas
-                          </td>
-                          <td>
-                            Horas Descansadas
-                          </td>
                         </tr>
                       {% endif %}
     
