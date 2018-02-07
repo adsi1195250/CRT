@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-  {% if request.user.is_authenticated %}
     <div style="padding-top: 50px"></div>
       <div class="container" style="background-color: #fefefe;border-radius: 10px;">
                 <!--
@@ -28,11 +27,6 @@
                 </form>
             </div>
         </div>
-      </div>
-      <script src="{% static 'js/trabajadores.js' %}"></script>
-  {% else %}
-    <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
-      <h2>Por favor iniciar sesión</h2>
-    </div>
-  {% endif %}
+  </div>
+    <script src="{% static 'js/trabajadores.js' %}"></script>
 {% endblock %}

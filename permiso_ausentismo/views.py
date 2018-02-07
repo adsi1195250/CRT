@@ -44,12 +44,11 @@ def ListarPermisoAusentismo(request):
 
 
     if mes and mes != '--':
-
-        listar_permisos = PermisoAusentismo.objects.filter(mes_evento=mes).order_by('mes_evento')
+        listar_permisos = PermisoAusentismo.objects.filter(periodoIncapacidadInicial__month=mes).order_by('periodoIncapacidadInicial')
 
 
     if mes and mes != '--' and cedula:
-        listar_permisos = PermisoAusentismo.objects.filter(mes_evento=mes, idTrabajador__cedula=cedula).order_by('mes_evento')
+        listar_permisos = PermisoAusentismo.objects.filter(periodoIncapacidadInicial__month=mes, idTrabajador__cedula=cedula).order_by('periodoIncapacidadInicial')
 
 
 
@@ -59,7 +58,7 @@ def ListarPermisoAusentismo(request):
 
     page = request.GET.get('page')
     listar_permisos = paginator.get_page(page)
-
+    permiso=['']
     if request.POST.get('excel'):
         mes = 'Mes'
         periodo_inicial = 'Periodo inicial'
@@ -74,9 +73,13 @@ def ListarPermisoAusentismo(request):
             [mes, periodo_inicial, periodo_final, total_dias_incapacidad, total_horas, tipo_evento, codigo_diagnostico,
              observaciones])
         cont = 0
+        nombre_mes="ENERO"
         for x in listar_permisos.object_list.values():
-            x['mes_evento'] = listar_permisos[cont].get_mes_evento_display()
+            #x['mes_evento'] = listar_permisos[cont].get_mes_evento_display()
+            nombre_mes = str(x["periodoIncapacidadInicial"]),
             x['totalDiasIncapacidad'] = str(x['totalDiasIncapacidad'])
+            if x['totalDiasIncapacidad'] == '0':
+                x['totalDiasIncapacidad'] = 'No aplica'
             #print(x['totalDiasIncapacidad'])
             x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
             #print(x['observaciones'])
@@ -101,8 +104,9 @@ def ListarPermisoAusentismo(request):
             if x['tipo_evento'][0:3] == 'E.L':
                 x['tipo_evento'] = 'E.L'
 
+            formato = '%B'
             permiso=[
-                x["mes_evento"],
+                x["periodoIncapacidadInicial"].strftime(formato),
                 x["periodoIncapacidadInicial"],
                 x["periodoIncapacidadFinal"],
                 x["totalDiasIncapacidad"],
@@ -112,261 +116,287 @@ def ListarPermisoAusentismo(request):
                 x["observaciones"].lower(),
             ]
 
-            nombre_mes = listar_permisos[cont].get_mes_evento_display()
+            #nombre_mes = listar_permisos[cont].get_mes_evento_display()
             cont = cont + 1
 
             data.append(permiso)
 
-        nombre = str(trabajador.first().nombres)
-        nombre_documento = 'Reporte_de_ausentismo_'+nombre.replace(' ', '_')
+        nombre=''
+
+        nombre_documento='Reporte_de_ausentismo'
+        if trabajador:
+            nombre = str(trabajador.first().nombres)
+            nombre_documento = 'Reporte_de_ausentismo_'+nombre.replace(' ', '_')
+            if mes:
+                nombre_documento = 'Reporte_de_ausentismo_' + nombre.replace(' ', '_') + '_del_mes_' + permiso[0]
 
         if mes:
-            nombre_documento = 'Reporte_de_ausentismo_' + nombre.replace(' ', '_') + '_del_mes_' + nombre_mes
+            nombre_documento = 'Reporte_de_ausentismo_del_mes_' + permiso[0]
 
         return ExcelResponse(data, nombre_documento, nombre)
 
     if request.POST.get('imprimir'):
-        reponse = HttpResponse(content_type='application/pdf')
-        # print(request.GET)
-        reponse['Content-Disposition'] = 'filename=reporte.pdf'
-        buffer = BytesIO()
-        c = canvas.Canvas(buffer, pagesize=A4)
+        if trabajador:
+            reponse = HttpResponse(content_type='application/pdf')
+            # print(request.GET)
+            reponse['Content-Disposition'] = 'filename=reporte.pdf'
+            buffer = BytesIO()
+            c = canvas.Canvas(buffer, pagesize=A4)
 
-        # CABECERA DEL ARCHIVO
-        archivo_imagen = settings.STATIC_ROOT + '/img/index.jpg'
-        c.drawImage(archivo_imagen, 20, 750, 120, 80, preserveAspectRatio=True)
-        c.setFont("Helvetica", 20)
-        # Dibujamos una cadena en la ubicación X,Y especificada
-        c.drawString(150, 800, u"Siete Colinas S.A.S")
-        c.line(150, 795, 345, 795)
-        c.setFont("Helvetica", 10)
-        c.drawString(150, 780, u"REPORTE PERMISO DE AUSENTISMO")
-        c.setFont("Helvetica", 15)
-        c.drawString(430, 810, u"Colaborador:")
-        c.setFont("Helvetica", 14)
-        c.drawString(380, 794, str(trabajador.first()))
-        c.setFont("Helvetica", 15)
-        c.drawString(447, 773, u"Cedula:")
-        c.setFont("Helvetica", 14)
-        c.drawString(435, 756, cedula)
+            # CABECERA DEL ARCHIVO
+            archivo_imagen = settings.STATIC_ROOT + '/img/index.jpg'
+            c.drawImage(archivo_imagen, 20, 750, 120, 80, preserveAspectRatio=True)
+            c.setFont("Helvetica", 20)
+            # Dibujamos una cadena en la ubicación X,Y especificada
+            c.drawString(150, 800, u"Siete Colinas S.A.S")
+            c.line(150, 795, 345, 795)
+            c.setFont("Helvetica", 10)
+            c.drawString(150, 780, u"REPORTE PERMISO DE AUSENTISMO")
+            c.setFont("Helvetica", 15)
+            c.drawString(430, 810, u"Colaborador:")
+            c.setFont("Helvetica", 14)
+            c.drawString(380, 794, str(trabajador.first()))
+            c.setFont("Helvetica", 15)
+            c.drawString(447, 773, u"Cedula:")
+            c.setFont("Helvetica", 14)
+            c.drawString(435, 756, cedula)
 
-        #CABECERA DE LA TABLA
-        styles = getSampleStyleSheet()
-        styleBH = styles['Normal']
-        styleBH.aligment = TA_CENTER
-        styleBH.fontSize = 10
+            #CABECERA DE LA TABLA
+            styles = getSampleStyleSheet()
+            styleBH = styles['Normal']
+            styleBH.aligment = TA_CENTER
+            styleBH.fontSize = 10
 
-        mes = Paragraph('''Mes''',styleBH)
-        periodo_inicial = Paragraph('''Periodo inicial''', styleBH)
-        periodo_final = Paragraph('''Periodo final''', styleBH)
-        total_dias_incapacidad = Paragraph('''Total días''', styleBH)
-        total_horas = Paragraph('''Tiempo total''', styleBH)
-        codigo_diagnostico = Paragraph('''Código de diagnostico''',styleBH)
-        tipo_evento = Paragraph('''Tipo de evento''', styleBH)
-        observaciones = Paragraph('''Observaciones''',styleBH)
-        data = []
-        data.append([mes,periodo_inicial,periodo_final,total_dias_incapacidad,total_horas,tipo_evento,codigo_diagnostico,observaciones])
+            mes = Paragraph('''Mes''',styleBH)
+            periodo_inicial = Paragraph('''Periodo inicial''', styleBH)
+            periodo_final = Paragraph('''Periodo final''', styleBH)
+            total_dias_incapacidad = Paragraph('''Total días''', styleBH)
+            total_horas = Paragraph('''Tiempo total''', styleBH)
+            codigo_diagnostico = Paragraph('''Código de diagnostico''',styleBH)
+            tipo_evento = Paragraph('''Tipo de evento''', styleBH)
+            observaciones = Paragraph('''Observaciones''',styleBH)
+            data = []
+            data.append([mes,periodo_inicial,periodo_final,total_dias_incapacidad,total_horas,tipo_evento,codigo_diagnostico,observaciones])
 
-        #TABLA
-        styleN = styles['BodyText']
-        styleN.aligment= TA_CENTER
-        styleN.fontSize = 7
+            #TABLA
+            styleN = styles['BodyText']
+            styleN.aligment= TA_CENTER
+            styleN.fontSize = 7
 
-        high = 1000
+            high = 618
 
-        p = ParagraphStyle('parrafos',
-                           alignment=TA_LEFT,
-                           fontSize=9,
-                           fontName="Helvetica")
-        cont = 0
-        for x in listar_permisos.object_list.values():
-            x['mes_evento'] = listar_permisos[cont].get_mes_evento_display()
-            x['totalDiasIncapacidad'] = str(x['totalDiasIncapacidad'])
-            #print(x['totalDiasIncapacidad'])
-            x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
-            #print(x['observaciones'])
-            if x['horaInicial'] != None and x['horaFinal'] != None:
-                print(str(x['horaInicial'])+'   '+str(x['horaFinal']))
-                FMT = '%H:%M:%S'
-                tdelta =datetime.strptime(str(x['horaFinal']),FMT) - datetime.strptime(str(x['horaInicial']),FMT)
+            p = ParagraphStyle('parrafos',
+                               alignment=TA_LEFT,
+                               fontSize=9,
+                               fontName="Helvetica")
+            cont = 0
+            nombre_mes = ''
+            for x in listar_permisos.object_list.values():
+                #nombre_mes = x["periodoIncapacidadInicial"],
+                x['totalDiasIncapacidad'] = str(x['totalDiasIncapacidad'])
+                if x['totalDiasIncapacidad'] == '0':
+                    x['totalDiasIncapacidad'] = 'No aplica'
+                #print(x['totalDiasIncapacidad'])
+                x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
+                #print(x['observaciones'])
+                if x['horaInicial'] != None and x['horaFinal'] != None:
+                    print(str(x['horaInicial'])+'   '+str(x['horaFinal']))
+                    FMT = '%H:%M:%S'
+                    tdelta =datetime.strptime(str(x['horaFinal']),FMT) - datetime.strptime(str(x['horaInicial']),FMT)
 
-            else:
-                tdelta = 'No aplica'
-
-            if x['observaciones'] == None:
-                x['observaciones'] = 'Sin registro'
-            if x['codigoDiagnostico'] == None or x['codigoDiagnostico'] == '':
-                x['codigoDiagnostico'] = 'No aplica'
-            if x['tipo_evento'][0:3] == 'A.C':
-                x['tipo_evento'] = 'A.C'
-            if x['tipo_evento'][0:3] == 'O.E':
-                x['tipo_evento'] = 'O.E'
-            if x['tipo_evento'][0:3] == 'A.T':
-                x['tipo_evento'] = 'A.T'
-            if x['tipo_evento'][0:3] == 'E.L':
-                x['tipo_evento'] = 'E.L'
-
-            permiso=[
-                x["mes_evento"],
-                x["periodoIncapacidadInicial"],
-                x["periodoIncapacidadFinal"],
-                x["totalDiasIncapacidad"],
-                tdelta,
-                x["tipo_evento"],
-                x["codigoDiagnostico"],
-                Paragraph(x["observaciones"].lower(),p),
-            ]
-            high = high - len(x['observaciones'])
-
-            cont = cont + 1
-
-            data.append(permiso)
-
-
-
-        #TABLA
-        width, height =A4
-
-        table = Table(data,colWidths=[2.1 * cm,2.7 * cm,2.7 * cm,1.9 * cm,1.8 * cm,1.8 * cm,2.9 * cm,4.8 * cm,4.0 * cm,])
-
-        table.setStyle(TableStyle([#Estilos de la tabla
-            ('INNERGRID',(0,0),(-1,-1),0.25,colors.black),
-            ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
-            #('GRID',(6,1),(6,-1),2,colors.orange),
-            ('ALIGN', (3, 0), (5, -1), 'CENTER'),
-
-        ]))
-
-        table.wrapOn(c,width,height)
-        if high < 0:
-            high = high * (-1)
-
-
-        if high <= 34 and high >=0:
-            high = 140
-
-        if high <= 150 and high >=35:
-            if high <= 100 and high >=35:
-                high=100
-            else:
-                high = 70
-
-        if high <=350 and high >=151:
-            if high <= 290 and high >= 129:
-                if high <= 220 and high>= 129:
-                    high = 40
                 else:
-                    high = 5
-            else:
-                if high <= 330 and high >= 129:
-                    high = 250
+                    tdelta = 'No aplica'
+
+                if x['observaciones'] == None:
+                    x['observaciones'] = 'Sin registro'
+                if x['codigoDiagnostico'] == None or x['codigoDiagnostico'] == '':
+                    x['codigoDiagnostico'] = 'No aplica'
+                if x['tipo_evento'][0:3] == 'A.C':
+                    x['tipo_evento'] = 'A.C'
+                if x['tipo_evento'][0:3] == 'O.E':
+                    x['tipo_evento'] = 'O.E'
+                if x['tipo_evento'][0:3] == 'A.T':
+                    x['tipo_evento'] = 'A.T'
+                if x['tipo_evento'][0:3] == 'E.L':
+                    x['tipo_evento'] = 'E.L'
+
+                formato= '%B'
+                permiso=[
+                    #datetime.strptime(str(x["periodoIncapacidadInicial"]),formato),
+                    x["periodoIncapacidadInicial"].strftime(formato),
+                    x["periodoIncapacidadInicial"],
+                    x["periodoIncapacidadFinal"],
+                    x["totalDiasIncapacidad"],
+                    tdelta,
+                    x["tipo_evento"],
+                    x["codigoDiagnostico"],
+                    Paragraph(x["observaciones"].lower(),p),
+                ]
+                high = high - len(x['observaciones'])
+
+                cont = cont + 1
+
+                data.append(permiso)
+
+
+
+            #TABLA
+            width, height =A4
+
+            table = Table(data,colWidths=[2.1 * cm,2.7 * cm,2.7 * cm,1.9 * cm,1.8 * cm,1.8 * cm,2.9 * cm,4.8 * cm,4.0 * cm,])
+
+            table.setStyle(TableStyle([#Estilos de la tabla
+                ('INNERGRID',(0,0),(-1,-1),0.25,colors.black),
+                ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+                #('GRID',(6,1),(6,-1),2,colors.orange),
+                ('ALIGN', (3, 0), (5, -1), 'CENTER'),
+
+            ]))
+
+            table.wrapOn(c,width,height)
+
+
+            table.drawOn(c,5,high)
+            print('-----')
+            print(high)
+            c.showPage()
+            c.save()
+            pdf = buffer.getvalue()
+            buffer.close()
+            reponse.write(pdf)
+            return reponse
+        elif mes:
+            reponse = HttpResponse(content_type='application/pdf')
+            # print(request.GET)
+            reponse['Content-Disposition'] = 'filename=reporte.pdf'
+            buffer = BytesIO()
+            c = canvas.Canvas(buffer, pagesize=A4)
+
+            # CABECERA DEL ARCHIVO
+            archivo_imagen = settings.STATIC_ROOT + '/img/index.jpg'
+            c.drawImage(archivo_imagen, 20, 750, 120, 80, preserveAspectRatio=True)
+            c.setFont("Helvetica", 20)
+            # Dibujamos una cadena en la ubicación X,Y especificada
+            c.drawString(150, 800, u"Siete Colinas S.A.S")
+            c.line(150, 795, 345, 795)
+            c.setFont("Helvetica", 10)
+            c.drawString(150, 780, u"REPORTE PERMISO DE AUSENTISMO")
+            c.setFont("Helvetica", 15)
+            c.drawString(430, 810, u"Mes:")
+
+            c.setFont("Helvetica", 15)
+
+
+            # CABECERA DE LA TABLA
+            styles = getSampleStyleSheet()
+            styleBH = styles['Normal']
+            styleBH.aligment = TA_CENTER
+            styleBH.fontSize = 10
+
+            colaborador = Paragraph('''Colaborador''', styleBH)
+            periodo_inicial = Paragraph('''Periodo inicial''', styleBH)
+            periodo_final = Paragraph('''Periodo final''', styleBH)
+            total_dias_incapacidad = Paragraph('''Total días''', styleBH)
+            total_horas = Paragraph('''Tiempo total''', styleBH)
+            codigo_diagnostico = Paragraph('''Código de diagnostico''', styleBH)
+            tipo_evento = Paragraph('''Tipo de evento''', styleBH)
+            observaciones = Paragraph('''Observaciones''', styleBH)
+            data = []
+            data.append([colaborador,periodo_inicial, periodo_final, total_dias_incapacidad, total_horas, tipo_evento,
+                         codigo_diagnostico, observaciones])
+
+            # TABLA
+            styleN = styles['BodyText']
+            styleN.aligment = TA_CENTER
+            styleN.fontSize = 7
+
+            high = 618
+
+            p = ParagraphStyle('parrafos',
+                               alignment=TA_LEFT,
+                               fontSize=9,
+                               fontName="Helvetica")
+            cont = 0
+            nombre_mes = ''
+            for x in listar_permisos.object_list.values():
+                # nombre_mes = x["periodoIncapacidadInicial"],
+
+                if x['totalDiasIncapacidad'] == '0':
+                    x['totalDiasIncapacidad'] = 'No aplica'
+                # print(x['totalDiasIncapacidad'])
+                x['tipo_evento'] = listar_permisos[cont].get_tipo_evento_display()
+                x["idTrabajador_id"] = Trabajadores.objects.get(id=str(listar_permisos[cont].idTrabajador_id))
+
+
+                # print(x['observaciones'])
+                if x['horaInicial'] != None and x['horaFinal'] != None:
+                    #print(str(x['horaInicial']) + '   ' + str(x['horaFinal']))
+                    FMT = '%H:%M:%S'
+                    tdelta = datetime.strptime(str(x['horaFinal']), FMT) - datetime.strptime(str(x['horaInicial']), FMT)
+
                 else:
-                    high = -40
+                    tdelta = 'No aplica'
 
+                if x['observaciones'] == None:
+                    x['observaciones'] = 'Sin registro'
+                if x['codigoDiagnostico'] == None or x['codigoDiagnostico'] == '':
+                    x['codigoDiagnostico'] = 'No aplica'
+                if x['tipo_evento'][0:3] == 'A.C':
+                    x['tipo_evento'] = 'A.C'
+                if x['tipo_evento'][0:3] == 'O.E':
+                    x['tipo_evento'] = 'O.E'
+                if x['tipo_evento'][0:3] == 'A.T':
+                    x['tipo_evento'] = 'A.T'
+                if x['tipo_evento'][0:3] == 'E.L':
+                    x['tipo_evento'] = 'E.L'
 
-        if high <= 480 and high >= 351:
-            if high <= 380 and high > 351:
-                high = 280
-            else:
-                if high <= 400 and high > 351:
-                    high = 310
-                else:
-                    if high <= 415 and high >= 351:
-                        high = 300
-                    else:
-                        if high <= 430 and high > 351:
+                formato = '%B'
+                permiso = [
+                    # datetime.strptime(str(x["periodoIncapacidadInicial"]),formato),
+                    x["idTrabajador_id"],
+                    x["periodoIncapacidadInicial"],
+                    x["periodoIncapacidadFinal"],
+                    x["totalDiasIncapacidad"],
+                    tdelta,
+                    x["tipo_evento"],
+                    x["codigoDiagnostico"],
+                    Paragraph(x["observaciones"].lower(), p),
+                ]
+                high = high - len(x['observaciones'])
+                c.setFont("Helvetica", 14)
+                c.drawString(420, 780, permiso[1].strftime(formato))
+                cont = cont + 1
 
-                            high = 300
-                        else:
-                            if high <= 457 and high > 351:
-                                high = 310
-                            else:
-                                if high <= 480 and high > 351:
-                                    high = 320
-                                else:
-                                    high = 400
+                data.append(permiso)
 
-        if high <= 560 and high >= 481:
-            if high <= 500 and high >= 481:
-                high = 360
-            else:
-                if high <= 540 and high > 481:
-                    high = 360
-                else:
-                    if high <= 550 and high > 481:
-                        high = 370
-                    else:
-                        high = 350
+            # TABLA
+            width, height = A4
 
-        if high <= 634 and high >= 561:
-            if high <= 570 and high >=561:
-                high = 430
-            else:
-                if high <= 630 and high >=561:
-                    if high <= 610 and high >=561:
-                        high = 380
-                    else:
-                        high = 420
-                else:
+            table = Table(data,
+                          colWidths=[7.3 * cm,2.7 * cm, 2.7 * cm, 1.9 * cm, 1.8 * cm, 1.8 * cm, 2.9 * cm, 4.8 * cm,
+                                     4.0 * cm, ])
 
-                    high = 450
+            table.setStyle(TableStyle([  # Estilos de la tabla
+                ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+                ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+                # ('GRID',(6,1),(6,-1),2,colors.orange),
+                ('ALIGN', (3, 0), (5, -1), 'CENTER'),
 
-        if high <= 771 and high >= 635:
-            if high <= 680 and high >= 635:
-                if high <= 640 and high >=635:
-                    high = 430
-                else:
-                    if high <= 660 and high >= 635:
-                        high = 420
-                    else:
-                        high = 400
-            else:
-                if high <= 672 and high >= 635:
-                    high = 480
-                else:
-                    if high <= 770 and high >= 635:
-                        if high <= 690 and high >= 635:
-                            high = 440
-                        else:
-                            if high <= 730 and high >= 635:
-                                high = 440
-                            else:
-                                high = 430
-                    else:
-                        high = 540
+            ]))
 
-        if high <= 860 and high >= 772:
-            if high <= 810 and high >=722:
+            table.wrapOn(c, width, height)
 
-                if high <= 790 and high >= 722:
-                    high = 500
-                else:
-                    high = 540
-            else:
-                if high <= 840 and high >= 722:
-                    high = 480
-                else:
-                    high = 580
+            table.drawOn(c, 5, high)
+            print('-----')
+            print(high)
+            c.setPageSize((750, 850))
+            c.showPage()
 
-        if high <= 950 and high >=831:
-            if high <= 880 and high >831:
-                high  = 480
-            else:
-                high = 650
-
-        if high <= 1000 and high >=951:
-            high = 680
-
-        table.drawOn(c,5,high)
-        print('-----')
-        print(high)
-        c.showPage()
-        c.save()
-        pdf = buffer.getvalue()
-        buffer.close()
-        reponse.write(pdf)
-        return reponse
-
+            c.save()
+            pdf = buffer.getvalue()
+            buffer.close()
+            reponse.write(pdf)
+            return reponse
     """
     if request.method == 'POST':
         if request.is_ajax():
@@ -452,6 +482,27 @@ def DetallePermisoAusentismo(request,pk):
 
 class DetallePermisoAusentismo(DetailView):
     model = PermisoAusentismo
+    def get_queryset(self):
+        queryset = super(DetallePermisoAusentismo, self).get_queryset()
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        FMT = '%H:%M:%S'
+        totalHoras = ''
+        #queryset = self.get_queryset().objects.filter(pk=self.get('object'))
+       # print(queryset)
+        #print(self.get_queryset().filter(pk=str(self.get_object())).values())
+        for x in self.get_queryset().filter(pk=str(self.get_object())).values():
+            if x['totalDiasIncapacidad'] == 0:
+                if x['horaInicial'] != None and x['horaFinal'] != None:
+                    totalHoras = str(datetime.strptime(str(x['horaFinal']), FMT) - datetime.strptime(
+                        str(x['horaInicial']), FMT))
+                else:
+                    totalHoras = 'Registro incompleto'
+        data['totalHoras'] = totalHoras
+        return data
     template_name = 'permiso_ausentismo/detalle_permiso_ausentismo.html'
 
 

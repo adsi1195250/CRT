@@ -1,4 +1,3 @@
-{% if request.user.is_authenticated %}
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div style="background-color: #4eac92" class="modal-header">
@@ -16,11 +15,17 @@
                     <p><strong>Días cargados:</strong></p>
                     <p><strong>Periodo inicial de incapacidad:</strong></p>
                     <p><strong>Periodo final de incapacidad:</strong></p>
-                    <p><strong>Total días de incapacidad:</strong></p>
+                    {% if totalHoras %}
+                        <p><strong>Total de tiempo:</strong></p>
+                     {% else %}
+                        <p><strong>Total días de incapacidad:</strong></p>
+                     {% endif %}
+
+
                     <p><strong>Observaciones:</strong></p>
                 </div>
                  <div class="col-sm-6">
-                    <p style="">{{ object.get_mes_evento_display }}</p>
+                    <p style="">{{ object.periodoIncapacidadInicial | date:"F" }}</p>
                     <p style="">{{ object.idTrabajador }}</p>
                      <p style="">{{ object.get_tipo_evento_display }}</p>
                     {% if object.codigoDiagnostico == '' %}
@@ -33,13 +38,18 @@
                     <p style="">{{ object.diasCargados }}</p>
                      <p style="">{{ object.periodoIncapacidadInicial }}</p>
                     <p style="">{{ object.periodoIncapacidadFinal }}</p>
-                     <p style="">{{ object.totalDiasIncapacidad }}</p>
+                     {% if totalHoras %}
+                        <p style="">{{ totalHoras }} h:m:s</p>
+                     {% else %}
+                        <p style="">{{ object.totalDiasIncapacidad }}</p>
+                     {% endif %}
 
                      {% if object.observaciones == None %}
                         <p style="">Sin registro</p>
                      {% else %}
                         <p style="">{{ object.observaciones }}</p>
                      {% endif %}
+
 
                 </div>
             </div>
@@ -53,8 +63,3 @@
         </div>
     </div>
 </div>
-{% else %}
-    <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
-      <h2>Por favor iniciar sesión</h2>
-    </div>
-{% endif %}

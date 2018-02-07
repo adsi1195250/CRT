@@ -1,13 +1,7 @@
 {% extends "base.html" %}
+
 {% block content %}
-{% if request.user.is_authenticated %}
-    <style>
-        .print {
-          position: relative;
-          color: #aaa;
-          font-size: 16px;
-        }
-    </style>
+
 
     <div class="container">
         <div class="row" style="background-color: rgba(0,0,0,0.53);border-radius: 10px;">
@@ -20,28 +14,36 @@
             <div class="col-md-7">
                 <form action="." method="GET" style="text-align:right; padding:20px;">
                   {% csrf_token %}
+
+
                     <label for="mes">Mes: </label>
                     <select name="mes" id="mes">
                         <option value="--">Seleccione</option>
-                        <option value="1">Enero</option>
-                        <option value="2">Febrero</option>
-                        <option value="3">Marzo</option>
-                        <option value="4">Abrir</option>
-                        <option value="5">Mayo</option>
-                        <option value="6">Junio</option>
-                        <option value="7">Julio</option>
-                        <option value="8">Agosto</option>
-                        <option value="9">Septiembre</option>
-                        <option value="10">Octubre</option>
-                        <option value="11">Noviembre</option>
-                        <option value="12">Diciembre</option>
+                        <option value="1" {% if mes == '1' %} selected{% endif %}>Enero</option>
+                        <option value="2" {% if mes == '2' %} selected{% endif %}>Febrero</option>
+                        <option value="3" {% if mes == '3' %} selected{% endif %}>Marzo</option>
+                        <option value="4" {% if mes == '4' %} selected{% endif %}>Abrir</option>
+                        <option value="5" {% if mes == '5' %} selected{% endif %}>Mayo</option>
+                        <option value="6" {% if mes == '6' %} selected{% endif %}>Junio</option>
+                        <option value="7" {% if mes == '7' %} selected{% endif %}>Julio</option>
+                        <option value="8" {% if mes == '8' %} selected{% endif %}>Agosto</option>
+                        <option value="9" {% if mes == '9' %} selected{% endif %}>Septiembre</option>
+                        <option value="10" {% if mes == '10' %} selected{% endif %}>Octubre</option>
+                        <option value="11" {% if mes == '11' %} selected{% endif %}>Noviembre</option>
+                        <option value="12" {% if mes == '12' %} selected{% endif %}>Diciembre</option>
+
                     </select>
+                {%  if cedula != None %}
+                    <input type="text" style="" name="cedula" id="prueba" value="{{ cedula }}" placeholder="Ingrese la cedula del colaborador"  />
+                {% else %}
                     <input type="text" style="" name="cedula" id="prueba" value="" placeholder="Ingrese la cedula del colaborador"  />
+                {%  endif %}
                     <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>-->
                     <input type="submit" style="height: 33px" value="Cargar" class="btn btn-primary"/>
                 </form>
-                {% if  trabajador %}
-                    <div style="float: right;margin-top: 10px">
+
+                {% if  trabajador or mes != '--' and mes != None %}
+                    <div style="float: right;margin-top: 10px;margin-bottom: 10px">
                         <form method="post" action=" ">{% csrf_token %}
                             <input class="btn btn-danger" name="excel" type="submit" value="excel">
                             <input class="btn btn-danger" name="imprimir" type="submit" value="pdf">
@@ -76,10 +78,10 @@
 
                 {% for objeto in listar_permisos %}
                   <tr class="table-light table-striped">
-                    <td><strong> {{ objeto.get_mes_evento_display }}</strong></td>
+                    <td><strong> {{ objeto.periodoIncapacidadInicial |date:"F" }}</strong></td>
                       <td><a onclick="return abrir_modal('{% url 'detalle_trabajador' objeto.idTrabajador.id %}')" href="#">{{ objeto.idTrabajador.nombres }}</a></td>
-                    <td>{{ objeto.periodoIncapacidadInicial }}</td>
-                    <td>{{ objeto.periodoIncapacidadFinal }}</td>
+                    <td>{{ objeto.periodoIncapacidadInicial | date:"d/m/Y" }}</td>
+                    <td>{{ objeto.periodoIncapacidadFinal | date:"d/m/Y" }}</td>
                     {% if objeto.codigoDiagnostico == '' %}
                         <td>No aplica</td>
                     {% else %}
@@ -123,9 +125,9 @@
 
                 {% for objeto in listar_permisos %}
                   <tr class="table-light table-striped">
-                    <td><strong>{{ objeto.get_mes_evento_display }}</strong></td>
-                    <td class="text-md-center">{{ objeto.periodoIncapacidadInicial }}</td>
-                    <td class="text-md-center">{{ objeto.periodoIncapacidadFinal }}</td>
+                    <td><strong> {{ objeto.periodoIncapacidadInicial |date:"F" }}</strong></td>
+                    <td class="text-md-center">{{ objeto.periodoIncapacidadInicial|date:"d/m/Y" }}</td>
+                    <td class="text-md-center">{{ objeto.periodoIncapacidadFinal | date:"d/m/Y" }}</td>
                         <td class="text-md-center">{{ objeto.totalDiasIncapacidad }}</td>
                     {% if objeto.codigoDiagnostico == '' %}
                         <td>No aplica</td>
@@ -220,10 +222,4 @@
         }
     </script>
     -->
-  </div>
-{% else %}
-    <div class="alert btn-primary"  style="width: auto; height: auto; text-align:center; padding-top: 10px; margin-top: 150px;">
-        <h2>Por favor iniciar sesión</h2>
-    </div>
-{% endif %}
 {% endblock %}

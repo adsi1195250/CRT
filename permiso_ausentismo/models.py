@@ -9,24 +9,6 @@ from main.models import Trabajadores
 
 class PermisoAusentismo(models.Model):
     idPermisoAusentismo = models.AutoField(primary_key=True)
-    MESES=(
-        (1,'Enero'),
-        (2,'Febrero'),
-        (3,'Marzo'),
-        (4,'Abril'),
-        (5,'Mayo'),
-        (6,'Junio'),
-        (7,'Julio'),
-        (8,'Agosto'),
-        (9,'Septiembre'),
-        (10,'Octubre'),
-        (11,'Noviembre'),
-        (12,'Diciembre'),
-    )
-    mes_evento = models.SmallIntegerField(
-        choices=MESES,
-        default=1,
-    )
     TIPO_EVENTO = (
         (1,'A.T Accidente de trabajo'),
         (2, 'E.L Enfermedad laboral'),

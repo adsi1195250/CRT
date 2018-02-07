@@ -13,7 +13,7 @@ class PermisoAusentismoForms(forms.ModelForm):
         fields= '__all__'
 
         labels = {
-            'mes_evento':'Mes ',
+            #'mes_evento':'Mes ',
             'fechaSalida': 'Fecha de salida ',
             'tipo_evento':'Tipo de evento ',
             #'totalHoras': 'TOTAL DE HORAS',
@@ -48,7 +48,7 @@ class PermisoAusentismoForms(forms.ModelForm):
 
         self.helper.layout = Layout(
             Div(
-                Div(Field('mes_evento'),css_class='col-md-2'),
+                #Div(Field('mes_evento'),css_class='col-md-2'),
                 Div(Field('idTrabajador'),css_class='col-md-4'),
                 Div(Field('tipo_evento'),css_class='col-md-3'),
                 Div(FieldWithButtons('codigoDiagnostico',StrictButton('...',css_class='btn btn-info',data_toggle='modal',data_target="#myModal")), css_class='col-md-3'),
