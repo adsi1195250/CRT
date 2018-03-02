@@ -122,7 +122,7 @@ DATABASES = {
         #'HOST': '192.168.1.32',
         #'HOST': '192.168.0.22',
         'HOST': 'localhost',
-        'PASSWORD': 'BTabares99',
+        'PASSWORD': '',
         #'HOST': '192.168.0.22',
         #'HOST': 'localhost',
         'PORT': '3306',
@@ -152,9 +152,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'es-mx'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Bogota'
+
+# Agregamos los idiomas
+
+from django.utils.translation import ugettext_lazy as _
+LANGUAGES = (
+    #('en', _('English')),
+    ('es', _('Spanish')),
+)
 
 
 USE_I18N = False

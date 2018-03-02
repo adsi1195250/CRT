@@ -2,11 +2,52 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-    {% if trabajadores %}
-        <ul></ul>
-        <ul>
-          <div style="padding-top: 3%"> </div>
-            <div class="container" style="background-color: #fefefe;border-radius: 10px;">
+        <div class="form-group2">
+          <label class="custom-file" >
+            <form action="." method="" >
+              {% csrf_token %}
+              <form action="" method="post"  id="navbar-1" class="collapse navbar-collapse navbar-form" role="search">
+                  {% csrf_token %}
+              <!--div class="input-group" style="margin-right:7px;">
+                  <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras" onkeypress="return event.keyCode!=13"/>
+                  <button type="submit" class="btn btn-secondary" >
+                      <i class="fas fa-search" aria-hidden="true" style="width: 30px; "></i>
+                  </button>
+              </div-->
+              <div div class="input-group" style="margin-right:7px; height: 40px !important;">
+                <input type="password" name="codigo" id="codigo"  placeholder="Ingrese el codigo de barras" style="width: 250px;" autofocus/>
+                  <span class="input-group-addon" style="background-color: #F3969A; height: 40px !important; width: 68px;">
+                  <div>
+                    <button type="submit" id="submit" class="btn btn-secondary" style="height: 38px; width: 65px !important; text-align: center !important; border-radius: 0.4rem; margin-left: -11px;">
+                      <i class="icon-magnifying-glass"  aria-hidden="true" style="text-align: center;"></i>
+                    </button>
+                  </div>
+                </span>
+              </div>
+              <!--input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
+                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>>
+                <input type="submit" value="Cargar" class="btn btn-secondary"-->
+            </form>
+
+            </form>
+          </label>
+
+
+
+
+  </div>
+    <!-- Modal -->
+  <div class="modal fade" id="myModal"  role="dialog">
+    <div class="modal-dialog modal-lg" >
+      <!-- Modal content-->
+
+        <form method="post" data-url="{% url 'reg_jorn_ajax' %}" class="create-form">
+        {% csrf_token %}
+          <div class="modal-content" style="">
+
+            <div class="modal-body" style="background-color: #5a47471a">
+                <div class="container">
+
                 <div class="row" style="background-color:rgba(74,255,202,0.71);border-top-right-radius: 10px;border-top-left-radius: 10px">
                     <div class="col-md-11">
                         <h3 class="" style="color: darkcyan;padding-left: 10%"><strong>Registrar Jornada</strong></h3>
@@ -17,7 +58,7 @@
                         <h3 style="color: #fefefe"  class="text-md-center"> <strong>Colaborador:</strong> </h3>
                     </div>
                     <div class="col-md-6">
-                        <h3 style="color: #fefefe" class="text-md-center">{{ trabajadores.first }}</h3>
+                        <h3 id="titulo_trabajador" style="color: #fefefe" class="text-md-center"></h3>
                     </div>
                 </div>
                  <div class="row" style="background-color:#4eac92">
@@ -46,13 +87,7 @@
                         <h4 style="color: #fefefe">Descanso</h4>
                     </div>
                 </div>
-                {% for a in errors %}
-                  {% if a == 'Usted ya registro SALIDA, no podrá ingresar mas datos.' %}
-                  <div class="errorSalida">
-                    <div class="alert alert-block alert-danger"> <ul> <li>{{ a }}</li> </ul> </div>
-                  </div>
-                  {% endif %}
-                {% endfor %}
+
                 <div style="height: 10px"></div>
                 <div class="row">
                    <form role="form" action=" " method="post">{% csrf_token %}
@@ -60,61 +95,18 @@
                    </form>
                 </div>
 
-                {# {% for error in errors %} #}
-                    <!--
-                    <div class="row" style="background-color:#3ac18c;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px">
-                        <div class="col-md-12">
-                            <h1 class="text-md-center"><span class="badge badge-danger">{{ error }}</span></h1>
-                        </div>
-                    </div>
-                    -->
-                {# {% endfor %}  #}
+                </div>
 
-    {% else %}
-
-        <div class="form-group2">
-          <label class="custom-file" >
-            <form action="." method="GET" >
-              {% csrf_token %}
-              <form action=""  id="navbar-1" class="collapse navbar-collapse navbar-form" role="search">
-              <!--div class="input-group" style="margin-right:7px;">
-                  <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras" onkeypress="return event.keyCode!=13"/>  
-                  <button type="submit" class="btn btn-secondary" >
-                      <i class="fas fa-search" aria-hidden="true" style="width: 30px; "></i>
-                  </button>
-              </div-->
-              <div div class="input-group" style="margin-right:7px; height: 40px !important;">
-                <input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras" onkeypress="return event.keyCode!=13" style="width: 250px;"/>
-                  <span class="input-group-addon" style="background-color: #F3969A; height: 40px !important; width: 68px;">
-                  <div>
-                    <button type="submit" class="btn btn-secondary" style="height: 38px; width: 65px !important; text-align: center !important; border-radius: 0.4rem; margin-left: -11px;">
-                      <i class="icon-magnifying-glass"  aria-hidden="true" style="text-align: center;"></i>
-                    </button>
-                  </div>
-                </span>
-              </div>
-              <!--input type="password" name="cb" id="cb" value="" placeholder="Ingrese el codigo de barras"  onkeypress="return event.keyCode!=13"/>
-                <!--<a type="submit" onclick="return abrir_modal('{s% url 'registrarJornadaModal' %}')" class="btn btn-secondary ">Cargar</a>>
-                <input type="submit" value="Cargar" class="btn btn-secondary"-->
-            </form>
-          </label>
-          {% for error in errors %}
-              <h1><span class="badge badge-primary">{{ error }}</span></h1>
-          {% endfor %}
-          {% for x in mensaje %}
-              <h1><span class="badge badge-success">{{ x }}</span></h1>
-          {% endfor %}
-        </div>
-    {% endif %}
-
-
-  <div id="popup" class="modal fade" role="dialog">
-
-
-</div>
-
-
-
+            </div>
+            <div class="modal-footer" style="background-color: #5a47471a">
+               <div class="text-md-right" style="padding-left: 350px;">
+                    <button id="submit_form_reg" class="btn btn-primary " type="submit">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+          </div>
+         </form>
+    </div>
   </div>
 
 <script>
@@ -137,4 +129,5 @@
     })();
 
 </script>
+
 {% endblock %}

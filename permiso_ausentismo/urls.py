@@ -3,7 +3,7 @@ from django.urls import include
 
 from main.views import *
 from permiso_ausentismo.views import ListarPermisoAusentismo, CrearPermisoAusentismo, DetallePermisoAusentismo, \
-    prueba_ajax, EliminarPermisoAusentismo, EditarPermisoAusentismo
+    prueba_ajax, EliminarPermisoAusentismo, EditarPermisoAusentismo, reg_jorn_ajax
 
 urlpatterns = [
     url(r'^listar/$', ListarPermisoAusentismo, name="listado_permiso_ausentismo"),
@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^eliminar/(?P<pk>.+)/$',EliminarPermisoAusentismo.as_view(), name="eliminar_permiso_ausentismo"),
     url(r'^editar/(?P<pk>.+)/$',EditarPermisoAusentismo, name="editar_permiso_ausentismo"),
     url(r'^prueba_ajax/$', prueba_ajax, name="prueba_ajax"),
+    url(r'^reg_jorn_ajax/$', reg_jorn_ajax, name="reg_jorn_ajax"),
     #url(r'^reporte/$',report,name='reporte')
 ]

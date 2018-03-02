@@ -1,0 +1,131 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<html>
+ <head>
+
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+ <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/plugin.js' %}"></script>
+     <link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
+        <script src={% static 'js/jquery-confirm.min.js' %}></script>
+ </head>
+
+ <body>
+ <div class="container">
+     <form id="cb" class="form-signin" method="POST">
+          {% csrf_token %}
+         <h2 class="form-signin-heading">Códigos de barras</h2>
+         <div class="row">
+             <div class="col-md-10">
+                <button id="submit" class="btn btn-primary show-form" type="submit">Enviar</button>
+                 <input id="codigo" name="codigo" type="text" placeholder="Codigo">
+             </div>
+         </div>
+     </form>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+
+        <form method="post" data-url="{% url 'reg_jorn_ajax' %}" class="create-form">
+        {% csrf_token %}
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Registro de jornada</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" style="background-color:#4eac92;border-top-left-radius: 10px;border-top-right-radius: 10px">
+                        <div class="col-sm-6">
+                            <h3 style="color: #fefefe"  class="text-md-center"> <strong>Colaborador:</strong> </h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3 id="titulo_trabajador" style="color: #fefefe" class="text-md-center"></h3>
+                        </div>
+                    </div>
+                        <div  class="row" style="background-color:#4eac92;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
+                            <div class="col-sm-8">
+                                <h3 style="color: #fefefe" class="text-md-center"><strong> Hora de registro: </strong></h3>
+                            </div>
+                            <div class="col-sm-4">
+                                <h3 style="color: #fefefe" class="text-md-right" id="time"></h3>
+                            </div>
+                        </div>
+                    <div style="padding-top: 10px"></div>
+                    <div class="row">
+                        {% crispy form %}
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+               <div class="text-md-right" style="padding-left: 350px">
+                    <button id="submit_form_reg" class="btn btn-primary " type="submit">Enviar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+          </div>
+         </form>
+    </div>
+  </div>
+
+
+     <table class="table table-hover">
+          <thead>
+            <tr class="table">
+              <th scope="col">Colaborador</th>
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <tr style="height: 10px" class="table-mine">
+                <td>No hay datos</td>
+            </tr>
+          </tbody>
+     </table>
+ </div>
+
+<script>
+(function () {
+    function checkTime(i) {
+        return (i < 10) ? "0" + i : i;
+    }
+
+    function startTime() {
+        var today = new Date(),
+            h = checkTime(today.getHours()),
+            m = checkTime(today.getMinutes()),
+            s = checkTime(today.getSeconds());
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+        t = setTimeout(function () {
+            startTime()
+        }, 500);
+    }
+    startTime();
+})();
+</script>
+<!--
+<div class="modal fade" id="modal-book">
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+-->
+
+
+ <script>
+//For getting CSRF token
+
+
+//For doing AJAX post
+
+
+</script>
+
+</body>
+</html>

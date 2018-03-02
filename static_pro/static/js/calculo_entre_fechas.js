@@ -1,6 +1,6 @@
 function calcular_dias() {
     var periodo_inicial = moment($("#id_periodoIncapacidadInicial").val());
-    console.log(periodo_final);
+    //console.log(periodo_final);
     var periodo_final = moment($("#id_periodoIncapacidadFinal").val());
     if (periodo_inicial !== undefined && periodo_final !== undefined)
     {
@@ -11,7 +11,7 @@ function calcular_dias() {
 
             $("#id_totalDiasIncapacidad").val(total_dias);
         }
-        console.log(total_dias, ' dias de diferencia');
+        //console.log(total_dias, ' dias de diferencia');
     } else {
         $("#id_totalDiasIncapacidad").val(0);
 
@@ -33,7 +33,7 @@ $(document).ready(function(){
     if(dia<10)
         dia = '0'+dia;
     var v = fecha.getFullYear()+'-'+mes+'-'+dia;
-    console.log(v);
+    //console.log(v);
     //$("#id_fechaNacimiento").value('1996-11-11');
     if($("#id_periodoIncapacidadInicial").val() == '' || $("#id_periodoIncapacidadInicial").val() == undefined){
         $("#id_periodoIncapacidadInicial").val(v);
@@ -44,6 +44,7 @@ $(document).ready(function(){
     }
 
     if($("#id_periodoIncapacidadFinal").val() == v && $("#id_periodoIncapacidadInicial").val() == v) {
+        console.log($("#id_horaInicial").val());
         if($("#id_horaInicial").val() == '' && $("#id_horaFinal").val() == '') {
             $("#id_horaInicial").val(hora + ':' + minutos);
             $("#id_horaFinal").val(hora + ':' + minutos);

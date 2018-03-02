@@ -1,7 +1,9 @@
 import json
-from datetime import datetime
+from datetime import datetime, date
 
+from django.core import serializers
 from django.core.paginator import Paginator
+from django.forms import model_to_dict
 from django.http import HttpResponse, JsonResponse, response
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -18,6 +20,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Table, TableStyle
 
 from CRT import settings
+from main.forms import Historial_IOForms, Historial_IOForms_prueba, Historial_IO
 from main.models import Trabajadores
 from permiso_ausentismo.forms import PermisoAusentismoForms
 from permiso_ausentismo.models import PermisoAusentismo
@@ -457,7 +460,7 @@ def CrearPermisoAusentismo(request):
             # Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
         if form.is_valid():
-
+            print(request.POST)
             if form.cleaned_data['observaciones'] == None:
                 #print('awdad')
                 form.initial={'observaciones':'Sin observaciones.'}
@@ -605,3 +608,79 @@ def EditarPermisoAusentismo(request, pk):
     return render(request, 'permiso_ausentismo/form_permiso_ausentismo.html', {'form':form})
 
 
+def reg_jorn_ajax(request):
+    RegJornadaForm = Historial_IOForms_prueba(request.POST or None)
+    if request.method == 'POST':
+        # POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.
+        data = {}
+        if request.is_ajax():
+            # Always use get on request.POST. Correct way of querying a QueryDict.
+
+            if request.POST.get('codigo'):
+                codigo = request.POST.get('codigo')
+                #print(codigo)
+                trabajador = Trabajadores.objects.filter(CodigoBarras=codigo).values()
+                #data = serializers.serialize('json',trabajador)
+                data = list(trabajador)
+                #print(data)
+                return JsonResponse(data, safe=False)
+            elif request.POST.get('codigo') != '':
+                #RegJornadaForm = Historial_IOForms_prueba(request.POST or None, initial={'accion_jornada_hora': 'HEN','accion_jornada':request.POST['accion_jornada'],'id_trabajadores':request.POST['id_trabajador']})
+                #RegJornadaForm(accion_jornada_hora='HEN',accion_jornada=request.POST['accion_jornada'],id_trabajadores=request.POST['id_trabajador'])
+                #print(request.POST)
+
+                trabajador = Trabajadores.objects.filter(id=request.POST['id_trabajadores'])
+                #print(trabajador)
+                RegJornadaForm = Historial_IOForms_prueba(request.POST)
+                fecha = date.today().day
+                fechaMes = date.today().month
+                fechaAño = date.today().year
+                fecha_trabajadores = Historial_IO.objects.all()
+                lis = []
+                for g in fecha_trabajadores:
+                    for n in trabajador:
+                        if g.fecha.day == fecha and g.fecha.month == fechaMes and g.fecha.year == fechaAño:
+                            if g.id_trabajadores.cedula == n.cedula:
+                                # print(g.accion_jornada, n.cedula)
+                                lis.append(g.accion_jornada)
+                #print(RegJornadaForm)
+                if RegJornadaForm.is_valid():
+                    instance = RegJornadaForm.save(commit=False)
+                    accion_jornada = instance.accion_jornada
+                    errors=[]
+                    if 'SA' in lis:
+                        errors.append("Usted ya registro SALIDA, no podrá ingresar mas datos.")
+                        instance = RegJornadaForm.save(commit=False)
+                    else:
+                        if accion_jornada == 'EN':
+                            instance.accion_jornada_hora = 'HEN'
+                        elif accion_jornada == 'SA':
+                            instance.accion_jornada_hora = 'HSA'
+                        elif accion_jornada == 'DYI':
+                            instance.accion_jornada_hora = 'HDYI'
+                        elif accion_jornada == 'DYF':
+                            instance.accion_jornada_hora = 'HDYF'
+                        elif accion_jornada == 'DCI':
+                            instance.accion_jornada_hora = 'HDCI'
+                        elif accion_jornada == 'DCF':
+                            instance.accion_jornada_hora = 'HDCF'
+                        elif accion_jornada == 'PAI':
+                            instance.accion_jornada_hora = 'HPAI'
+                        elif accion_jornada == 'PAF':
+                            instance.accion_jornada_hora = 'HPAF'
+                        elif accion_jornada == 'ALI':
+                            instance.accion_jornada_hora = 'HALI'
+                        elif accion_jornada == 'ALF':
+                            instance.accion_jornada_hora = 'HALF'
+
+                    print(instance)
+                    mensaje_full = {'guardado':'Guardado con exito'}
+                    instance.save()
+                    return JsonResponse(mensaje_full, safe=False)
+                else:
+                    print(RegJornadaForm.errors)
+                    return JsonResponse({'errors':RegJornadaForm.errors}, safe=False)
+            # Returning same data back to browser.It is not possible with Normal submit
+            return JsonResponse(data,safe=False)
+            # Get goes here
+    return render(request, 'registrarJornada/reg_jorn_ajax.html',{'form':RegJornadaForm})
